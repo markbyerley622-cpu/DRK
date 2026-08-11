@@ -75,7 +75,7 @@ function Field({
         <div key={c.l} className="min-w-0">
           <dd
             className={cn(
-              "drk-field-v truncate",
+              "drk-field-v leading-tight",
               sizes[size],
               c.tone === "signal" && "text-[var(--color-signal)]",
             )}
@@ -153,14 +153,19 @@ function Ledger({
   selected,
   onSelect,
   label,
+  dense = false,
 }: {
-  columns: ReadonlyArray<{ k: string; head: string; align?: "r"; w?: string }>;
+  columns: ReadonlyArray<{ k: string; head: string; align?: "r"; w?: string; keep?: boolean }>;
   rows: ReadonlyArray<{ key: string; cells: React.ReactNode[] }>;
   selected?: string;
   onSelect?: (k: string) => void;
   label: string;
+  /** Narrow surface: only columns marked `keep` are rendered. */
+  dense?: boolean;
 }) {
-  const grid = columns.map((c) => c.w ?? "minmax(0,1fr)").join(" ");
+  const cols = dense ? columns.filter((c) => c.keep) : columns;
+  const keepIdx = columns.map((c, i) => (!dense || c.keep ? i : -1)).filter((i) => i >= 0);
+  const grid = cols.map((c) => c.w ?? "minmax(0,1fr)").join(" ");
   // role="grid", not "table": these rows are selectable, and `aria-selected` is
   // only valid on a row inside a grid. `aria-pressed` on a row is a hard ARIA
   // violation, which is exactly what the audit caught.
@@ -171,7 +176,7 @@ function Ledger({
         className="grid items-center gap-x-3 border-b border-[var(--color-hairline)] pb-1.5"
         style={{ gridTemplateColumns: grid }}
       >
-        {columns.map((c) => (
+        {cols.map((c) => (
           <span
             key={c.k}
             role="columnheader"
@@ -186,13 +191,13 @@ function Ledger({
       </div>
       {rows.map((r) => {
         const on = selected === r.key;
-        const inner = r.cells.map((cell, i) => (
+        const inner = keepIdx.map((i) => (
           <span
             key={columns[i].k}
             role="gridcell"
             className={cn("min-w-0", columns[i].align === "r" && "text-right")}
           >
-            {cell}
+            {r.cells[i]}
           </span>
         ));
         const cls = cn(
@@ -226,7 +231,7 @@ function Name({ children, on }: { children: React.ReactNode; on?: boolean }) {
   return (
     <span
       className={cn(
-        "block truncate text-[0.84rem]",
+        "block text-[0.84rem] leading-tight",
         on ? "font-medium text-[var(--color-ink)]" : "text-[var(--color-ink-soft)]",
       )}
     >
@@ -693,12 +698,13 @@ function Wallets({
           selected={sel}
           onSelect={setSel}
           columns={[
-            { k: "n", head: "WALLET" },
+            { k: "n", head: "WALLET", keep: true },
             { k: "c", head: "NETWORK", w: "minmax(0,0.55fr)" },
-            { k: "v", head: "VALUE", align: "r", w: "minmax(0,0.55fr)" },
+            { k: "v", head: "VALUE", align: "r", w: "minmax(0,0.55fr)", keep: true },
             { k: "p", head: "PERMISSIONS", align: "r", w: "minmax(0,0.85fr)" },
-            { k: "s", head: "STATUS", align: "r", w: "minmax(0,0.62fr)" },
+            { k: "s", head: "STATUS", align: "r", w: "minmax(0,0.62fr)", keep: true },
           ]}
+          dense={dense}
           rows={rows.map((r) => ({
             key: r.name,
             cells: [
@@ -786,10 +792,11 @@ function Programs({
           selected={sel}
           onSelect={setSel}
           columns={[
-            { k: "n", head: "PROGRAM" },
+            { k: "n", head: "PROGRAM", keep: true },
             { k: "p", head: "PHASE", align: "r", w: "minmax(0,0.95fr)" },
-            { k: "s", head: "STATUS", align: "r", w: "minmax(0,0.62fr)" },
+            { k: "s", head: "STATUS", align: "r", w: "minmax(0,0.62fr)", keep: true },
           ]}
+          dense={dense}
           rows={rows.map((r) => ({
             key: r.name,
             cells: [
@@ -883,12 +890,13 @@ function Execution({ progress, dense }: { progress: number; dense: boolean }) {
           selected={sel?.id}
           onSelect={setPinned}
           columns={[
-            { k: "t", head: "TIME", w: "minmax(0,0.6fr)" },
-            { k: "v", head: "VENUE" },
-            { k: "z", head: "SIZE", align: "r", w: "minmax(0,0.58fr)" },
+            { k: "t", head: "TIME", w: "minmax(0,0.6fr)", keep: true },
+            { k: "v", head: "VENUE", keep: true },
+            { k: "z", head: "SIZE", align: "r", w: "minmax(0,0.58fr)", keep: true },
             { k: "s", head: "SLIP", align: "r", w: "minmax(0,0.38fr)" },
             { k: "l", head: "LAT", align: "r", w: "minmax(0,0.38fr)" },
           ]}
+          dense={dense}
           rows={visible.map((e) => ({
             key: e.id,
             cells: [
@@ -1083,11 +1091,12 @@ function Launches({ dense }: { progress: number; dense: boolean }) {
           selected={sel}
           onSelect={setSel}
           columns={[
-            { k: "n", head: "LAUNCH" },
+            { k: "n", head: "LAUNCH", keep: true },
             { k: "w", head: "WINDOW", w: "minmax(0,0.95fr)" },
-            { k: "r", head: "RESULT", align: "r", w: "minmax(0,0.55fr)" },
-            { k: "s", head: "STATUS", align: "r", w: "minmax(0,0.7fr)" },
+            { k: "r", head: "RESULT", align: "r", w: "minmax(0,0.55fr)", keep: true },
+            { k: "s", head: "STATUS", align: "r", w: "minmax(0,0.7fr)", keep: true },
           ]}
+          dense={dense}
           rows={launchTimeline.map((r) => ({
             key: r.id,
             cells: [
