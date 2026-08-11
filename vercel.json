@@ -1,7 +1,0 @@
-{
-  "$schema": "https://openapi.vercel.sh/vercel.json",
-  "framework": "nextjs",
-  "installCommand": "cd interactive-deck && npm install",
-  "buildCommand": "cd interactive-deck && npm run build",
-  "outputDirectory": "interactive-deck/.next"
-}
