@@ -1,7 +1,14 @@
+import path from "node:path";
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
   reactStrictMode: true,
+  /**
+   * The app is a subdirectory of the DRK repository, so Next's lockfile-based
+   * root inference can wander up past the repo and pick an unrelated lockfile.
+   * Pin the tracing root to this directory — it is the whole deployable unit.
+   */
+  outputFileTracingRoot: path.join(__dirname),
   /**
    * A production build and a running dev server cannot share `.next` — the dev
    * server rewrites chunks under the build's feet and page collection fails with
