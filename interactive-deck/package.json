@@ -1,0 +1,36 @@
+{
+  "name": "drk-interactive-deck",
+  "version": "1.0.0",
+  "private": true,
+  "description": "DRK — Dark Market Makers. Interactive investor experience.",
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint",
+    "qa": "node scripts/visual-qa.mjs",
+    "qa:reduced": "node scripts/visual-qa.mjs --reduced",
+    "qa:a11y": "node scripts/a11y.mjs",
+    "qa:interaction": "node scripts/interaction-qa.mjs"
+  },
+  "dependencies": {
+    "motion": "^12.23.12",
+    "next": "^15.4.6",
+    "react": "^19.1.1",
+    "react-dom": "^19.1.1"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.55.0",
+    "@tailwindcss/postcss": "^4.1.12",
+    "@types/node": "^24.3.0",
+    "@types/react": "^19.1.10",
+    "@types/react-dom": "^19.1.7",
+    "axe-core": "^4.13.0",
+    "lighthouse": "^13.4.1",
+    "tailwindcss": "^4.1.12",
+    "typescript": "^5.9.2"
+  },
+  "allowScripts": {
+    "sharp@0.34.5": true
+  }
+}
