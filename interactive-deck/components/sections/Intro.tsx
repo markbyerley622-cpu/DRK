@@ -6,7 +6,7 @@ import { SignalStations, StationNode, type Station } from "@/components/world/Si
 import { LatencyRing } from "@/components/visuals/LatencyRing";
 import { Signal, SystemObject } from "@/components/ui/primitives";
 import { useSceneNarrative } from "@/hooks/useScene";
-import { brand, intro } from "@/content/drk";
+import { intro } from "@/content/drk";
 import { cn, range } from "@/lib/utils";
 
 /**
@@ -103,11 +103,7 @@ export function Intro() {
                 <p className="font-[family-name:var(--font-display)] mt-[clamp(1.5rem,4vh,3rem)] text-[clamp(4rem,13vw,11.5rem)] font-bold leading-[0.8] tracking-[-0.055em] text-[var(--color-ink)]">
                   DRK<span className="text-[var(--color-signal)]">.</span>
                 </p>
-                <p className="drk-label mt-[clamp(1rem,2.4vh,1.75rem)] max-w-[22ch] text-[clamp(0.7rem,1.15vw,0.95rem)] leading-[1.5] tracking-[0.3em] text-[var(--color-ink-soft)]">
-                  {brand.descriptor}
-                </p>
-
-                <span aria-hidden className="drk-rule mt-[clamp(1.5rem,3.5vh,2.5rem)] w-16" />
+                <span aria-hidden className="drk-rule mt-[clamp(1.75rem,4vh,2.75rem)] w-16" />
                 <p className="mt-[clamp(1.1rem,2.4vh,1.6rem)] max-w-[36ch] text-[clamp(1rem,1.5vw,1.35rem)] leading-relaxed text-[var(--color-muted)]">
                   {intro.lede}
                 </p>

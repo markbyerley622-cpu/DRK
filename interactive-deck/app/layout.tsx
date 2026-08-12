@@ -24,9 +24,9 @@ const mono = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "DRK. — The operating system for liquidity",
+  title: "DRK. — Launch & Institutional Trading",
   description:
-    "DRK is the operating system for liquidity. One runtime for wallets, liquidity, execution, and reporting across token launches, DEXs, perps and onchain assets.",
+    "One runtime for wallets, liquidity, execution, and reporting across token launches, DEXs, perps and onchain assets.",
   robots: { index: false, follow: false },
 };
 

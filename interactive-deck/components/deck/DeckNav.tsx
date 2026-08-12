@@ -70,15 +70,7 @@ export function DeckNav() {
           >
             DRK<span className="text-[var(--color-signal)]">.</span>
           </span>
-          <span
-            aria-hidden
-            className="drk-label mt-1 hidden text-[0.52rem] tracking-[0.2em] sm:block"
-          >
-            {brand.descriptor}
-          </span>
-          <span className="drk-sr-only">
-            {brand.name} {brand.descriptor} — back to top
-          </span>
+          <span className="drk-sr-only">{brand.name} — back to top</span>
         </a>
       </div>
 

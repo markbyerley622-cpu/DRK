@@ -65,12 +65,10 @@ export const brand = {
   /**
    * CLIENT-DIRECTED CHANGE. The source deck's lockup reads "DARK MARKET
    * MAKERS". The client has instructed that DRK is not to describe itself as a
-   * market maker; the positioning line is now "the operating system for
-   * liquidity". This is the one place in the manifest that departs from the
-   * source deck, and it does so on instruction. Recorded as VER-12.
+   * market maker, and has since removed the positioning line that replaced it,
+   * so the lockup now carries no descriptor at all — the wordmark stands on its
+   * own and the category line does the positioning. Recorded as VER-12.
    */
-  descriptor: "THE OPERATING SYSTEM FOR LIQUIDITY",
-  descriptorShort: "OPERATING SYSTEM FOR LIQUIDITY",
   category: "Launch & Institutional Trading",
   signature: "LIQUIDITY BENEATH THE SURFACE.",
   confidential: "DRK / CONFIDENTIAL",
@@ -139,7 +137,6 @@ export const curtain = {
 
 export const intro = {
   wordmark: brand.name,
-  descriptor: brand.descriptor,
   eyebrow: brand.category,
   lede: brand.oneLiner,
   /** Transition headline (source page 2). */

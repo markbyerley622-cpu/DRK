@@ -1,6 +1,6 @@
 # DRK — Interactive Investor Experience
 
-**DRK is the operating system for liquidity.**
+**Transparent liquidity infrastructure for token launches, DEXs, perps, and onchain assets.**
 
 An interactive, scroll-led investor experience built from the DRK pitch deck.
 Fourteen narrative scenes, one continuous machine — not a slide deck on the web.

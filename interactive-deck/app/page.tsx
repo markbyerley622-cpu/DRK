@@ -43,7 +43,7 @@ export default function Page() {
 
       <main id="main">
         <h1 className="sr-only-focusable">
-          DRK. The operating system for liquidity — Launch &amp; Institutional Trading
+          DRK. — Launch &amp; Institutional Trading
         </h1>
 
         {/* 01-04 — the operating layer */}
