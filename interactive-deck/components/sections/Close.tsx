@@ -85,6 +85,17 @@ export function Close() {
                   <Signal>{close.support.signal}</Signal>
                   {close.support.post}
                 </p>
+
+                {/* What the investor is actually buying. Last line of the deck
+                    before the ask, and the only place this is said. */}
+                <p
+                  className="max-w-[34ch] pt-[clamp(1rem,2.4vh,1.5rem)] text-[0.95rem] leading-relaxed text-[var(--color-muted)]"
+                  style={{ opacity: 0.25 + settle * 0.75 }}
+                >
+                  {close.position.pre}
+                  <Signal>{close.position.signal}</Signal>
+                  {close.position.post}
+                </p>
                 {/* The next step, at the one moment the viewer is looking for
                     one. Sits above the signature so the signature stays the
                     last thing on screen. */}

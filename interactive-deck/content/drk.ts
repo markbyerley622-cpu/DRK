@@ -101,9 +101,23 @@ export const sections: { id: SectionId; label: string; index: string; title: str
   { id: "control", label: "CONTROL", index: "10", title: "The DRK control layer" },
   { id: "revenue", label: "REVENUE", index: "11", title: "Multiple revenue streams" },
   { id: "compound", label: "COMPOUND", index: "12", title: "Investment liquidity compounds" },
-  { id: "raise", label: "RAISE", index: "13", title: "Raising $1M for 10%" },
+  { id: "raise", label: "RAISE", index: "13", title: "$1M seed round — 80% productive, 20% platform" },
   { id: "close", label: "CLOSE", index: "14", title: "The next market maker" },
 ];
+
+/**
+ * THE OPENING CURTAIN
+ *
+ * DRK's own two-second title card, played once per session over the deck as it
+ * loads. It is a supplied brand asset, not a scene: it carries no claim, holds
+ * nothing back that the deck needs, and is skippable and dismissable from the
+ * first frame. Reduced-motion visitors never see it.
+ */
+export const curtain = {
+  src: "/intro.mp4",
+  label: "DRK",
+  skip: "SKIP",
+} as const;
 
 /* ========================================================================== */
 /* SCENE 01 — INTRO                                                            */
@@ -618,9 +632,9 @@ export const integration = {
    * distinguish. Solana, Aptos, Sui and Robinhood EVM are networks; Cantor is an
    * institutional venue, NOT a blockchain, and must never be grouped as one.
    *
-   * `mark` is the monogram rendered in the venue chip. Official brand SVGs are
-   * not vendored — dropping `public/brand/venues/<key>.svg` in makes the chip
-   * use the real logo automatically (see `VenueMark` in Integration.tsx).
+   * `mark` is the monogram used when no official artwork has been supplied for
+   * that key — currently Cantor alone. Everything else renders its real mark
+   * from `components/ui/BrandMark`.
    */
   targets: [
     { key: "solana", name: "Solana", kind: "chain", mark: "SOL" },
@@ -639,6 +653,10 @@ export const integration = {
    * performed rather than asserted: the viewer watches an unconnected network
    * become an active execution path. Each step corresponds to a capability the
    * deck already states (routing intelligence, engine linkage, reporting).
+   *
+   * `note` explains the VOCABULARY once, where the sequence is defined. It is
+   * never repeated per chain — the same sentence printed beside five rows was
+   * five times the words for none of the information.
    */
   sequence: [
     { key: "unconnected", label: "UNCONNECTED", note: "A new venue exists. Nothing reaches it." },
@@ -718,18 +736,60 @@ export const lifecycle = {
 export const control = {
   headline: { line1: "The DRK", line2: "control layer." },
   support: "One operating surface for wallets, programs, execution, P/L, analytics and launches.",
-  strap:
-    "Everything a black-box market maker keeps to itself, exposed as one surface the client can operate.",
-  /** The demo affordance. The asset is the real DRK application recording. */
+  /**
+   * THE DEMO REEL.
+   *
+   * Cut from the client's own screen recording of the live DRK application
+   * (`demo final.mp4`). Each clip is one page of the real product, trimmed to
+   * the settled state — the runtime's loading screens between pages are cut
+   * out, which is the only edit made. Nothing is re-shot, re-staged or
+   * composited.
+   *
+   * Every `copy` line below restates what that page of the product says about
+   * itself on screen. No capability is described that the recording does not
+   * show.
+   */
   demo: {
     cta: "WATCH THE SYSTEM",
     title: "DRK Control Layer",
-    subtitle: "The live application.",
-    src: "/demo.mp4",
+    subtitle: "The live application, recorded.",
+    note: "Recorded in the live DRK application.",
+    clips: [
+      {
+        key: "token-profile",
+        name: "Token profile",
+        copy: "Market, ownership, liquidity and safety for one managed token — with the evidence behind each figure.",
+      },
+      {
+        key: "instances",
+        name: "Runtime instances",
+        copy: "Every trading pair and wallet group runs as its own live scope, started and paused independently.",
+      },
+      {
+        key: "pools",
+        name: "Pool discovery",
+        copy: "Venues and pools are discovered, authorised per instance, and monitored from the moment they connect.",
+      },
+      {
+        key: "programs",
+        name: "Activity programs",
+        copy: "A strategy is configured, scheduled and checked against the live market before a single order is placed.",
+      },
+      {
+        key: "studio",
+        name: "Operator studio",
+        copy: "Reactions are previewed and tested — external event to typed action — without touching the chain.",
+      },
+      {
+        key: "pl",
+        name: "Positions & P/L",
+        copy: "Reconciled fills, fresh marks and attributed P/L on the instance while it runs.",
+      },
+    ],
   },
   statusLine: "RUNTIME / CONNECTED",
   /**
-   * The surface chrome, modelled on the real DRK application (`demo.mp4`),
+   * The surface chrome, modelled on the real DRK application (see `demo.clips`),
    * which runs an environment pill and a row of live counters above every page:
    * `MAINNET · Instances 1/1 live · Pools 1 · Actions 0 · Executions 1`.
    *
@@ -1223,65 +1283,70 @@ export const compound = {
 /* ========================================================================== */
 
 export const raise = {
-  headline: { pre: "We are raising ", amount: "$1M", mid: " for ", equity: "10%" },
-  support: { pre: "Scale ", a: "liquidity", mid: ", ", b: "performance", mid2: ", and ", c: "launch capacity" },
-  centre: { label: "USE OF FUNDS", value: "$1M" },
+  headline: { amount: "$1M", rest: " seed round." },
+  /** The entire slide, in one line, above everything else. */
+  support: { a: "80%", aRest: " remains productive. ", b: "20%", bRest: " scales the platform." },
+  centre: { label: "SEED ROUND", value: "$1M" },
   /**
-   * Five uses of funds, source page 14. The deck gives NO percentage split,
-   * so none is invented. `scales` maps each allocation to the part of the
-   * system it expands — the mapping is stated by the brief, and every target
-   * is a component already introduced earlier in the experience.
+   * Financing terms. `10%` is the deck's own (source page 14); the instrument
+   * is from the client's $1M seed-round slide, supplied 2026-08-12. Neither is
+   * derived, and no valuation is stated anywhere — see VER-09.
    */
-  allocations: [
+  termsLabel: "TERMS",
+  terms: [
+    { label: "EQUITY", value: "10%" },
+    { label: "INSTRUMENT", value: "Post-money SAFE" },
+  ],
+  allocationLabel: "ALLOCATION",
+  /**
+   * THE SPLIT — the substance of the client's supplied slide, and now the
+   * argument this scene makes.
+   *
+   * The category names are the client's own FINANCIAL wording and are
+   * reproduced verbatim, not paraphrased: "operating balance-sheet liquidity"
+   * and "growth + operating capital" describe an accounting treatment, and
+   * rewording them would be inventing one (VER-11).
+   *
+   * `share` drives the bars, and the two bars run on the same track, so the
+   * proportion is READ rather than stated: 80 against 20, at a glance, before
+   * a single line item is parsed.
+   *
+   * Nothing below implies a return, a yield or a guarantee. The claim is only
+   * about where the money sits — deployed in the operating business, or spent
+   * building around it.
+   */
+  split: [
     {
-      index: "01",
-      name: "Trading liquidity",
-      scales: "Liquidity Engine",
-      target: "engine",
-      effect: "Deeper book, more concurrent launches.",
-      object: "raise-droplet",
+      key: "productive",
+      share: 80,
+      amount: "$800K",
+      name: "Operating balance-sheet liquidity",
+      items: [
+        "Launch deployment",
+        "Institutional liquidity",
+        "Delta-neutral treasury",
+        "Reinvested program earnings",
+      ],
     },
     {
-      index: "02",
-      name: "Low-latency infra",
-      scales: "Execution Engine",
-      target: "execution",
-      effect: "Tighter fills at the same risk.",
-      object: "raise-servers",
-    },
-    {
-      index: "03",
-      name: "Integrations",
-      scales: "Routing Layer",
-      target: "routing",
-      effect: "More chains and venues reachable.",
-      object: "raise-puzzle",
-    },
-    {
-      index: "04",
-      name: "Operator capacity",
-      scales: "Managed Trading",
-      target: "managed",
-      effect: "More programs run in parallel.",
-      object: "raise-people",
-    },
-    {
-      index: "05",
-      name: "Reporting + dashboarding",
-      scales: "Control Layer",
-      target: "control",
-      effect: "Visibility scales with the book.",
-      object: "raise-dashboard",
+      key: "platform",
+      share: 20,
+      amount: "$200K",
+      name: "Growth + operating capital",
+      items: ["Infrastructure", "Integrations", "Operators", "Reporting + compliance"],
     },
   ],
+  /**
+   * The closing statement of the supplied slide, verbatim. Kept as the client
+   * wrote it rather than softened or embellished — see VER-11.
+   */
   footer: {
-    pre: "Designed to ",
-    a: "scale launches",
-    mid: " and ",
-    b: "sustain growth",
-    post: " across new markets.",
+    pre: "Capital ",
+    a: "compounds on the balance sheet",
+    mid: " while the engine scales ",
+    b: "enterprise value",
+    post: ".",
   },
-  thesis: "Capital scales the machine.",
   /** The deck states no valuation. None is derived or displayed. See VER-09. */
   valuationNote: null,
 } as const;
@@ -1293,6 +1358,22 @@ export const raise = {
 export const close = {
   headline: { line1: "The next market maker", line2: "is not a black box." },
   support: { pre: "It is a transparent operating system with traders ", signal: "behind", post: " it." },
+  /**
+   * THE POSITIONING LINE — the last thing read, and the only place the deck
+   * states what an investor is actually buying.
+   *
+   * It is the picks-and-shovels argument in the deck's own vocabulary: the
+   * desk is the durable business, whichever tokens happen to be launching.
+   *
+   * Deliberately NOT a comparative return claim. "More lucrative than buying
+   * tokens" is a forecast the deck cannot make and does not make; that a desk
+   * is a different kind of asset than the tokens it quotes is simply true.
+   */
+  position: {
+    pre: "Instead of betting on individual tokens, you are investing in the ",
+    signal: "infrastructure and team",
+    post: " that helps token launches succeed.",
+  },
   signature: brand.signature,
 } as const;
 
@@ -1469,11 +1550,12 @@ export const contentVerifyTodos: Verify[] = [
   },
   {
     id: "VER-06",
-    where: "Scene 06 — Stack, Scene 08 — Integration (source pages 7, 9)",
+    where:
+      "Scene 02 — Opacity, Scene 06 — Stack, Scene 08 — Integration, Scene 10 — Control (source pages 3, 7, 9)",
     issue:
       "Pages 7 and 9 display Solana, Robinhood, Aptos, Sui, Cantor and Ethereum/EVM marks. The deck's copy establishes compatibility, not partnership.",
     action:
-      "Rendered typographically — no third-party logo is reproduced — and labelled as chains/venues, not partners. Confirm the intended relationship and trademark usage rights before any logo is reinstated.",
+      "Official artwork was supplied by the client on 2026-08-12 and is now rendered for Solana, Ethereum/EVM, Aptos, Sui, Robinhood and USDC. No mark is approximated: Cantor, having no supplied artwork, stays a monogram. Every mark is still labelled as a chain, venue or asset — never as a partner or client. Confirm trademark usage rights for each mark before the deck is sent externally.",
   },
   {
     id: "VER-07",
@@ -1490,11 +1572,19 @@ export const contentVerifyTodos: Verify[] = [
   },
   {
     id: "VER-09",
-    where: "Scene 13 — Raise (source page 14)",
+    where: "Scene 13 — Raise (source page 14, plus the $1M seed-round slide supplied 2026-08-12)",
     issue:
-      "$1M for 10% implies a $10M post-money valuation, which the deck never states. The five uses of funds are also unweighted in the source.",
+      "$1M for 10% on a post-money SAFE implies a $10M post-money cap, which neither the deck nor the supplied slide states.",
     action:
-      "No valuation is stated or derived, and no allocation percentages are invented. Confirm whether a valuation and a split should be shown.",
+      "No valuation is stated or derived. The 80 / 20 split now shown is the client's own, supplied 2026-08-12, and replaces the five unweighted uses of funds from source page 14. Confirm the cap should stay unstated now that both the equity percentage and the instrument appear together.",
+  },
+  {
+    id: "VER-11",
+    where: "Scene 13 — Raise ($1M seed-round slide supplied 2026-08-12)",
+    issue:
+      '"Operating balance-sheet liquidity", "growth + operating capital" and "capital compounds on the balance sheet while the engine scales enterprise value" are accounting and valuation statements.',
+    action:
+      "Reproduced verbatim from the supplied slide and never paraphrased — rewording them would be inventing an accounting treatment. No return, yield or guarantee is stated or implied anywhere in the scene. Confirm the wording is final and that the balance-sheet characterisation is correct before the deck is sent externally.",
   },
   {
     id: "VER-10",

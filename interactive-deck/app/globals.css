@@ -605,3 +605,44 @@ p {
     transform: translateX(320%);
   }
 }
+
+/* ==========================================================================
+   THE CURSOR
+   Applied only once <Cursor /> has mounted and confirmed a fine pointer, so a
+   page without it — no JS, coarse pointer, reduced motion — always keeps a
+   real pointer. Never `!important`: a component that genuinely needs a system
+   cursor can still ask for one.
+   ========================================================================== */
+
+html[data-cursor="custom"],
+html[data-cursor="custom"] * {
+  cursor: none;
+}
+
+/* Registration ticks on the ring's axes, lit only over operable elements.
+   `--tick` is written by the rAF loop, so this stays a pure paint. */
+.drk-cursor-ring::before,
+.drk-cursor-ring::after {
+  content: "";
+  position: absolute;
+  background: var(--color-signal);
+  opacity: var(--tick, 0);
+}
+
+.drk-cursor-ring::before {
+  top: -3px;
+  bottom: -3px;
+  left: 50%;
+  width: 1px;
+  transform: translateX(-50%);
+  clip-path: polygon(0 0, 100% 0, 100% 18%, 0 18%, 0 82%, 100% 82%, 100% 100%, 0 100%);
+}
+
+.drk-cursor-ring::after {
+  left: -3px;
+  right: -3px;
+  top: 50%;
+  height: 1px;
+  transform: translateY(-50%);
+  clip-path: polygon(0 0, 18% 0, 18% 100%, 0 100%, 82% 100%, 82% 0, 100% 0, 100% 100%);
+}

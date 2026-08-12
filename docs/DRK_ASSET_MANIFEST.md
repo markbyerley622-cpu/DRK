@@ -118,11 +118,26 @@ scenes; `lc-beacon` and `lc-chart` exist as separate files only because the Beac
 | **01** | **Latency Ring** | **Built as animated SVG** (`components/visuals/LatencyRing.tsx`). It never appears in the deck as an isolated machined torus, and it is functionally a *telemetry* element — it has to sweep, fill, and read out live scroll/section progress. A still plate could not do its job. Geometry, arc segmentation and green emission follow board object 01. |
 | **12** | **Frog Mascot** | **Deliberately unused.** The brand board itself scopes it as *"community / fun element"*; it appears on no deck page. An investor narrative is the wrong surface for it. Documented as available, not shipped. |
 
-**Third-party marks — not reproduced.** Solana, Robinhood, Aptos, Sui, Cantor and Ethereum/EVM appear as
-logos on source pages 7 and 9. They are **not** extracted or re-hosted. Per `VER-06`, they are rendered as
-neutral typographic entries under labels that state compatibility rather than partnership, because the
-deck's own copy establishes only that DRK *"adapt[s] quickly to new chains, pools, launchpads, and venues"*.
-Reinstating logos requires both a confirmed relationship and confirmed trademark permission.
+**Third-party marks — supplied, not extracted.** Solana, Robinhood, Aptos, Sui, Cantor and Ethereum/EVM
+appear as logos on source pages 7 and 9. Nothing is scraped from the PDF. On **2026-08-12 the client
+supplied official artwork** for Solana, Ethereum, Aptos, Sui, Robinhood and USDC; those files are vendored
+to `public/brand/tokens/` and rendered through `components/ui/BrandMark.tsx`.
+
+| Rule | Held |
+|------|------|
+| No mark is approximated, traced or redrawn | Cantor, with no supplied artwork, stays a **`CTR` monogram** in an identical chip |
+| The only edit to a supplied file | Aptos inverted to white — its own dark-ground treatment; the mark itself is unchanged |
+| Labelling | Every mark still sits under *chains / networks*, *venue / institutional* or *what you put in* — never *partner*, *client* or *integration* |
+
+Per `VER-06`, trademark permission for each mark is still to be confirmed before the deck goes out
+externally; the deck's own copy establishes only that DRK *"adapt[s] quickly to new chains, pools,
+launchpads, and venues"*.
+
+**The product recording.** `demo final.mp4` (client-supplied, 79s, silent, 1920×1080) is the real DRK
+application. It is not shipped whole: the runtime's *"Initializing runtime…"* screens between pages are cut
+out and the six settled pages ship as `public/demo/<key>.mp4` + a poster frame — roughly 1 MB in total
+against the source's 42 MB. No frame is re-shot, re-staged or composited. `intro .mp4` (2s title card)
+ships as `public/intro.mp4` and plays as the opening curtain.
 
 ---
 
@@ -193,8 +208,20 @@ read correctly. Flagged as a brand-system note, not a content error.
 ## 8. WHAT IS DELIBERATELY ABSENT
 
 No stock photography · no office imagery · no futuristic-city imagery · no generic crypto iconography ·
-no fabricated product screenshots · no invented partner or customer logos · no icon-pack imports ·
-no WebGL/Three.js runtime · no scroll-hijacking library · no video · no external CDN asset.
+no fabricated product screenshots · no invented, traced or approximated logos · no icon-pack imports ·
+no WebGL/Three.js runtime · no scroll library · no external CDN asset.
+
+**Feel, since 2026-08-12:** two in-house components, both capability-gated and both inert under
+`prefers-reduced-motion`. `SmoothScroll` puts a spring between the wheel and the page — it moves the *real*
+scroll position (so `useScroll`, hash links, find-in-page and scroll restoration are untouched), only ever
+intercepts `wheel`, yields instantly to any other scroll, and stands aside for scrollable panes and open
+modals. `Cursor` replaces the pointer with the deck's own instrument — a tracking sight, an inertial ring
+that opens with registration ticks over anything operable, and a trailing glow — on fine pointers only, and
+only after it has mounted, so a failed script never leaves a page with no cursor at all.
+
+**Video, since 2026-08-12:** three places only — the 2s opening curtain, the six product clips on Scene 10,
+and the theatre those clips open into. All silent, all client-supplied footage, all muted, none autoplaying
+under `prefers-reduced-motion`, and none of it playing while off screen.
 
 ---
 

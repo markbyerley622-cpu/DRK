@@ -13,50 +13,63 @@ import { TW } from "@/lib/motion";
  * SCENE 13 — THE RAISE  (act three of three)
  *
  * The raise is not a separate ask screen. Scene 11 ended on a pool labelled
- * CAPITAL; Scene 12 showed that pool compounding. Here the $1M ENTERS that same
- * pool, and each allocation connects to a part of the machine the investor has
- * already met by name — Liquidity Engine, Execution Engine, Routing Layer,
- * Managed Trading, Control Layer.
+ * CAPITAL; Scene 12 showed that pool compounding. Here $1M ENTERS that same
+ * pool and immediately divides — 80% staying in the book as working liquidity,
+ * 20% building the machine around it.
  *
- * The message is structural, not stated: the raise scales an existing machine.
+ * THE WHOLE SLIDE IN FIVE SECONDS. One number, one split, two destinations:
  *
- * The deck states no valuation, so none is stated or derived, and the five
- * allocations are unweighted in the source, so no split is invented (VER-09).
+ *     $1M  →  80% / $800K  operating balance-sheet liquidity
+ *          →  20% / $200K  growth + operating capital
+ *
+ * The proportion is carried by two bars on ONE shared track, so 80-against-20
+ * is read at a glance and never has to be worked out from the numerals. Both
+ * bars are green: the 20% is not overhead being confessed to, it is the part
+ * that raises how much liquidity the engine can run — so it is drawn as a
+ * quieter member of the same system, not as a leak out of it.
+ *
+ * What is deliberately absent: no valuation, no projection, no return, no
+ * yield, no guarantee. The claim is only about where the money SITS.
+ *
+ * Financing terms stay on the slide but sit beneath the split, because the
+ * allocation is the story and the terms are the paperwork (VER-09, VER-11).
  */
 
-const N = 5;
+const N = raise.split.length;
 const ROW_Y = Array.from({ length: N }, (_, i) => ((i + 0.5) / N) * 100);
 
 export function Raise() {
   const ref = useRef<HTMLElement>(null);
   const { p, isDesktop, scrub } = useSceneNarrative(ref);
 
-  const arrive = range(p, 0.02, 0.2); // the $1M lands in the pool
-  const alloc = range(p, 0.2, 0.86); // it distributes
-  const thesis = range(p, 0.86, 1);
+  const arrive = range(p, 0.02, 0.18); // the $1M lands in the pool
+  const alloc = range(p, 0.18, 0.8); // it divides
+  const thesis = range(p, 0.8, 1);
 
   return (
-    <Scene sceneRef={ref} id="raise" index="13" title="Raising $1M for 10%" height="300vh">
+    <Scene
+      sceneRef={ref}
+      id="raise"
+      index="13"
+      title="$1M seed round — 80% productive, 20% platform"
+      height="300vh"
+    >
       <SceneStage>
         <SceneShell>
           <SceneHead index="13" eyebrow="THE RAISE" size="h2" rule={false}>
-            {raise.headline.pre}
             <Signal>{raise.headline.amount}</Signal>
-            {raise.headline.mid}
-            <Signal>{raise.headline.equity}.</Signal>
+            {raise.headline.rest}
           </SceneHead>
 
           <p className="drk-lede max-w-[54ch]">
-            {raise.support.pre}
             <Signal>{raise.support.a}</Signal>
-            {raise.support.mid}
+            {raise.support.aRest}
             <Signal>{raise.support.b}</Signal>
-            {raise.support.mid2}
-            <Signal>{raise.support.c}</Signal>.
+            {raise.support.bRest}
           </p>
 
           <div className="mt-[clamp(1.25rem,3.5vh,2.5rem)] grid items-center gap-x-[clamp(1rem,2.5vw,2.5rem)] gap-y-7 lg:grid-cols-[auto_minmax(0,1fr)]">
-            {/* ---------------- the capital pool, receiving ---------------- */}
+            {/* ---------------- the capital, arriving ---------------- */}
             <div
               className="relative mx-auto flex flex-col items-center lg:mx-0"
               style={{ opacity: 0.2 + arrive * 0.8 }}
@@ -85,8 +98,27 @@ export function Raise() {
                 INTO {compound.loop[0].name}
               </span>
 
-              {/* the port the allocations leave from — without it the routes
-                  read as floating stubs rather than as capital leaving a pool */}
+              {/* The terms. Present, legible, and deliberately not the headline:
+                  what the money DOES is the argument; how it is papered is the
+                  answer to the next question, not this one. */}
+              <dl
+                className="mt-[clamp(0.9rem,2.2vh,1.4rem)] flex items-start gap-x-6 gap-y-2 border-t border-[var(--color-hairline)] pt-3"
+                style={{ opacity: 0.3 + arrive * 0.7 }}
+              >
+                {raise.terms.map((t) => (
+                  <div key={t.label} className="min-w-0">
+                    <dt className="drk-label text-[0.5rem] text-[var(--color-faint)]">
+                      {t.label}
+                    </dt>
+                    <dd className="mt-1 whitespace-nowrap text-[0.86rem] font-medium leading-none text-[var(--color-ink-soft)]">
+                      {t.value}
+                    </dd>
+                  </div>
+                ))}
+              </dl>
+
+              {/* the port the split leaves from — without it the routes read as
+                  floating stubs rather than as capital leaving a pool */}
               <span
                 aria-hidden
                 className="absolute right-0 top-[calc(50%-0.35rem)] hidden size-[7px] translate-x-1/2 rounded-full lg:block"
@@ -97,75 +129,99 @@ export function Raise() {
               />
             </div>
 
-            {/* ---------------- allocations → system targets ---------------- */}
+            {/* ---------------- the split ---------------- */}
             <div className="relative">
               {isDesktop && <RaiseRoutes alloc={alloc} />}
 
-                {/*
-                  Equal-height rows built with flex + a shared min-height, NOT
-                  `grid-template-rows: repeat(n, 1fr)`. In an auto-height grid a
-                  `1fr` row resolves against the tallest item and is then applied
-                  to every row, which inflated this list to over 1000px at
-                  1366x768 and clipped the pinned stage. Equal rows still let the
-                  routes land on row centres.
-                */}
-              <ul className="relative flex flex-col">
-                {raise.allocations.map((a, i) => {
-                  const on = scrub ? range(alloc, i * 0.15, i * 0.15 + 0.36) : 1;
-                  const live = on > 0.85;
+              <span className="drk-label block text-[var(--color-faint)]">
+                {raise.allocationLabel}
+              </span>
+
+              <ul className="relative mt-2 flex flex-col">
+                {raise.split.map((block, i) => {
+                  const on = scrub ? range(alloc, i * 0.3, i * 0.3 + 0.6) : 1;
+                  const lead = i === 0;
                   return (
                     <li
-                      key={a.index}
-                      className={cn(
-                        "flex min-h-[clamp(3.2rem,7vh,4.5rem)] items-center gap-3.5 border-b border-[var(--color-hairline)] py-[clamp(0.5rem,1.2vh,0.85rem)] pr-1 transition-colors last:border-b-0",
-                        TW.state,
-                      )}
-                      style={{ opacity: 0.44 + on * 0.56 }}
+                      key={block.key}
+                      className="border-b border-[var(--color-hairline)] py-[clamp(0.7rem,1.8vh,1.15rem)] last:border-b-0"
+                      style={{ opacity: 0.34 + on * 0.66 }}
                     >
-                      <span
-                        aria-hidden
-                        className={cn("h-px w-5 shrink-0 transition-colors", TW.state)}
-                        style={{
-                          background: live ? "var(--color-signal)" : "var(--color-hairline-strong)",
-                        }}
-                      />
-                      <span className="drk-mono shrink-0 text-[0.72rem] text-[var(--color-signal)]">
-                        {a.index}
-                      </span>
-
-                      <span className="min-w-0 flex-1">
-                        <span className="block truncate text-[clamp(0.88rem,1.25vw,1.08rem)] font-medium leading-tight text-[var(--color-ink)]">
-                          {a.name}
-                        </span>
-                        <span className="mt-0.5 block truncate text-[0.78rem] leading-snug text-[var(--color-muted)]">
-                          {a.effect}
-                        </span>
-                      </span>
-
-                      {/* what it scales — every target is a component the
-                          investor has already been introduced to */}
-                      <span className="hidden shrink-0 items-center gap-2.5 sm:flex">
-                        <span
-                          aria-hidden
-                          className="h-px w-4 transition-colors duration-[420ms] ease-[cubic-bezier(0.16,0.84,0.24,1)]"
-                          style={{
-                            background: live
-                              ? "var(--color-signal)"
-                              : "var(--color-hairline-strong)",
-                          }}
-                        />
-                        <span className="text-right">
-                          <span className="drk-label block text-[0.56rem]">SCALES</span>
+                      <div className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
+                        <span className="flex items-baseline gap-3">
                           <span
                             className={cn(
-                              "mt-0.5 block whitespace-nowrap text-[0.78rem] font-medium transition-colors duration-[420ms] ease-[cubic-bezier(0.16,0.84,0.24,1)]",
-                              live ? "text-[var(--color-signal)]" : "text-[var(--color-faint)]",
+                              "drk-mono drk-tnum shrink-0 text-[clamp(0.8rem,1.15vw,0.98rem)]",
+                              lead
+                                ? "text-[var(--color-signal)]"
+                                : "text-[var(--color-signal-deep)]",
                             )}
                           >
-                            {a.scales}
+                            {block.share}%
+                          </span>
+                          <span
+                            className={cn(
+                              "font-[family-name:var(--font-display)] font-semibold leading-none tracking-[-0.035em] text-[var(--color-ink)]",
+                              lead
+                                ? "text-[clamp(1.75rem,3.4vw,2.9rem)]"
+                                : "text-[clamp(1.4rem,2.6vw,2.2rem)]",
+                            )}
+                          >
+                            <Digits value={block.amount} />
                           </span>
                         </span>
+
+                        <span className="drk-label max-w-[26ch] text-right text-[var(--color-ink-soft)]">
+                          {block.name}
+                        </span>
+                      </div>
+
+                      {/*
+                        ONE TRACK, TWO BARS. Both fill the same 100% width, so
+                        the 80 and the 20 are literally measured against each
+                        other — this is the five-second read, and it is the one
+                        element on the slide that cannot be misread.
+                      */}
+                      <span
+                        aria-hidden
+                        className="mt-2.5 block h-[5px] w-full overflow-hidden rounded-full bg-[#0f1519]"
+                      >
+                        <span
+                          className={cn("block h-full rounded-full", TW.state)}
+                          style={{
+                            width: `${block.share * on}%`,
+                            background: lead
+                              ? "var(--color-signal)"
+                              : "var(--color-signal-deep)",
+                            boxShadow: lead
+                              ? `0 0 ${on * 14}px 0 rgba(0,224,96,${on * 0.4})`
+                              : "none",
+                          }}
+                        />
                       </span>
+
+                      <ul className="mt-2.5 grid grid-cols-2 gap-x-5 gap-y-1 xl:grid-cols-4">
+                        {block.items.map((item) => (
+                          <li
+                            key={item}
+                            className="flex items-baseline gap-2 text-[0.8rem] leading-snug text-[var(--color-muted)]"
+                          >
+                            <span
+                              aria-hidden
+                              className={cn("mt-[0.42rem] h-px w-2.5 shrink-0", TW.state)}
+                              style={{
+                                background:
+                                  on > 0.7
+                                    ? lead
+                                      ? "var(--color-signal)"
+                                      : "var(--color-signal-deep)"
+                                    : "var(--color-hairline-strong)",
+                              }}
+                            />
+                            <span className="min-w-0">{item}</span>
+                          </li>
+                        ))}
+                      </ul>
                     </li>
                   );
                 })}
@@ -173,15 +229,12 @@ export function Raise() {
             </div>
           </div>
 
-          {/* ---------------- thesis ---------------- */}
+          {/* ---------------- the closing statement ---------------- */}
           <div
-            className="mt-[clamp(1.25rem,3.5vh,2.25rem)] flex flex-wrap items-baseline justify-between gap-x-8 gap-y-3 border-t border-[var(--color-hairline)] pt-[clamp(0.9rem,2vh,1.4rem)]"
+            className="mt-[clamp(1.25rem,3.5vh,2.25rem)] border-t border-[var(--color-hairline)] pt-[clamp(0.9rem,2vh,1.4rem)]"
             style={{ opacity: scrub ? thesis : 1 }}
           >
-            <p className="text-[clamp(1.1rem,2.2vw,1.8rem)] font-semibold tracking-[-0.025em] text-[var(--color-signal)]">
-              {raise.thesis}
-            </p>
-            <p className="max-w-[46ch] text-[0.88rem] text-[var(--color-muted)]">
+            <p className="max-w-[62ch] text-[clamp(1.02rem,1.9vw,1.5rem)] font-semibold leading-snug tracking-[-0.025em] text-[var(--color-ink-soft)]">
               {raise.footer.pre}
               <Signal>{raise.footer.a}</Signal>
               {raise.footer.mid}
@@ -197,7 +250,7 @@ export function Raise() {
 
 /* -------------------------------------------------------------------------- */
 
-/** Capital leaving the pool and arriving at each row centre. */
+/** Capital leaving the pool and arriving at each half of the split. */
 function RaiseRoutes({ alloc }: { alloc: number }) {
   return (
     <svg
@@ -207,7 +260,7 @@ function RaiseRoutes({ alloc }: { alloc: number }) {
       className="pointer-events-none absolute inset-y-0 -left-[4.6%] w-[4.8%]"
     >
       {ROW_Y.map((ty, i) => {
-        const on = range(alloc, i * 0.15, i * 0.15 + 0.34);
+        const on = range(alloc, i * 0.3, i * 0.3 + 0.34);
         const d = smoothPath(
           [
             [0, 50],
@@ -222,10 +275,11 @@ function RaiseRoutes({ alloc }: { alloc: number }) {
             key={i}
             d={d}
             fill="none"
-            stroke="var(--color-signal)"
-            strokeWidth="1.1"
+            /* The route carries the weight of the pool it feeds. */
+            stroke={i === 0 ? "var(--color-signal)" : "var(--color-signal-deep)"}
+            strokeWidth={i === 0 ? 1.4 : 1}
             vectorEffect="non-scaling-stroke"
-            opacity={on * 0.75}
+            opacity={on * 0.8}
             style={{ clipPath: `inset(0 ${100 - on * 100}% 0 0)` }}
           />
         );

@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import { Scene, SceneStage, SceneShell, SceneHead } from "@/components/deck/Scene";
 import { ControlLayer } from "@/components/product/ControlLayer";
-import { DemoPlayer } from "@/components/product/DemoPlayer";
+import { DemoReel } from "@/components/product/DemoReel";
 import { Signal } from "@/components/ui/primitives";
 import { useSceneNarrative } from "@/hooks/useScene";
 import { control } from "@/content/drk";
@@ -59,7 +59,9 @@ export function Control() {
     >
       <SceneStage>
         <SceneShell>
-          <div className="grid items-center gap-x-[clamp(1.5rem,3vw,3rem)] gap-y-7 xl:grid-cols-[minmax(0,0.46fr)_minmax(0,1.54fr)]">
+          {/* The narrative column carries the reel now, so it takes a little
+              more of the frame than it did when it carried a pill. */}
+          <div className="grid items-center gap-x-[clamp(1.5rem,3vw,3rem)] gap-y-7 xl:grid-cols-[minmax(0,0.6fr)_minmax(0,1.4fr)]">
             {/* ---------------- narrative ---------------- */}
             <div className="drk-scrim">
               <SceneHead index="10" eyebrow="THE PRODUCT" size="h2" lede={control.support}>
@@ -68,12 +70,13 @@ export function Control() {
                 <Signal>{control.headline.line2}</Signal>
               </SceneHead>
 
-              <p className="mt-[clamp(1.5rem,3.4vh,2.4rem)] hidden text-[0.86rem] leading-relaxed text-[var(--color-ink-soft)] xl:block">
-                {control.strap}
-              </p>
-
-              {/* The reconstruction is beside this; the recording is behind it. */}
-              <DemoPlayer className="mt-[clamp(1.25rem,2.8vh,1.9rem)]" />
+              {/*
+               * The reconstruction is beside this; the recording is IN this.
+               * The line that used to sit here — "everything a black-box market
+               * maker keeps to itself…" — was the slide explaining its own
+               * point while the product was already making it.
+               */}
+              <DemoReel className="mt-[clamp(1.35rem,3.2vh,2.2rem)]" />
 
               <p className="drk-label mt-[clamp(1rem,2.4vh,1.6rem)] hidden text-[var(--color-signal)] xl:block">
                 SELECT A MODULE TO INSPECT

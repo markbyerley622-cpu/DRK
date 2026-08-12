@@ -3,6 +3,7 @@
 import { useCallback, useEffect, useId, useMemo, useRef, useState } from "react";
 import { AnimatePresence, motion } from "motion/react";
 import { Allocation, LineSeries, Spark, useMorphSeries } from "@/components/visuals/charts";
+import { BrandMark } from "@/components/ui/BrandMark";
 import { Digits } from "@/components/ui/primitives";
 import {
   analyticsMetrics,
@@ -705,7 +706,12 @@ function Wallets({
               <Name key="n" on={r.name === sel}>
                 {r.name}
               </Name>,
-              <Sub key="c">{r.chain}</Sub>,
+              <span key="c" className="flex min-w-0 items-center gap-1.5">
+                {/* The mark renders only where DRK has supplied one; the name
+                    carries the row either way. */}
+                <BrandMark name={r.chain} size="0.95rem" />
+                <Sub>{r.chain}</Sub>
+              </span>,
               <Num key="v">{r.value}</Num>,
               <span key="p" className="drk-label block truncate text-[0.56rem]">
                 {r.perms}
@@ -900,7 +906,8 @@ function Execution({ progress, dense }: { progress: number; dense: boolean }) {
               >
                 {e.t}
               </span>,
-              <span key="v" className="flex min-w-0 items-baseline gap-2">
+              <span key="v" className="flex min-w-0 items-center gap-2">
+                <BrandMark name={e.venue} size="0.95rem" />
                 <Name on={e.id === sel?.id}>{e.venue}</Name>
                 <span className="drk-label shrink-0 text-[0.54rem]">{e.side}</span>
               </span>,

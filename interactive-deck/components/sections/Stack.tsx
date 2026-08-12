@@ -5,6 +5,7 @@ import { EASE, MOTION, TW } from "@/lib/motion";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { motion } from "motion/react";
 import { Scene, SceneHead, SceneShell, SceneStage } from "@/components/deck/Scene";
+import { BrandMark, hasBrandMark } from "@/components/ui/BrandMark";
 import { DataNode, Signal } from "@/components/ui/primitives";
 import { useSceneNarrative, usePrefersReducedMotion } from "@/hooks/useScene";
 import { stack } from "@/content/drk";
@@ -23,8 +24,9 @@ import { activeIndex, cn, range } from "@/lib/utils";
  * layer's external entries illuminate and only its routes are drawn; everything
  * else recedes.
  *
- * Chains and venues are rendered typographically. No third-party logo is
- * reproduced and nothing is described as a partnership (VER-06).
+ * Networks carry their official mark, supplied by DRK; venues with no supplied
+ * mark stay typographic rather than take an approximated one. Nothing here is
+ * described as a partnership (VER-06).
  */
 
 /* Shared vertical inset for the diagram's body row. The external list, the
@@ -181,14 +183,35 @@ export function Stack() {
                           column read as tiles; the environment is a list. */}
                       <span
                         className={cn(
-                          "flex-1 border-b border-[var(--color-hairline)] py-[0.42rem] pr-2 text-[0.78rem] leading-tight transition-colors",
+                          "flex flex-1 items-center gap-2 border-b border-[var(--color-hairline)] py-[0.42rem] pr-2 text-[0.78rem] leading-tight transition-colors",
                           TW.state,
                           on
                             ? "font-medium text-[var(--color-ink-soft)]"
                             : "text-[var(--color-faint)]",
                         )}
                       >
-                        {e.name}
+                        {/* The slot is reserved whether or not a mark exists, so
+                            the names stay on one axis. Networks carry their own
+                            mark; the venues DRK names have none, and get the
+                            rule instead of an invented one. */}
+                        <span
+                          aria-hidden
+                          className="grid w-[1.15rem] shrink-0 place-items-center"
+                        >
+                          {hasBrandMark(e.name) ? (
+                            <BrandMark name={e.name} size="1.15rem" lit={on} />
+                          ) : (
+                            <span
+                              className="block h-px w-2 transition-colors"
+                              style={{
+                                background: on
+                                  ? "var(--color-signal)"
+                                  : "var(--color-hairline-strong)",
+                              }}
+                            />
+                          )}
+                        </span>
+                        <span className="min-w-0 flex-1">{e.name}</span>
                         {/* Connection state must not be carried by colour and
                             opacity alone. */}
                         {on && (
@@ -440,6 +463,7 @@ export function Stack() {
                         )}
                       >
                         <DataNode active={on} size={on ? 7 : 5} />
+                        <BrandMark name={e.name} size="1.05rem" lit={on} />
                         {e.name}
                         {on && (
                           <span className="drk-sr-only"> — connected to {layer.name}</span>

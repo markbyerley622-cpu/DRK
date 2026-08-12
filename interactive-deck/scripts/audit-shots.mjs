@@ -8,6 +8,7 @@
  *   node scripts/audit-shots.mjs --out=audit --vp=1440x900
  */
 import { chromium } from "@playwright/test";
+import { dismissCurtain } from "./curtain.mjs";
 import fs from "node:fs";
 import path from "node:path";
 
@@ -65,6 +66,7 @@ async function run() {
     });
 
     await page.goto(BASE, { waitUntil: "networkidle" });
+    await dismissCurtain(page);
     await page.evaluate(() => document.fonts.ready);
     await sleep(700);
 

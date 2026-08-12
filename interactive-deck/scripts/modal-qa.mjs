@@ -1,5 +1,6 @@
-/** Interaction QA for the two new overlays: contact + demo player. */
+/** Interaction QA for the two overlays: contact + the demo theatre. */
 import { chromium } from "@playwright/test";
+import { dismissCurtain } from "./curtain.mjs";
 
 const BASE = "http://localhost:3111";
 const fails = [];
@@ -20,6 +21,7 @@ for (const vp of [
   page.on("console", (m) => m.type() === "error" && errs.push(m.text()));
 
   await page.goto(BASE, { waitUntil: "networkidle" });
+  await dismissCurtain(page);
   // The deck hydrates a persistent world canvas; give it a beat to settle so
   // the trigger is stable before Playwright's actionability check runs.
   await page.waitForTimeout(700);
@@ -84,26 +86,45 @@ for (const vp of [
     await page.evaluate(() => document.activeElement?.textContent?.includes("CONTACT") ?? false),
   );
 
-  /* ---------------- DEMO PLAYER ---------------- */
+  /* ---------------- DEMO REEL + THEATRE ---------------- */
   await page.evaluate(() => document.getElementById("control")?.scrollIntoView());
   await page.waitForTimeout(900);
-  const watch = page.locator("button", { hasText: "WATCH THE SYSTEM" }).first();
-  check(`[${vp.name}] demo trigger visible`, await watch.isVisible());
 
-  if (await watch.isVisible()) {
-    await watch.click();
+  // The reel plays itself, muted, in place.
+  const reel = page.locator('button[aria-label*="open the DRK Control Layer"]').first();
+  check(`[${vp.name}] demo reel visible`, await reel.isVisible());
+  const inline = page.locator("#control video").first();
+  check(`[${vp.name}] reel video muted`, await inline.evaluate((v) => v.muted));
+
+  // Every clip must actually resolve, poster included.
+  const missing = await page.evaluate(async () => {
+    const keys = ["token-profile", "instances", "pools", "programs", "studio", "pl"];
+    const bad = [];
+    for (const k of keys) {
+      for (const url of [`/demo/${k}.mp4`, `/demo/${k}.jpg`]) {
+        const r = await fetch(url, { method: "HEAD" });
+        if (r.status !== 200) bad.push(`${url} ${r.status}`);
+      }
+    }
+    const intro = await fetch("/intro.mp4", { method: "HEAD" });
+    if (intro.status !== 200) bad.push(`/intro.mp4 ${intro.status}`);
+    return bad;
+  });
+  check(`[${vp.name}] every demo asset serves`, missing.length === 0, missing.join(" | "));
+
+  if (await reel.isVisible()) {
+    await reel.click();
     const vid = page.getByRole("dialog", { name: "DRK Control Layer" });
     await vid.waitFor({ state: "visible", timeout: 5000 });
-    check(`[${vp.name}] demo dialog opens`, await vid.isVisible());
+    check(`[${vp.name}] demo theatre opens`, await vid.isVisible());
 
     const video = vid.locator("video");
     check(`[${vp.name}] video muted`, await video.evaluate((v) => v.muted));
     check(`[${vp.name}] video has controls`, await video.evaluate((v) => v.controls));
-    // the source must actually resolve
-    const status = await page.evaluate(async () =>
-      (await fetch("/demo.mp4", { method: "HEAD" })).status,
+    check(
+      `[${vp.name}] theatre lists all six clips`,
+      (await vid.locator("ol > li > button").count()) === 6,
     );
-    check(`[${vp.name}] /demo.mp4 serves`, status === 200, `HTTP ${status}`);
 
     await page.keyboard.press("Escape");
     await vid.waitFor({ state: "hidden", timeout: 4000 });

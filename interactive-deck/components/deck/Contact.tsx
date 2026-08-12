@@ -95,7 +95,9 @@ export function ContactTrigger({
       type="button"
       onClick={onOpen}
       className={cn(
-        "drk-label pointer-events-auto inline-flex items-center gap-2 rounded-[999px] border border-[var(--color-hairline-strong)] bg-[color-mix(in_srgb,var(--color-void)_72%,var(--color-panel))] px-3 py-1.5 text-[var(--color-ink-soft)] backdrop-blur-md transition-colors duration-[240ms] ease-[cubic-bezier(0.2,0.7,0.3,1)] hover:border-[var(--color-hairline-signal)] hover:text-[var(--color-ink)] focus-visible:border-[var(--color-hairline-signal)] focus-visible:text-[var(--color-signal)]",
+        /* min-h, not more padding: the pill keeps its proportions and still
+           clears the 32px touch target on a phone. */
+        "drk-label pointer-events-auto inline-flex min-h-[34px] items-center gap-2 rounded-[999px] border border-[var(--color-hairline-strong)] bg-[color-mix(in_srgb,var(--color-void)_72%,var(--color-panel))] px-3.5 py-1.5 text-[var(--color-ink-soft)] backdrop-blur-md transition-colors duration-[240ms] ease-[cubic-bezier(0.2,0.7,0.3,1)] hover:border-[var(--color-hairline-signal)] hover:text-[var(--color-ink)] focus-visible:border-[var(--color-hairline-signal)] focus-visible:text-[var(--color-signal)]",
         className,
       )}
     >

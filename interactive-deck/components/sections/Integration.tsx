@@ -2,6 +2,7 @@
 
 import { useId, useMemo, useRef } from "react";
 import { Scene, SceneHead, SceneShell, SceneStage } from "@/components/deck/Scene";
+import { BrandMark, hasBrandMark } from "@/components/ui/BrandMark";
 import { DataNode, SystemObject } from "@/components/ui/primitives";
 import { Reveal } from "@/components/motion/Reveal";
 import { useSceneNarrative } from "@/hooks/useScene";
@@ -24,55 +25,44 @@ import { clamp01, cn, range, smoothPath } from "@/lib/utils";
  * is in, which is a statement about DRK's own stack.
  */
 
-/** The stage index at which a venue starts reporting — see `integration.sequence`. */
-const TELEMETRY = 4;
 /** The stage index at which the engine is attached and the node lights. */
 const LINKED = 3;
 
-/**
- * Venues whose OFFICIAL brand SVG has been vendored to
- * `public/brand/venues/<key>.svg`. No third-party logo is reproduced,
- * approximated or redrawn here — an approximated logo is a fabricated logo. Add
- * the real asset, add its key to this set, and the chip switches from the
- * monogram to the mark with no other change.
- */
-const VENUE_LOGOS = new Set<string>();
-
 type Target = (typeof integration.targets)[number];
 
+/** One size for every chip, marked or not, so the rows cannot go ragged. */
+const CHIP = "clamp(1.55rem,2.1vw,2rem)";
+
 /**
- * The venue chip. Monogram until a real logo exists, and identical in size and
- * weight either way, so adding logos later cannot re-flow the row.
+ * The venue chip.
+ *
+ * Round, and carrying the network's own mark where DRK has supplied one. Cantor
+ * has none, so it keeps its monogram in an identical chip — nothing is
+ * approximated to make the row match (VER-06).
  */
 function VenueMark({ t, lit }: { t: Target; lit: boolean }) {
+  if (hasBrandMark(t.name)) {
+    return <BrandMark name={t.name} size={CHIP} lit={lit} className="self-center" />;
+  }
   return (
     <span
       aria-hidden
       className={cn(
-        "grid size-[clamp(1.4rem,1.9vw,1.75rem)] shrink-0 self-center place-items-center rounded-[6px] border transition-colors duration-[420ms] ease-[cubic-bezier(0.16,0.84,0.24,1)]",
+        "grid shrink-0 self-center place-items-center rounded-full border transition-colors duration-[420ms] ease-[cubic-bezier(0.16,0.84,0.24,1)]",
         lit
           ? "border-[var(--color-hairline-signal)] bg-[var(--color-panel-2)]"
           : "border-[var(--color-hairline)] bg-[color-mix(in_srgb,var(--color-void)_50%,var(--color-panel))]",
       )}
+      style={{ width: CHIP, height: CHIP }}
     >
-      {VENUE_LOGOS.has(t.key) ? (
-        /* eslint-disable-next-line @next/next/no-img-element */
-        <img
-          src={`/brand/venues/${t.key}.svg`}
-          alt=""
-          className="size-[62%] object-contain"
-          loading="lazy"
-        />
-      ) : (
-        <span
-          className={cn(
-            "drk-mono text-[0.5rem] leading-none tracking-[0.06em]",
-            lit ? "text-[var(--color-signal)]" : "text-[var(--color-faint)]",
-          )}
-        >
-          {t.mark}
-        </span>
-      )}
+      <span
+        className={cn(
+          "drk-mono text-[0.5rem] leading-none tracking-[0.06em]",
+          lit ? "text-[var(--color-signal)]" : "text-[var(--color-faint)]",
+        )}
+      >
+        {t.mark}
+      </span>
     </span>
   );
 }
@@ -124,7 +114,6 @@ export function Integration() {
       /* The route draws during DETECTED → ENGINE LINKED, then holds. */
       route: range(local, 0.16, 0.55),
       linked: stage >= LINKED,
-      live: stage >= TELEMETRY,
       active: stage === seq.length - 1,
       /* Row centres, in the gutter SVG's own 0..100 vertical space. */
       y: ((i + 0.5) / n) * 100,
@@ -484,17 +473,12 @@ export function Integration() {
                             </div>
 
                             {/*
-                             * Once a venue reports, it says what it is reporting.
-                             * The source carries no per-venue fill or latency
-                             * figures, so none are invented: this is the stage's
-                             * own note, nothing more.
+                             * No per-row note. The stage vocabulary is defined
+                             * once, in the sequence beside this — printing
+                             * "the venue is a live execution destination" five
+                             * times said the same thing five times and told the
+                             * reader nothing about any particular chain.
                              */}
-                            <p
-                              className="mt-1 min-h-[1.05rem] text-[0.72rem] leading-snug text-[var(--color-fineprint)] transition-opacity duration-[420ms] ease-[cubic-bezier(0.16,0.84,0.24,1)]"
-                              style={{ opacity: r.live ? 1 : 0 }}
-                            >
-                              {stage.note}
-                            </p>
                           </div>
                         </li>
                       );

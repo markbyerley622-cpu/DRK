@@ -11,6 +11,7 @@
  * a valid frame.
  */
 import { chromium, devices } from "@playwright/test";
+import { dismissCurtain } from "./curtain.mjs";
 
 const BASE = process.env.DRK_URL ?? "http://localhost:3112";
 const SECTIONS = [
@@ -52,6 +53,7 @@ const browser = await chromium.launch();
   page.on("console", (m) => m.type() === "error" && errors.push(m.text()));
 
   await page.goto(BASE, { waitUntil: "networkidle" });
+  await dismissCurtain(page);
   await page.evaluate(() => document.fonts.ready);
   await sleep(500);
 
@@ -87,6 +89,7 @@ const browser = await chromium.launch();
 
   // --- deep link honoured on load ---
   await page.goto(`${BASE}#control`, { waitUntil: "networkidle" });
+  await dismissCurtain(page);
   await sleep(900);
   const atControl = await page.evaluate(() => {
     const el = document.getElementById("control");
@@ -105,6 +108,7 @@ const browser = await chromium.launch();
   // --- back / forward ---
   await page.evaluate(() => window.scrollTo(0, 0));
   await page.goto(`${BASE}#market`, { waitUntil: "networkidle" });
+  await dismissCurtain(page);
   await sleep(500);
   await page.goBack({ waitUntil: "networkidle" });
   await sleep(500);
@@ -114,6 +118,7 @@ const browser = await chromium.launch();
 
   // --- keyboard: tab into the nav and operate it ---
   await page.goto(BASE, { waitUntil: "networkidle" });
+  await dismissCurtain(page);
   await sleep(500);
   let navFocused = false;
   for (let i = 0; i < 24 && !navFocused; i++) {
@@ -153,6 +158,7 @@ const browser = await chromium.launch();
    * operating it must not desynchronise the scroll-derived narrative.
    */
   await page.goto(BASE, { waitUntil: "networkidle" });
+  await dismissCurtain(page);
   await sleep(500);
 
   /** Scroll to a scene's midpoint, then click the nth control matching sel. */
@@ -286,6 +292,7 @@ const browser = await chromium.launch();
   page.on("console", (m) => m.type() === "error" && errors.push(m.text()));
 
   await page.goto(BASE, { waitUntil: "networkidle" });
+  await dismissCurtain(page);
   await sleep(600);
 
   // touch-scroll the whole page

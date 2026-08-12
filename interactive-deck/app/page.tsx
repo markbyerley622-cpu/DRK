@@ -1,6 +1,9 @@
 import { WorldProvider } from "@/hooks/useWorld";
 import { DrkWorld } from "@/components/world/DrkWorld";
 import { DeckNav } from "@/components/deck/DeckNav";
+import { IntroCurtain } from "@/components/deck/IntroCurtain";
+import { Cursor } from "@/components/deck/Cursor";
+import { SmoothScroll } from "@/components/deck/SmoothScroll";
 import { Intro } from "@/components/sections/Intro";
 import { Opacity } from "@/components/sections/Opacity";
 import { Engine } from "@/components/sections/Engine";
@@ -26,6 +29,13 @@ import { Close } from "@/components/sections/Close";
 export default function Page() {
   return (
     <WorldProvider>
+      {/* The title card the deck opens on. Leaves by itself in two seconds. */}
+      <IntroCurtain />
+
+      {/* Feel. Both are capability-gated and both no-op under reduced motion. */}
+      <SmoothScroll />
+      <Cursor />
+
       {/* One persistent world beneath everything. */}
       <DrkWorld />
       <DeckNav />

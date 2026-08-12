@@ -41,3 +41,9 @@ Pitch deck.pdf
 # recording of the live application on mainnet and shows real pool, wallet and
 # execution values. Treat it as published: it is in public git history and is
 # served unauthenticated from the deployed deck.
+
+# --- source media masters ---------------------------------------------------
+# The client's raw screen recording (42MB). Its deploy-sized, chaptered outputs
+# are tracked at interactive-deck/public/demo/ and are what actually ships; the
+# master is kept locally so the repo does not carry a second large video blob.
+demo final.mp4

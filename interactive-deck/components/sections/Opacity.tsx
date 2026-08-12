@@ -3,6 +3,7 @@
 import { useRef } from "react";
 import Image from "next/image";
 import { Scene, SceneStage, SceneShell, SceneHead } from "@/components/deck/Scene";
+import { BrandMark, hasBrandMark } from "@/components/ui/BrandMark";
 import { Signal, StatusDot } from "@/components/ui/primitives";
 import { useSceneNarrative } from "@/hooks/useScene";
 import { opacity } from "@/content/drk";
@@ -33,6 +34,14 @@ const GATE_X = 38; // the vault mouth, where the shutters live
    label ("PROGRAMS"). At 390px a chip starting at 88% runs off the viewport. */
 const OUT_X_DESKTOP = 86;
 const OUT_X_MOBILE = 72;
+/**
+ * The input token chip. One size per breakpoint, marked or not.
+ *
+ * The four inputs sit 22% of the diagram's height apart, so on a phone the
+ * chips have to be small enough to leave their tickers somewhere to go: at the
+ * desktop size the label of one input lands under the next one.
+ */
+const TOKEN_CHIP = { desktop: "clamp(2.5rem,4.2vw,3.3rem)", mobile: "1.8rem" };
 
 export function Opacity() {
   const ref = useRef<HTMLElement>(null);
@@ -342,24 +351,67 @@ function VaultDiagram({
       </svg>
 
       {/* ---- input tokens ---- */}
+      {/*
+        The four inputs are real assets, so they arrive as themselves: the
+        official mark where DRK has supplied one, and the ticker set beneath it
+        either way. The client's own token has no mark to supply — it is
+        whichever token is launching — so it keeps a neutral glyph rather than
+        borrowing somebody else's.
+      */}
       {opacity.inputs.map((tick, i) => {
         const on = range(enter, i * 0.14, i * 0.14 + 0.42);
+        const lit = on > 0.4;
+        const chip = isDesktop ? TOKEN_CHIP.desktop : TOKEN_CHIP.mobile;
         return (
           <span
             key={tick}
-            className="absolute flex -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full border bg-[var(--color-panel)] transition-colors duration-[420ms] ease-[cubic-bezier(0.16,0.84,0.24,1)]"
-            style={{
-              left: "9%",
-              top: `${IN_Y[i]}%`,
-              width: "clamp(2.6rem,4.4vw,3.5rem)",
-              height: "clamp(2.6rem,4.4vw,3.5rem)",
-              borderColor:
-                on > 0.4 ? "var(--color-hairline-signal)" : "var(--color-hairline)",
-            }}
+            /* Positioned on the chip's centre, not the group's: the flow paths
+               are welded to this point and a caption below must not shift it. */
+            className="absolute -translate-x-1/2 -translate-y-1/2"
+            style={{ left: "9%", top: `${IN_Y[i]}%` }}
           >
+            {hasBrandMark(tick) ? (
+              <BrandMark name={tick} size={chip} lit={lit} />
+            ) : (
+              <span
+                className="grid place-items-center rounded-full border transition-colors duration-[420ms] ease-[cubic-bezier(0.16,0.84,0.24,1)]"
+                style={{
+                  width: chip,
+                  height: chip,
+                  background: "var(--color-panel-2)",
+                  borderColor: lit
+                    ? "var(--color-hairline-signal)"
+                    : "var(--color-hairline)",
+                }}
+              >
+                <svg
+                  viewBox="0 0 24 24"
+                  className="size-[46%]"
+                  aria-hidden
+                  fill="none"
+                  style={{
+                    color: lit ? "var(--color-signal)" : "var(--color-dim)",
+                  }}
+                >
+                  <circle
+                    cx="12"
+                    cy="12"
+                    r="9"
+                    stroke="currentColor"
+                    strokeWidth="1.6"
+                    strokeDasharray="3.2 2.6"
+                  />
+                  <path d="M12 7.4l3.4 4.6-3.4 4.6-3.4-4.6z" fill="currentColor" />
+                </svg>
+              </span>
+            )}
+
             <span
-              className="drk-mono text-[clamp(0.62rem,0.9vw,0.78rem)] tracking-[0.04em] transition-colors duration-[420ms] ease-[cubic-bezier(0.16,0.84,0.24,1)]"
-              style={{ color: on > 0.4 ? "var(--color-ink-soft)" : "var(--color-faint)" }}
+              className={cn(
+                "drk-label absolute left-1/2 top-full -translate-x-1/2 whitespace-nowrap text-[0.5rem] leading-none transition-colors duration-[420ms] ease-[cubic-bezier(0.16,0.84,0.24,1)]",
+                isDesktop ? "mt-1.5" : "mt-[3px]",
+              )}
+              style={{ color: lit ? "var(--color-ink-soft)" : "var(--color-faint)" }}
             >
               {tick}
             </span>

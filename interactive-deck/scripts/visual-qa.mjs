@@ -10,6 +10,7 @@
  *   node scripts/visual-qa.mjs --reduced          # reduced-motion pass
  */
 import { chromium } from "@playwright/test";
+import { dismissCurtain } from "./curtain.mjs";
 import fs from "node:fs";
 import path from "node:path";
 
@@ -71,6 +72,7 @@ async function run() {
     });
 
     await page.goto(BASE, { waitUntil: "networkidle" });
+    await dismissCurtain(page);
     await page.evaluate(() => document.fonts.ready);
     await sleep(700);
 

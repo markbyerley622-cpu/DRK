@@ -10,6 +10,7 @@
  *   node scripts/a11y.mjs
  */
 import { chromium } from "@playwright/test";
+import { dismissCurtain } from "./curtain.mjs";
 import fs from "node:fs";
 import { createRequire } from "node:module";
 
@@ -36,6 +37,7 @@ for (const vp of VIEWPORTS) {
   });
   const page = await ctx.newPage();
   await page.goto(BASE, { waitUntil: "networkidle" });
+  await dismissCurtain(page);
   await page.evaluate(() => document.fonts.ready);
 
   // walk the page so every in-view reveal has fired
