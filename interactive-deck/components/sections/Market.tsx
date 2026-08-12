@@ -31,14 +31,6 @@ const SEQ_OUT = 0.92;
 /** `activeIndex` lead — step 01 holds briefly before the sequence advances. */
 const SEQ_LEAD = 0.02;
 
-/**
- * Language reused verbatim from the `illustrativeSeries.marketShapes` note in
- * `content/drk.ts`, so the caption on screen and the provenance comment in the
- * content file cannot drift apart.
- */
-const SHAPE_NOTE =
-  "Illustrative shape only — it carries no data and asserts nothing. The figure, description, source and date beside it are transcribed exactly.";
-
 export function Market() {
   const ref = useRef<HTMLElement>(null);
   const { p, scrub } = useSceneNarrative(ref);
@@ -268,11 +260,7 @@ export function Market() {
                     className="flex min-h-[clamp(5.5rem,13vh,9rem)] flex-1 flex-col [&>svg]:h-auto! [&>svg]:min-h-0! [&>svg]:flex-1!"
                   />
 
-                  <p className="mt-[clamp(0.8rem,1.9vh,1.3rem)] max-w-[46ch] text-[0.72rem] leading-relaxed text-[var(--color-fineprint)]">
-                    {SHAPE_NOTE}
-                  </p>
-
-                  <SourceRef className="mt-[clamp(0.5rem,1.2vh,0.85rem)]">{step.source}</SourceRef>
+                  <SourceRef className="mt-[clamp(0.8rem,1.9vh,1.3rem)]">{step.source}</SourceRef>
                 </div>
               </div>
             ) : (
@@ -320,11 +308,6 @@ export function Market() {
                       <SourceRef className="mt-2">{s.source}</SourceRef>
                     </Reveal>
                   ))}
-                  <li className="pt-1">
-                    <p className="text-[0.72rem] leading-relaxed text-[var(--color-fineprint)]">
-                      {SHAPE_NOTE}
-                    </p>
-                  </li>
                 </ol>
                 {payoff}
               </div>

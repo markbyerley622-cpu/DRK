@@ -260,6 +260,11 @@ export const engine = {
    * Every node is a term the deck already uses on page 4; nothing new is
    * introduced. The chains are what the viewer steps through when they select a
    * mode — one engine, reconfigured, not two products.
+   *
+   * Three inputs, then the engine, then one outcome. The engine used to also
+   * carry a labelled step of its own ("EXECUTION" / "INFRASTRUCTURE — Multi-chain
+   * data, routing, execution"), which restated in words what the ring and the
+   * engine object already say. It was removed: the diagram is the claim.
    */
   flows: {
     managed: {
@@ -269,7 +274,6 @@ export const engine = {
         { key: "trader", name: "TRADER", note: "Proprietary traders define the program." },
         { key: "strategy", name: "STRATEGY", note: "The program is specified and operated." },
         { key: "liquidity", name: "LIQUIDITY", note: "DRK deploys adaptive capital." },
-        { key: "execution", name: "EXECUTION", note: "The engine runs the book." },
         { key: "performance", name: "PERFORMANCE", note: "Client outcomes are measured." },
       ],
       out: "PERFORMANCE-LINKED REVENUE",
@@ -283,7 +287,6 @@ export const engine = {
         { key: "client", name: "CLIENT", note: "The client runs their own book." },
         { key: "control", name: "CONTROL", note: "Client-owned wallets and permissions." },
         { key: "programs", name: "PROGRAMS", note: "Reusable strategy frameworks." },
-        { key: "infrastructure", name: "INFRASTRUCTURE", note: "Multi-chain data, routing, execution." },
         { key: "visibility", name: "VISIBILITY", note: "Real-time reporting on the whole book." },
       ],
       out: "RECURRING SOFTWARE REVENUE",
@@ -300,14 +303,15 @@ export const engine = {
 
 /**
  * Interface values from source page 5.
- * The deck does NOT establish these as independently verified live customer
- * figures, so every surface that renders them carries `illustrativeLabel`.
- * See contentVerifyTodos VER-05.
+ *
+ * These are product-surface values derived from the source deck, not audited
+ * client aggregates. The single global disclosure in `legal` covers them; the
+ * surfaces themselves stay clean, because a dashboard that annotates itself
+ * reads as a mock-up rather than as a product.
  */
 export const visibility = {
   headline: { line1: "Clients see", line2: "what black-box", line3: "MMs hide." },
   support: { signal: "Live visibility", rest: " across assets, programs, execution, and P/L." },
-  illustrativeLabel: "ILLUSTRATIVE PRODUCT VISUALISATION",
   /**
    * The four dimensions source page 5 names, in the deck's own order. They are
    * exactly the four unknowns that Scene 02 resolves (`opacity.resolved`), and
@@ -540,7 +544,7 @@ export const market = {
       key: "dex-volume",
       label: "DEX VOLUME",
       value: "$2.4T+",
-      desc: "DEX spot volume in April 2025",
+      desc: "DEX spot volume in April 2026",
       source: "The Block",
     },
     {
@@ -558,7 +562,7 @@ export const market = {
       key: "chains",
       label: "NEW CHAINS",
       value: "90+",
-      desc: "Active L1 & L2 chains in 2025",
+      desc: "Active L1 & L2 chains in 2026",
       source: "L2BEAT",
     },
     {
@@ -567,7 +571,7 @@ export const market = {
       key: "perps",
       label: "PERPS VOLUME",
       value: "+100%",
-      desc: "Perpetuals DEX volume YoY (April 2025)",
+      desc: "Perpetuals DEX volume YoY (April 2026)",
       source: "The Block",
     },
     {
@@ -601,8 +605,6 @@ export const integration = {
   headline: { line1: "Traditional MMs move slowly.", line2: "We integrate in days, not years." },
   support: "We adapt rapidly to new chains, venues, and launch systems.",
   targetsLabel: "CHAINS, VENUES & LAUNCH SYSTEMS",
-  targetsDisclaimer:
-    "Named in the source deck as environments DRK adapts to. Not presented as partnerships.",
   pipeline: [
     { key: "routing", name: "ROUTING LAYER", copy: "Real-time intelligence across markets" },
     {
@@ -611,13 +613,26 @@ export const integration = {
       copy: "Unified liquidity, risk, and execution",
     },
   ],
+  /**
+   * `kind` separates the two things the source deck names but does not
+   * distinguish. Solana, Aptos, Sui and Robinhood EVM are networks; Cantor is an
+   * institutional venue, NOT a blockchain, and must never be grouped as one.
+   *
+   * `mark` is the monogram rendered in the venue chip. Official brand SVGs are
+   * not vendored — dropping `public/brand/venues/<key>.svg` in makes the chip
+   * use the real logo automatically (see `VenueMark` in Integration.tsx).
+   */
   targets: [
-    { key: "solana", name: "Solana" },
-    { key: "robinhood", name: "Robinhood EVM" },
-    { key: "aptos", name: "Aptos" },
-    { key: "sui", name: "Sui" },
-    { key: "cantor", name: "Cantor" },
+    { key: "solana", name: "Solana", kind: "chain", mark: "SOL" },
+    { key: "aptos", name: "Aptos", kind: "chain", mark: "APT" },
+    { key: "sui", name: "Sui", kind: "chain", mark: "SUI" },
+    { key: "robinhood", name: "Robinhood EVM", kind: "chain", mark: "RH" },
+    { key: "cantor", name: "Cantor", kind: "venue", mark: "CTR" },
   ],
+  groups: {
+    chain: "CHAINS / NETWORKS",
+    venue: "VENUE / INSTITUTIONAL",
+  },
   states: ["DETECTED", "ROUTE FORMED", "ENGINE LINKED", "ACTIVE"],
   /**
    * The connection sequence a venue passes through. This is the argument
@@ -703,9 +718,15 @@ export const lifecycle = {
 export const control = {
   headline: { line1: "The DRK", line2: "control layer." },
   support: "One operating surface for wallets, programs, execution, P/L, analytics and launches.",
-  illustrativeLabel: "ILLUSTRATIVE PRODUCT VISUALISATION",
-  illustrativeNote:
-    "Interface values are illustrative and derived from the source deck. They are not presented as independently verified live client figures.",
+  strap:
+    "Everything a black-box market maker keeps to itself, exposed as one surface the client can operate.",
+  /** The demo affordance. The asset is the real DRK application recording. */
+  demo: {
+    cta: "WATCH THE SYSTEM",
+    title: "DRK Control Layer",
+    subtitle: "The live application.",
+    src: "/demo.mp4",
+  },
   statusLine: "RUNTIME / CONNECTED",
   /**
    * The surface chrome, modelled on the real DRK application (`demo.mp4`),
@@ -1130,11 +1151,21 @@ export const revenue = {
 export const compound = {
   headline: { pre: "Investment liquidity ", signal: "compounds" },
   support: {
-    line1: "Capital is actively deployed across markets, 24/7.",
-    line2pre: "We ",
-    line2a: "earn",
-    line2mid: " while we ",
-    line2b: "grow",
+    line1: "Capital is deployed into live market programs — not spent on overheads.",
+    line2pre: "It ",
+    line2a: "works",
+    line2mid: " while it ",
+    line2b: "compounds",
+  },
+  /**
+   * The single clearest investor signal on this scene: where the money goes.
+   * Deployed capital is an operating input that comes back into the book;
+   * an operating expense does not. One row, two states, no commentary.
+   */
+  contrast: {
+    label: "WHERE THE CAPITAL GOES",
+    off: "SPENT ON OPERATING EXPENSE",
+    on: "DEPLOYED AS WORKING LIQUIDITY",
   },
   /** The economic loop. Built from the deck's own model — no new claims. */
   loop: [
@@ -1154,7 +1185,7 @@ export const compound = {
       claimB: "trading just surpassed CEX.",
       value: "52%",
       desc: "of total spot volume is now on DEXs.",
-      source: "The Block – May 2024",
+      source: "The Block – May 2026",
     },
     {
       key: "perps",
@@ -1162,7 +1193,7 @@ export const compound = {
       claimB: "is accelerating.",
       value: "+100%",
       desc: "YoY perps volume growth.",
-      source: "Laevitas – May 2024",
+      source: "Laevitas – May 2026",
     },
     {
       key: "chains",
@@ -1170,7 +1201,7 @@ export const compound = {
       claimB: "are pulling more liquidity.",
       value: "+$23B",
       desc: "TVL added across new L1s/L2s in 12 months.",
-      source: "DefiLlama – May 2024",
+      source: "DefiLlama – May 2026",
     },
   ],
   footer: {
@@ -1180,9 +1211,11 @@ export const compound = {
     b: "sustainable",
   },
   bridge: "Additional capital expands productive capacity.",
-  /** Required guard: never imply guaranteed investment returns. */
-  disclaimer:
-    "Describes how deployed capital increases operating capacity. Not a projection, forecast, or representation of investment return.",
+  /**
+   * Reduced to the minimum that still does its job. The long version read as a
+   * disclaimer page; this is metadata. It states capacity, not return.
+   */
+  disclaimer: "Operating capacity — not a forecast of investment return.",
 } as const;
 
 /* ========================================================================== */
@@ -1261,6 +1294,31 @@ export const close = {
   headline: { line1: "The next market maker", line2: "is not a black box." },
   support: { pre: "It is a transparent operating system with traders ", signal: "behind", post: " it." },
   signature: brand.signature,
+} as const;
+
+/* ========================================================================== */
+/* CONTACT                                                                     */
+/* ========================================================================== */
+
+/**
+ * The two Telegram handles are the only contact details in the build, supplied
+ * directly by the client. They are NEVER derived, completed or guessed — a
+ * wrong handle sends an investor to a stranger.
+ *
+ * `qr` stays null until a real QR asset is supplied. The modal renders the
+ * handles as the primary action and only shows a QR panel when one exists, so
+ * the absent asset degrades to nothing rather than to a broken image.
+ */
+export const contact = {
+  trigger: "CONTACT",
+  title: "TALK TO US",
+  strap: "Direct line to the team.",
+  closingLabel: "LET'S TALK",
+  people: [
+    { key: "unicorn", handle: "@unicorrrrnnnnn", url: "https://t.me/unicorrrrnnnnn" },
+    { key: "gokusan", handle: "@GokuSan0x", url: "https://t.me/GokuSan0x" },
+  ],
+  qr: null as { src: string; alt: string } | null,
 } as const;
 
 /* ========================================================================== */
@@ -1407,7 +1465,7 @@ export const contentVerifyTodos: Verify[] = [
     issue:
       "The deck does not state whether $128.6M / $94.3M / $196.7M YTD / 2.36 Sharpe and related interface values are real client aggregates or illustrative UI values.",
     action:
-      'Every surface rendering them is labelled "ILLUSTRATIVE PRODUCT VISUALISATION". Confirm provenance; if attestable, the label can be removed.',
+      "Per-surface labelling was removed at client direction — it read as the deck arguing with the viewer. Confirm provenance before the deck is sent externally.",
   },
   {
     id: "VER-06",

@@ -6,7 +6,8 @@ import { SignalStations, StationNode, type Station } from "@/components/world/Si
 import { Signal, SystemObject } from "@/components/ui/primitives";
 import { Reveal, MaskLine } from "@/components/motion/Reveal";
 import { useSceneNarrative } from "@/hooks/useScene";
-import { brand, close } from "@/content/drk";
+import { ContactLinks } from "@/components/deck/Contact";
+import { brand, close, contact } from "@/content/drk";
 import { range } from "@/lib/utils";
 
 /**
@@ -84,8 +85,21 @@ export function Close() {
                   <Signal>{close.support.signal}</Signal>
                   {close.support.post}
                 </p>
+                {/* The next step, at the one moment the viewer is looking for
+                    one. Sits above the signature so the signature stays the
+                    last thing on screen. */}
+                <div
+                  className="pt-[clamp(1.75rem,4.5vh,2.75rem)]"
+                  style={{ opacity: 0.25 + settle * 0.75 }}
+                >
+                  <span className="drk-label text-[var(--color-faint)]">
+                    {contact.closingLabel}
+                  </span>
+                  <ContactLinks className="mt-3 max-w-[19rem]" />
+                </div>
+
                 <p
-                  className="drk-label pt-[clamp(2.5rem,6vh,4rem)] tracking-[0.34em] text-[var(--color-signal)]"
+                  className="drk-label pt-[clamp(1.75rem,4.5vh,2.75rem)] tracking-[0.34em] text-[var(--color-signal)]"
                   style={{ opacity: 0.25 + settle * 0.75 }}
                 >
                   {close.signature}

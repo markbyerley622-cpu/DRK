@@ -3,7 +3,8 @@
 import { useEffect, useRef, useState } from "react";
 import { Scene, SceneStage, SceneShell, SceneHead } from "@/components/deck/Scene";
 import { ControlLayer } from "@/components/product/ControlLayer";
-import { IllustrativeBadge, Signal } from "@/components/ui/primitives";
+import { DemoPlayer } from "@/components/product/DemoPlayer";
+import { Signal } from "@/components/ui/primitives";
 import { useSceneNarrative } from "@/hooks/useScene";
 import { control } from "@/content/drk";
 import { activeIndex, range } from "@/lib/utils";
@@ -68,17 +69,14 @@ export function Control() {
               </SceneHead>
 
               <p className="mt-[clamp(1.5rem,3.4vh,2.4rem)] hidden text-[0.86rem] leading-relaxed text-[var(--color-ink-soft)] xl:block">
-                Everything a black-box market maker keeps to itself, exposed as one
-                surface the client can operate.
+                {control.strap}
               </p>
+
+              {/* The reconstruction is beside this; the recording is behind it. */}
+              <DemoPlayer className="mt-[clamp(1.25rem,2.8vh,1.9rem)]" />
 
               <p className="drk-label mt-[clamp(1rem,2.4vh,1.6rem)] hidden text-[var(--color-signal)] xl:block">
                 SELECT A MODULE TO INSPECT
-              </p>
-
-              <IllustrativeBadge className="mt-[clamp(1rem,2.4vh,2rem)]" />
-              <p className="mt-3 hidden max-w-[40ch] text-[0.76rem] leading-relaxed text-[var(--color-fineprint)] xl:block">
-                {control.illustrativeNote}
               </p>
             </div>
 

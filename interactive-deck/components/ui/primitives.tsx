@@ -158,26 +158,6 @@ export function StatusDot({
 }
 
 /* ========================================================================== */
-/* ILLUSTRATIVE BADGE — required by TODO_CONTENT_VERIFY VER-05                 */
-/* ========================================================================== */
-
-export function IllustrativeBadge({ className, note }: { className?: string; note?: string }) {
-  return (
-    <div className={cn("flex flex-wrap items-center gap-x-3 gap-y-1", className)}>
-      {/* A compliance disclosure may never be clipped. It wraps rather than
-          overflowing when the column is narrow. */}
-      <span className="inline-flex max-w-full items-center gap-2 rounded-[999px] border border-[var(--color-hairline-strong)] bg-[var(--color-panel)] px-3 py-1">
-        <span aria-hidden className="size-1 shrink-0 rounded-full bg-[var(--color-warn)]" />
-        <span className="drk-label text-[0.62rem] leading-[1.5] tracking-[0.14em] text-[var(--color-warn)]">
-          ILLUSTRATIVE PRODUCT VISUALISATION
-        </span>
-      </span>
-      {note && <span className="text-[0.78rem] text-[var(--color-fineprint)]">{note}</span>}
-    </div>
-  );
-}
-
-/* ========================================================================== */
 /* DATA NODE — the recurring route/graph joint                                 */
 /* ========================================================================== */
 

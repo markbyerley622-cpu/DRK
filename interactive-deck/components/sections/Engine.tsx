@@ -17,10 +17,10 @@ import { MOTION, TW } from "@/lib/motion";
  * open on two of anything: it opens on ONE engine, and then the SAME engine is
  * reconfigured twice.
  *
- * Both chains are five steps long and the engine occupies step four in each —
- * EXECUTION under managed trading, INFRASTRUCTURE under the licensed runtime.
- * So when the viewer switches mode the inputs and the outcome change while the
- * core stays exactly where it was. That is the argument, made structurally:
+ * Both chains are three inputs and one outcome, and the engine sits between them
+ * in each. So when the viewer switches mode the inputs and the outcome change
+ * while the core stays exactly where it was. That is the argument, made
+ * structurally:
  *
  *   ONE ENGINE. PERFORMANCE REVENUE TODAY. RECURRING SOFTWARE REVENUE AT SCALE.
  *
@@ -209,30 +209,16 @@ export function Engine() {
                 />
               </div>
 
-              {/* What the core IS in this configuration. It is step 04 of the
-                  chain and must say so — a list that runs 01, 02, 03, 05 reads
-                  as a missing row, not as a design decision. */}
+              {/* The core carries the claim and nothing else. It used to append a
+                  step-04 caption ("INFRASTRUCTURE — Multi-chain data, routing,
+                  execution") restating in prose what the ring and the engine
+                  object already show. */}
               <div className="mt-3 text-center">
                 <p className="drk-label leading-[1.7] text-[var(--color-signal)]">
                   {engine.core.line1}
                   <br />
                   {engine.core.line2}
                 </p>
-                <AnimatePresence mode="wait">
-                  <motion.p
-                    key={mode.chain[3].key}
-                    initial={{ opacity: 0, y: 5 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0, y: -5 }}
-                    transition={MOTION.ui}
-                    className="mt-2 text-[0.8rem] text-[var(--color-muted)]"
-                  >
-                    <span className="drk-mono mr-1.5 text-[var(--color-signal)]">04</span>
-                    <span className="text-[var(--color-ink-soft)]">{mode.chain[3].name}</span>
-                    {" — "}
-                    {mode.chain[3].note}
-                  </motion.p>
-                </AnimatePresence>
               </div>
             </div>
 
@@ -249,9 +235,9 @@ export function Engine() {
                 >
                   <ul className="contents">
                     <ChainNode
-                      step="05"
-                      name={mode.chain[4].name}
-                      note={mode.chain[4].note}
+                      step="04"
+                      name={mode.chain[3].name}
+                      note={mode.chain[3].note}
                       on={range(local, 0.6, 0.82)}
                       align="left"
                     />
@@ -318,40 +304,37 @@ function BothModes() {
           </div>
 
           <ol className="mt-3 flex flex-col gap-2">
-            {mode.chain.map((n, i) => {
-              const isCore = i === 3;
-              return (
-                <li
-                  key={n.key}
-                  className={cn(
-                    "flex items-start gap-3 rounded-[9px] border px-3 py-2.5",
-                    isCore
-                      ? "border-[var(--color-hairline-signal)] bg-[var(--color-panel-2)]"
-                      : "border-[var(--color-hairline)] bg-[color-mix(in_srgb,var(--color-void)_50%,var(--color-panel))]",
-                  )}
-                >
-                  <span
-                    className={cn(
-                      "drk-mono mt-[0.15rem] shrink-0 text-[0.66rem]",
-                      isCore ? "text-[var(--color-signal)]" : "text-[var(--color-faint)]",
-                    )}
+            {mode.chain.map((n, i) => (
+              <li key={n.key} className="contents">
+                {/* The engine sits between the three inputs and the outcome, as
+                    it does on desktop — unnumbered, because it is the constant
+                    the chain runs through rather than a step of it. */}
+                {i === 3 && (
+                  <div
+                    aria-hidden
+                    className="flex items-center gap-3 rounded-[9px] border border-[var(--color-hairline-signal)] bg-[var(--color-panel-2)] px-3 py-2"
                   >
+                    <SystemObject id="execution-engine" scale="chip" />
+                    <span className="drk-label leading-[1.6] text-[var(--color-signal)]">
+                      {engine.core.line1} {engine.core.line2}
+                    </span>
+                  </div>
+                )}
+                <div className="flex items-start gap-3 rounded-[9px] border border-[var(--color-hairline)] bg-[color-mix(in_srgb,var(--color-void)_50%,var(--color-panel))] px-3 py-2.5">
+                  <span className="drk-mono mt-[0.15rem] shrink-0 text-[0.66rem] text-[var(--color-faint)]">
                     {String(i + 1).padStart(2, "0")}
                   </span>
                   <span className="min-w-0 flex-1">
                     <span className="block text-[0.78rem] font-semibold uppercase leading-tight tracking-[0.11em] text-[var(--color-ink)]">
                       {n.name}
-                      {isCore && (
-                        <span className="ml-2 text-[var(--color-signal)]">— THE ENGINE</span>
-                      )}
                     </span>
                     <span className="mt-1 block text-[0.84rem] leading-snug text-[var(--color-muted)]">
                       {n.note}
                     </span>
                   </span>
-                </li>
-              );
-            })}
+                </div>
+              </li>
+            ))}
           </ol>
 
           <div className="mt-3 rounded-[10px] border border-[var(--color-hairline-signal)] bg-[var(--color-panel-2)] p-3.5">

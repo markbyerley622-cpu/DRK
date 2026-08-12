@@ -1,7 +1,8 @@
 "use client";
 
-import { useCallback, useRef } from "react";
+import { useCallback, useRef, useState } from "react";
 import { sections, brand } from "@/content/drk";
+import { ContactModal, ContactTrigger } from "@/components/deck/Contact";
 import { useWorld } from "@/hooks/useWorld";
 import { SYSTEM_STATE } from "@/lib/world";
 import { cn } from "@/lib/utils";
@@ -21,6 +22,7 @@ export function DeckNav() {
   const { active, activeIndex, total, jump } = useWorld();
   const navRef = useRef<HTMLElement>(null);
   const sys = SYSTEM_STATE[active];
+  const [contactOpen, setContactOpen] = useState(false);
 
   const onKeyDown = useCallback((e: React.KeyboardEvent, index: number) => {
     const dir =
@@ -75,6 +77,16 @@ export function DeckNav() {
           </span>
         </a>
       </div>
+
+      {/* ---------- contact ----------
+          Desktop only in this slot: it sits on the rail's own right offset, so
+          it reads as the top of the same column rather than as a floating
+          button. The rail itself is vertically centred, so nothing collides.
+          Narrow viewports get the trigger inside the top bar instead. */}
+      <div className="pointer-events-none fixed right-[clamp(1rem,2.5vw,2.25rem)] top-8 z-45 hidden lg:block">
+        <ContactTrigger onOpen={() => setContactOpen(true)} />
+      </div>
+      <ContactModal open={contactOpen} onClose={() => setContactOpen(false)} />
 
       {/* ---------- desktop rail ---------- */}
       <nav
@@ -180,12 +192,18 @@ export function DeckNav() {
             {sections[activeIndex]?.label}
           </span>
           <span className="flex shrink-0 items-center gap-2">
-            <span className="drk-label hidden text-[var(--color-faint)] sm:inline">
+            {/* Dropped below sm: the contact trigger takes this room, and the
+                scene state is already carried by the label on the left. */}
+            <span className="drk-label hidden text-[var(--color-faint)] md:inline">
               {sys.state}
             </span>
             <span className="drk-label drk-mono text-[var(--color-faint)]">
               {sections[activeIndex]?.index} / 14
             </span>
+            <ContactTrigger
+              onOpen={() => setContactOpen(true)}
+              className="px-2.5 py-1 text-[0.58rem]"
+            />
           </span>
         </div>
       </nav>

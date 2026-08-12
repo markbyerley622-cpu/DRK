@@ -11,7 +11,8 @@
     "qa": "node scripts/visual-qa.mjs",
     "qa:reduced": "node scripts/visual-qa.mjs --reduced",
     "qa:a11y": "node scripts/a11y.mjs",
-    "qa:interaction": "node scripts/interaction-qa.mjs"
+    "qa:interaction": "node scripts/interaction-qa.mjs",
+    "qa:modals": "node scripts/modal-qa.mjs"
   },
   "dependencies": {
     "motion": "^12.23.12",

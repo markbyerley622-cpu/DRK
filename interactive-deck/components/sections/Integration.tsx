@@ -18,15 +18,64 @@ import { clamp01, cn, range, smoothPath } from "@/lib/utils";
  * acceleration IS the argument — the last venue snaps in while the first was
  * still forming a route.
  *
- * Targets are typographic. The deck names them as chains/venues DRK adapts to,
- * not as partnerships, clients or signed integrations, and neither does this
- * (VER-06). No third-party logos are reproduced.
+ * The deck names these as chains/venues DRK adapts to, not as partnerships,
+ * clients or signed integrations, and neither does this (VER-06). Nothing here
+ * asserts a relationship — the rows say what state a route to that environment
+ * is in, which is a statement about DRK's own stack.
  */
 
 /** The stage index at which a venue starts reporting — see `integration.sequence`. */
 const TELEMETRY = 4;
 /** The stage index at which the engine is attached and the node lights. */
 const LINKED = 3;
+
+/**
+ * Venues whose OFFICIAL brand SVG has been vendored to
+ * `public/brand/venues/<key>.svg`. No third-party logo is reproduced,
+ * approximated or redrawn here — an approximated logo is a fabricated logo. Add
+ * the real asset, add its key to this set, and the chip switches from the
+ * monogram to the mark with no other change.
+ */
+const VENUE_LOGOS = new Set<string>();
+
+type Target = (typeof integration.targets)[number];
+
+/**
+ * The venue chip. Monogram until a real logo exists, and identical in size and
+ * weight either way, so adding logos later cannot re-flow the row.
+ */
+function VenueMark({ t, lit }: { t: Target; lit: boolean }) {
+  return (
+    <span
+      aria-hidden
+      className={cn(
+        "grid size-[clamp(1.4rem,1.9vw,1.75rem)] shrink-0 self-center place-items-center rounded-[6px] border transition-colors duration-[420ms] ease-[cubic-bezier(0.16,0.84,0.24,1)]",
+        lit
+          ? "border-[var(--color-hairline-signal)] bg-[var(--color-panel-2)]"
+          : "border-[var(--color-hairline)] bg-[color-mix(in_srgb,var(--color-void)_50%,var(--color-panel))]",
+      )}
+    >
+      {VENUE_LOGOS.has(t.key) ? (
+        /* eslint-disable-next-line @next/next/no-img-element */
+        <img
+          src={`/brand/venues/${t.key}.svg`}
+          alt=""
+          className="size-[62%] object-contain"
+          loading="lazy"
+        />
+      ) : (
+        <span
+          className={cn(
+            "drk-mono text-[0.5rem] leading-none tracking-[0.06em]",
+            lit ? "text-[var(--color-signal)]" : "text-[var(--color-faint)]",
+          )}
+        >
+          {t.mark}
+        </span>
+      )}
+    </span>
+  );
+}
 
 /**
  * Authored integration windows.
@@ -359,8 +408,13 @@ export function Integration() {
 
                   {/* --- the venues coming online --- */}
                   <ul className="flex flex-col" aria-label={integration.targetsLabel}>
-                    {rows.map((r) => {
+                    {rows.map((r, i) => {
                       const stage = seq[r.stage];
+                      /* First row of each kind carries the group name. It is
+                         absolutely positioned so the label cannot consume flex
+                         height — the route endpoints are computed from the row
+                         index and would drift off the nodes if it did. */
+                      const opensGroup = i === 0 || rows[i - 1].t.kind !== r.t.kind;
                       return (
                         <li
                           key={r.t.key}
@@ -375,6 +429,15 @@ export function Integration() {
                             <DataNode active={r.linked} size={9} />
                           </span>
 
+                          {opensGroup && (
+                            <span
+                              aria-hidden
+                              className="drk-label absolute left-[clamp(0.7rem,1.4vw,1.15rem)] top-[0.15rem] text-[0.5rem] tracking-[0.2em] text-[var(--color-faint)]"
+                            >
+                              {integration.groups[r.t.kind]}
+                            </span>
+                          )}
+
                           <div
                             className="min-w-0 flex-1 transition-opacity duration-[420ms] ease-[cubic-bezier(0.16,0.84,0.24,1)]"
                             style={{
@@ -382,6 +445,7 @@ export function Integration() {
                             }}
                           >
                             <div className="flex items-baseline gap-3">
+                              <VenueMark t={r.t} lit={r.linked} />
                               <span
                                 /*
                                  * Never truncated. A venue name reduced to "A…"
@@ -437,12 +501,6 @@ export function Integration() {
                     })}
                   </ul>
                 </div>
-
-                {/* Provenance for the whole panel, so it reads as a footnote to
-                    the venue list rather than as caption to the engine above. */}
-                <p className="mt-[clamp(1.1rem,2.6vh,2rem)] max-w-[62ch] border-t border-[var(--color-hairline)] pt-[clamp(0.6rem,1.4vh,1rem)] text-[0.74rem] leading-relaxed text-[var(--color-fineprint)]">
-                  {integration.targetsDisclaimer}
-                </p>
               </div>
             ) : (
               /*
@@ -498,21 +556,26 @@ export function Integration() {
                       <span className="drk-label">{integration.targetsLabel}</span>
                   </div>
                   <ul className="mt-3 flex flex-col gap-2" aria-label={integration.targetsLabel}>
-                    {rows.map((r) => (
-                      <li key={r.t.key} className="drk-glass flex items-center gap-3 px-3.5 py-2.5">
-                        <DataNode active={r.linked} size={9} />
-                        <span className="min-w-0 flex-1 text-[0.95rem] font-medium leading-tight text-[var(--color-ink)]">
-                          {r.t.name}
-                        </span>
-                        <span className="drk-label shrink-0 text-[var(--color-signal)]">
-                          {seq[r.stage].label}
-                        </span>
+                    {rows.map((r, i) => (
+                      <li key={r.t.key} className="contents">
+                        {(i === 0 || rows[i - 1].t.kind !== r.t.kind) && (
+                          <span className="drk-label mt-2 block text-[0.54rem] tracking-[0.2em] text-[var(--color-faint)] first:mt-0">
+                            {integration.groups[r.t.kind]}
+                          </span>
+                        )}
+                        <div className="drk-glass flex items-center gap-3 px-3.5 py-2.5">
+                          <DataNode active={r.linked} size={9} />
+                          <VenueMark t={r.t} lit={r.linked} />
+                          <span className="min-w-0 flex-1 text-[0.95rem] font-medium leading-tight text-[var(--color-ink)]">
+                            {r.t.name}
+                          </span>
+                          <span className="drk-label shrink-0 text-[var(--color-signal)]">
+                            {seq[r.stage].label}
+                          </span>
+                        </div>
                       </li>
                     ))}
                   </ul>
-                  <p className="mt-3 text-[0.74rem] leading-relaxed text-[var(--color-fineprint)]">
-                    {integration.targetsDisclaimer}
-                  </p>
                 </Reveal>
               </div>
             )}

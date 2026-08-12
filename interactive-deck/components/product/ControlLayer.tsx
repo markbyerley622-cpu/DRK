@@ -562,15 +562,9 @@ function ModuleView({
     }
   })();
 
-  return (
-    <>
-      {body}
-      <p className="mt-4 border-t border-[var(--color-hairline)] pt-2.5 text-[0.72rem] leading-relaxed text-[var(--color-fineprint)]">
-        <span className="text-[var(--color-faint)]">Source capability: </span>
-        {m.capability}
-      </p>
-    </>
-  );
+  // The surface speaks for itself. It used to append a "Source capability: …"
+  // footnote restating, in prose, the module the viewer is already looking at.
+  return body;
 }
 
 /* -------------------------------------------------------------------------- */
@@ -1153,10 +1147,6 @@ function Launches({ dense }: { progress: number; dense: boolean }) {
           })}
         </ol>
       </div>
-
-      <p className="mt-4 text-[0.73rem] leading-snug text-[var(--color-fineprint)]">
-        Client identities are not disclosed in the source material.
-      </p>
     </>
   );
 }

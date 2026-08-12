@@ -242,10 +242,7 @@ export function Proof() {
                   label={`${launch.name}, ${launch.window}. The market fell steadily across the delivery window: lower highs and lower lows.`}
                 />
               </div>
-              <p className="mt-2 px-[clamp(0.9rem,1.6vw,1.3rem)] pb-[clamp(0.8rem,1.6vh,1.1rem)] text-[0.78rem] leading-relaxed text-[var(--color-fineprint)]">
-                Market direction across the delivery window. Shape is illustrative; the
-                risk-off condition is stated in the source deck.
-              </p>
+              <div aria-hidden className="pb-[clamp(0.8rem,1.6vh,1.1rem)]" />
 
               {/* result */}
               <div className="mt-auto border-t border-[var(--color-hairline)] p-[clamp(0.9rem,1.8vw,1.35rem)]">
@@ -306,9 +303,6 @@ export function Proof() {
 
               <p className="mt-[clamp(1.25rem,3vh,2.2rem)] max-w-[34ch] text-[clamp(1rem,1.5vw,1.25rem)] font-medium leading-snug text-[var(--color-ink-soft)]">
                 {proof.takeaway}
-              </p>
-              <p className="mt-2.5 max-w-[44ch] text-[0.8rem] leading-relaxed text-[var(--color-fineprint)]">
-                {proof.note}
               </p>
             </div>
           </div>

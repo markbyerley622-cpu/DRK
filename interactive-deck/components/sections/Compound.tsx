@@ -19,8 +19,9 @@ import { cn, range } from "@/lib/utils";
  * to make an economic argument look like a crypto landing page, and the ring is
  * on screen for the whole scene.
  *
- * Describes operating capacity only. The disclaimer is load-bearing: nothing
- * here may imply guaranteed investment return.
+ * Describes operating capacity only. Nothing here may imply guaranteed
+ * investment return — hence the contrast row states where capital GOES, never
+ * what it earns, and the note at the foot is metadata rather than argument.
  */
 
 const R = 30;
@@ -73,6 +74,25 @@ export function Compound() {
                 {compound.support.line2mid}
                 <Signal>{compound.support.line2b}</Signal>.
               </p>
+
+              {/* The one thing an investor has to leave this scene with: the
+                  money is an input to the machine, not a cost of running it. */}
+              <div className="mt-[clamp(1.1rem,2.6vh,1.75rem)] rounded-[10px] border border-[var(--color-hairline)] p-[clamp(0.75rem,1.6vh,1rem)]">
+                <span className="drk-label text-[0.56rem] tracking-[0.2em] text-[var(--color-faint)]">
+                  {compound.contrast.label}
+                </span>
+                <p className="mt-2 flex items-center gap-2.5 text-[0.84rem] leading-snug text-[var(--color-faint)] line-through decoration-[var(--color-hairline-strong)]">
+                  <span aria-hidden className="size-1 shrink-0 rounded-full bg-[var(--color-dim)]" />
+                  {compound.contrast.off}
+                </p>
+                <p className="mt-1.5 flex items-center gap-2.5 text-[0.9rem] font-medium leading-snug text-[var(--color-signal)]">
+                  <span
+                    aria-hidden
+                    className="size-1 shrink-0 rounded-full bg-[var(--color-signal)] shadow-[0_0_7px_0_rgba(0,224,96,0.9)]"
+                  />
+                  {compound.contrast.on}
+                </p>
+              </div>
 
               <ul className="mt-[clamp(1.25rem,3vh,2rem)] flex flex-col">
                 {compound.signals.map((s, i) => {
@@ -282,7 +302,8 @@ export function Compound() {
                 </ol>
               )}
 
-              <p className="mx-auto mt-4 max-w-[48ch] text-center text-[0.75rem] leading-relaxed text-[var(--color-fineprint)]">
+              {/* Metadata, not an argument: small, centred, unemphatic. */}
+              <p className="mx-auto mt-4 max-w-[48ch] text-center text-[0.66rem] leading-relaxed tracking-[0.02em] text-[var(--color-fineprint)]">
                 {compound.disclaimer}
               </p>
             </div>

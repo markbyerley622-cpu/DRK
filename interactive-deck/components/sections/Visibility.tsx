@@ -6,7 +6,7 @@ import { useEffect, useRef, useState } from "react";
 import { motion } from "motion/react";
 import { Scene, SceneStage, SceneShell, SceneHead } from "@/components/deck/Scene";
 import { ControlLayer } from "@/components/product/ControlLayer";
-import { IllustrativeBadge, Signal } from "@/components/ui/primitives";
+import { Signal } from "@/components/ui/primitives";
 import { useSceneNarrative } from "@/hooks/useScene";
 import { control, opacity, visibility } from "@/content/drk";
 import { activeIndex, cn, range } from "@/lib/utils";
@@ -190,8 +190,6 @@ export function Visibility() {
                   );
                 })}
               </ol>
-
-              <IllustrativeBadge className="mt-[clamp(1rem,2.6vh,1.75rem)]" />
             </div>
 
             {/* ---------------- the surface ---------------- */}
