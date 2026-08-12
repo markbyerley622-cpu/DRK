@@ -371,7 +371,7 @@ function VaultDiagram({
             style={{ left: "9%", top: `${IN_Y[i]}%` }}
           >
             {hasBrandMark(tick) ? (
-              <BrandMark name={tick} size={chip} lit={lit} />
+              <BrandMark name={tick} size={chip} lit={lit} pulse index={i} />
             ) : (
               <span
                 className="grid place-items-center rounded-full border transition-colors duration-[420ms] ease-[cubic-bezier(0.16,0.84,0.24,1)]"

@@ -130,6 +130,33 @@ export function DrkWorld() {
         }
       />
 
+      {/*
+        ---------- ambient drift ----------
+        Two very large, very faint bodies of light moving on long, unequal
+        periods. It is never a visible "effect" — at 4% and 3% peak opacity you
+        do not see them move, you only notice that the room is not a flat
+        colour. The unequal periods (34s / 47s) mean the pair never settles into
+        a repeating pattern the eye can lock onto.
+
+        Two elements, transform-only, no blur filter and no canvas: this has to
+        cost nothing on a phone, because it runs behind every scene for the
+        whole deck. Both stop dead under `prefers-reduced-motion`.
+      */}
+      <div
+        className="drk-drift-a absolute -inset-1/4"
+        style={{
+          background:
+            "radial-gradient(38rem 30rem at 28% 34%, rgba(0,224,96,0.042) 0%, rgba(0,224,96,0) 62%)",
+        }}
+      />
+      <div
+        className="drk-drift-b absolute -inset-1/4"
+        style={{
+          background:
+            "radial-gradient(44rem 26rem at 74% 66%, rgba(104,230,107,0.03) 0%, rgba(104,230,107,0) 60%)",
+        }}
+      />
+
       {/* ---------- depth: the room falls away at the edges ---------- */}
       <div
         className="absolute inset-0"

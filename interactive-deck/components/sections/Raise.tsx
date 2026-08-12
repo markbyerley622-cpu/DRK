@@ -10,7 +10,7 @@ import { cn, range, smoothPath } from "@/lib/utils";
 import { TW } from "@/lib/motion";
 
 /**
- * SCENE 13 — THE RAISE  (act three of three)
+ * SCENE 14 — THE RAISE  (act three of three)
  *
  * The raise is not a separate ask screen. Scene 11 ended on a pool labelled
  * CAPITAL; Scene 12 showed that pool compounding. Here $1M ENTERS that same
@@ -50,13 +50,13 @@ export function Raise() {
     <Scene
       sceneRef={ref}
       id="raise"
-      index="13"
+      index="14"
       title="$1M seed round — 80% productive, 20% platform"
       height="300vh"
     >
       <SceneStage>
         <SceneShell>
-          <SceneHead index="13" eyebrow="THE RAISE" size="h2" rule={false}>
+          <SceneHead index="14" eyebrow="THE RAISE" size="h2" rule={false}>
             <Signal>{raise.headline.amount}</Signal>
             {raise.headline.rest}
           </SceneHead>

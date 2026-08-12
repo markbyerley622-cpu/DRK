@@ -40,9 +40,20 @@ const CHIP = "clamp(1.55rem,2.1vw,2rem)";
  * has none, so it keeps its monogram in an identical chip — nothing is
  * approximated to make the row match (VER-06).
  */
-function VenueMark({ t, lit }: { t: Target; lit: boolean }) {
+function VenueMark({ t, lit, index }: { t: Target; lit: boolean; index: number }) {
   if (hasBrandMark(t.name)) {
-    return <BrandMark name={t.name} size={CHIP} lit={lit} className="self-center" />;
+    return (
+      <BrandMark
+        name={t.name}
+        size={CHIP}
+        lit={lit}
+        /* Breathes only once the engine has attached: an unconnected
+           network must not look like it is transacting. */
+        pulse
+        index={index}
+        className="self-center"
+      />
+    );
   }
   return (
     <span
@@ -434,7 +445,7 @@ export function Integration() {
                             }}
                           >
                             <div className="flex items-baseline gap-3">
-                              <VenueMark t={r.t} lit={r.linked} />
+                              <VenueMark t={r.t} lit={r.linked} index={i} />
                               <span
                                 /*
                                  * Never truncated. A venue name reduced to "A…"
@@ -549,7 +560,7 @@ export function Integration() {
                         )}
                         <div className="drk-glass flex items-center gap-3 px-3.5 py-2.5">
                           <DataNode active={r.linked} size={9} />
-                          <VenueMark t={r.t} lit={r.linked} />
+                          <VenueMark t={r.t} lit={r.linked} index={i} />
                           <span className="min-w-0 flex-1 text-[0.95rem] font-medium leading-tight text-[var(--color-ink)]">
                             {r.t.name}
                           </span>

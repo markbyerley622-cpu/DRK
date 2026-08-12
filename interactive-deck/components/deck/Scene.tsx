@@ -14,7 +14,7 @@ import { SYSTEM_STATE } from "@/lib/world";
  * "slide": there is no frame, no arrows, no page-turn.
  *
  * Scenes never paint a background. The ground, the light and the liquidity
- * signal are owned globally by `<DrkWorld>` — that is what makes the fourteen
+ * signal are owned globally by `<DrkWorld>` — that is what makes the fifteen
  * scenes read as one continuous machine rather than fourteen sections.
  */
 
@@ -90,11 +90,22 @@ export function SceneStage({
   children,
   className,
   strip = true,
+  tight = false,
 }: {
   children: ReactNode;
   className?: string;
   /** Set false for scenes that compose their own bottom edge (e.g. Close). */
   strip?: boolean;
+  /**
+   * Reclaim the stage's breathing room for scenes whose content IS the frame.
+   *
+   * The standard padding clears the fixed wordmark AND leaves room for a lede
+   * beneath a headline. Scene 11 is a single product surface that has to fill
+   * the viewport and has no lede, so it keeps only the wordmark clearance —
+   * which is a hard floor, not a preference: below it the scene's eyebrow
+   * collides with the fixed lockup.
+   */
+  tight?: boolean;
 }) {
   return (
     <div
@@ -109,7 +120,14 @@ export function SceneStage({
     >
       {/* Top padding clears the fixed wordmark; bottom padding keeps the
           composition off the instrument strip. */}
-      <div className="flex min-h-0 flex-1 flex-col justify-center lg:pt-[clamp(4.75rem,9vh,7rem)] lg:pb-[clamp(2rem,4vh,3.25rem)]">
+      <div
+        className={cn(
+          "flex min-h-0 flex-1 flex-col justify-center",
+          tight
+            ? "lg:pt-[clamp(4.4rem,7.8vh,5.75rem)] lg:pb-[clamp(1rem,2vh,1.75rem)]"
+            : "lg:pt-[clamp(4.75rem,9vh,7rem)] lg:pb-[clamp(2rem,4vh,3.25rem)]",
+        )}
+      >
         {children}
       </div>
       {strip && <SceneStrip />}
@@ -120,7 +138,7 @@ export function SceneStage({
 /**
  * The instrument strip: a hairline readout welded to the bottom of every
  * pinned scene. It carries the scene's position in the deck, the machine's
- * current state, and a 14-tick position gauge.
+ * current state, and a 15-tick position gauge.
  *
  * It exists for three reasons: it composes the bottom edge of every frame, it
  * makes the system feel continuously instrumented, and it is a second,
@@ -140,7 +158,7 @@ function SceneStrip() {
         </span>
         <span className="drk-label shrink-0 text-[var(--color-faint)]">{scene.title}</span>
 
-        {/* 14-tick position gauge — the deck's own progress, always visible */}
+        {/* 15-tick position gauge — the deck's own progress, always visible */}
         <span aria-hidden className="flex min-w-0 flex-1 items-center gap-[3px] px-2">
           {sections.map((s, i) => (
             <span

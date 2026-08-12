@@ -10,7 +10,7 @@ import { cn, range, smoothPath } from "@/lib/utils";
 import { TW } from "@/lib/motion";
 
 /**
- * SCENE 11 — REVENUE  (act one of three)
+ * SCENE 12 — REVENUE  (act one of three)
  *
  * Revenue, Compounding and the Raise are ONE economic argument, so they are
  * built as one continuous act rather than three diagrams:
@@ -39,13 +39,13 @@ export function Revenue() {
   const bridge = range(p, 0.88, 1);
 
   return (
-    <Scene sceneRef={ref} id="revenue" index="11" title="Multiple revenue streams" height="300vh">
+    <Scene sceneRef={ref} id="revenue" index="12" title="Multiple revenue streams" height="300vh">
       <SceneStage>
         <SceneShell>
           <div className="grid items-center gap-x-[clamp(1.5rem,3vw,3rem)] gap-y-8 lg:grid-cols-[minmax(0,0.6fr)_minmax(0,1.4fr)]">
             {/* ---------------- narrative ---------------- */}
             <div className="drk-scrim">
-              <SceneHead index="11" eyebrow="REVENUE" size="h2">
+              <SceneHead index="12" eyebrow="REVENUE" size="h2">
                 {revenue.headline.line1}
                 <br />
                 <Signal>{revenue.headline.signal}</Signal>

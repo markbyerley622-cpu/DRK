@@ -128,6 +128,16 @@ export const SIGNAL_KEYFRAMES: Keyframe[] = [
     ],
   },
   {
+    id: "demo",
+    /* Almost silent. This scene hands the frame to real product footage, and a
+       travelling world line behind a video reads as interference. */
+    i: 0.1,
+    note: "The system running: a flat, steady undertone beneath the recording.",
+    pts: [
+      [-8, 99], [8, 99], [24, 99], [38, 99], [50, 99], [62, 99], [76, 99], [92, 99], [108, 99],
+    ],
+  },
+  {
     id: "revenue",
     i: 0.7,
     note: "Value leaves the engine and fans out to the right.",
@@ -249,6 +259,7 @@ export const SYSTEM_STATE: Record<SectionId, { state: string; detail: string }> 
   integration: { state: "CONNECTING", detail: "NEW VENUE ONBOARDING" },
   lifecycle: { state: "IN LAUNCH", detail: "FIRST BLOCK → GROWTH" },
   control: { state: "OPERATING", detail: "CONTROL LAYER LIVE" },
+  demo: { state: "LIVE", detail: "RECORDED IN PRODUCTION" },
   revenue: { state: "MONETISING", detail: "5 STREAMS / 1 ENGINE" },
   compound: { state: "COMPOUNDING", detail: "CAPITAL RE-ENTERING" },
   raise: { state: "SCALING", detail: "$1M INTO THE MACHINE" },
@@ -258,7 +269,7 @@ export const SYSTEM_STATE: Record<SectionId, { state: string; detail: string }> 
 /**
  * Ambient light position per scene, as viewport percentages. The world carries
  * ONE light. It travels; it is never re-lit per section. Keeping it in one place
- * is what stops fourteen independent green washes from appearing.
+ * is what stops fifteen independent green washes from appearing.
  */
 export const AMBIENT: Record<SectionId, { x: number; y: number; i: number }> = {
   intro: { x: 68, y: 58, i: 0.9 },
@@ -271,6 +282,7 @@ export const AMBIENT: Record<SectionId, { x: number; y: number; i: number }> = {
   integration: { x: 58, y: 52, i: 0.75 },
   lifecycle: { x: 50, y: 56, i: 0.8 },
   control: { x: 66, y: 50, i: 0.65 },
+  demo: { x: 50, y: 50, i: 0.3 },
   revenue: { x: 38, y: 52, i: 0.8 },
   compound: { x: 66, y: 50, i: 0.85 },
   raise: { x: 30, y: 52, i: 0.9 },

@@ -14,6 +14,7 @@ import { Market } from "@/components/sections/Market";
 import { Integration } from "@/components/sections/Integration";
 import { Lifecycle } from "@/components/sections/Lifecycle";
 import { Control } from "@/components/sections/Control";
+import { Demo } from "@/components/sections/Demo";
 import { Revenue } from "@/components/sections/Revenue";
 import { Compound } from "@/components/sections/Compound";
 import { Raise } from "@/components/sections/Raise";
@@ -58,15 +59,16 @@ export default function Page() {
         <Integration />
         <Lifecycle />
 
-        {/* 10 — the product */}
+        {/* 10-11 — the product: the surface you operate, then the real thing */}
         <Control />
+        <Demo />
 
-        {/* 11-13 — the economics */}
+        {/* 12-14 — the economics */}
         <Revenue />
         <Compound />
         <Raise />
 
-        {/* 14 — the thesis */}
+        {/* 15 — the thesis */}
         <Close />
       </main>
     </WorldProvider>

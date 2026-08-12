@@ -28,6 +28,7 @@ export type SectionId =
   | "integration"
   | "lifecycle"
   | "control"
+  | "demo"
   | "revenue"
   | "compound"
   | "raise"
@@ -85,7 +86,7 @@ export const brand = {
 } as const;
 
 /* ========================================================================== */
-/* NAVIGATION — 14 narrative scenes                                            */
+/* NAVIGATION — 15 narrative scenes                                            */
 /* ========================================================================== */
 
 export const sections: { id: SectionId; label: string; index: string; title: string }[] = [
@@ -99,10 +100,11 @@ export const sections: { id: SectionId; label: string; index: string; title: str
   { id: "integration", label: "INTEGRATION", index: "08", title: "We integrate in days, not years" },
   { id: "lifecycle", label: "LIFECYCLE", index: "09", title: "The launch lifecycle" },
   { id: "control", label: "CONTROL", index: "10", title: "The DRK control layer" },
-  { id: "revenue", label: "REVENUE", index: "11", title: "Multiple revenue streams" },
-  { id: "compound", label: "COMPOUND", index: "12", title: "Investment liquidity compounds" },
-  { id: "raise", label: "RAISE", index: "13", title: "$1M seed round — 80% productive, 20% platform" },
-  { id: "close", label: "CLOSE", index: "14", title: "The next market maker" },
+  { id: "demo", label: "LIVE SYSTEM", index: "11", title: "The live DRK application" },
+  { id: "revenue", label: "REVENUE", index: "12", title: "Multiple revenue streams" },
+  { id: "compound", label: "COMPOUND", index: "13", title: "Investment liquidity compounds" },
+  { id: "raise", label: "RAISE", index: "14", title: "$1M seed round — 80% productive, 20% platform" },
+  { id: "close", label: "CLOSE", index: "15", title: "The next market maker" },
 ];
 
 /**
@@ -117,6 +119,18 @@ export const curtain = {
   src: "/intro.mp4",
   label: "DRK",
   skip: "SKIP",
+  /**
+   * BOOT-STATE LANGUAGE, NOT SYSTEM STATUS.
+   *
+   * These four lines are the deck introducing itself as a piece of operating
+   * infrastructure. They are NOT telemetry: nothing is being initialised,
+   * connected or synced while they are on screen, and they are deliberately
+   * generic — none of them names a venue, a chain, a counterparty or a figure,
+   * so none of them can be read as a claim about a running system. They are
+   * paced against the title card's own two seconds and are gone before a
+   * viewer could mistake them for data.
+   */
+  boot: ["INITIALIZING CORE", "CONNECTING MARKETS", "SYNCING LIQUIDITY", "SYSTEM READY"],
 } as const;
 
 /* ========================================================================== */
@@ -754,6 +768,20 @@ export const control = {
     title: "DRK Control Layer",
     subtitle: "The live application, recorded.",
     note: "Recorded in the live DRK application.",
+    /** Scene 11's own framing. The product is the argument; this is the caption. */
+    scene: {
+      headline: { line1: "The system behind", line2: "the market maker." },
+      support: "Six surfaces of the live DRK application, recorded in production.",
+      /**
+       * The environment strip above the player. Every figure is one the deck
+       * already states elsewhere (`control.telemetry`) — the strip reports the
+       * SYSTEM's state, and nothing in it moves on a timer, because animating a
+       * number would be fabricating a change that did not happen.
+       */
+      status: "LIVE",
+    },
+    /** Short rail labels. The full name still sets the caption beneath. */
+    railLabels: ["TOKEN", "RUNTIME", "POOLS", "PROGRAMS", "OPERATE", "P/L"],
     clips: [
       {
         key: "token-profile",

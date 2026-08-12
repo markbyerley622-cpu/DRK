@@ -13,11 +13,15 @@ import { cn } from "@/lib/utils";
  * Reads as system telemetry, not a website navbar:
  *  - desktop: fixed right rail carrying the machine's CURRENT STATE above the
  *    fourteen scene entries, plus a continuous progress spine
- *  - tablet/mobile: slim top bar with current scene, state and NN/14
+ *  - tablet/mobile: slim top bar with current scene, state and NN/NN
  *
  * The active state is never signalled by colour alone — it also carries a
  * weight change, a longer tick and `aria-current`.
  */
+/** Derived, never typed twice: a hardcoded total lies the moment a scene is
+    added, which is exactly what happened when Scene 11 arrived. */
+const TOTAL = String(sections.length).padStart(2, "0");
+
 export function DeckNav() {
   const { active, activeIndex, total, jump } = useWorld();
   const navRef = useRef<HTMLElement>(null);
@@ -178,7 +182,7 @@ export function DeckNav() {
           <span className="drk-label drk-mono text-[var(--color-signal)]">
             {sections[activeIndex]?.index}
           </span>
-          <span className="drk-label text-[var(--color-faint)]">/ 14</span>
+          <span className="drk-label text-[var(--color-faint)]">/ {TOTAL}</span>
         </div>
       </nav>
 
@@ -198,7 +202,7 @@ export function DeckNav() {
               {sys.state}
             </span>
             <span className="drk-label drk-mono text-[var(--color-faint)]">
-              {sections[activeIndex]?.index} / 14
+              {sections[activeIndex]?.index} / {TOTAL}
             </span>
             <ContactTrigger
               onOpen={() => setContactOpen(true)}

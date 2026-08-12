@@ -86,15 +86,15 @@ for (const vp of [
     await page.evaluate(() => document.activeElement?.textContent?.includes("CONTACT") ?? false),
   );
 
-  /* ---------------- DEMO REEL + THEATRE ---------------- */
-  await page.evaluate(() => document.getElementById("control")?.scrollIntoView());
+  /* ---------------- DEMO SCENE + THEATRE ---------------- */
+  await page.evaluate(() => document.getElementById("demo")?.scrollIntoView());
   await page.waitForTimeout(900);
 
   // The reel plays itself, muted, in place.
   const reel = page.locator('button[aria-label*="open the DRK Control Layer"]').first();
-  check(`[${vp.name}] demo reel visible`, await reel.isVisible());
-  const inline = page.locator("#control video").first();
-  check(`[${vp.name}] reel video muted`, await inline.evaluate((v) => v.muted));
+  check(`[${vp.name}] demo scene player visible`, await reel.isVisible());
+  const inline = page.locator("#demo video").first();
+  check(`[${vp.name}] player muted`, await inline.evaluate((v) => v.muted));
 
   // Every clip must actually resolve, poster included.
   const missing = await page.evaluate(async () => {

@@ -81,6 +81,8 @@ export function BrandMark({
   size = "1.55rem",
   lit = true,
   shape = "round",
+  pulse = false,
+  index = 0,
   className,
 }: {
   name: string;
@@ -88,10 +90,24 @@ export function BrandMark({
   size?: string;
   lit?: boolean;
   shape?: "round" | "tile";
+  /**
+   * Breathe, to say the network is live rather than to decorate.
+   *
+   * Only ever set on a mark that is LIT — an unlit mark is a network the scene
+   * has not reached yet, and a dormant thing must not appear to be running. The
+   * movement is deliberately shallow (4.5% over 3.6s): a logo that visibly
+   * throbs stops being a logo. See `.drk-mark-pulse`, which is disabled
+   * wholesale under `prefers-reduced-motion`.
+   */
+  pulse?: boolean;
+  /** Position in its row. Staggers the breath so a group reads as N nodes. */
+  index?: number;
   className?: string;
 }) {
   const asset = brandAsset(name);
   if (!asset) return null;
+
+  const breathing = pulse && lit;
 
   return (
     <span
@@ -102,6 +118,7 @@ export function BrandMark({
         lit
           ? "border-[var(--color-hairline-signal)]"
           : "border-[var(--color-hairline)]",
+        breathing && "drk-mark-pulse",
         className,
       )}
       style={{
@@ -111,6 +128,9 @@ export function BrandMark({
         /* Unlit marks recede rather than disappear: the row must stay readable
            whichever state the scene is in. */
         opacity: lit ? 1 : 0.55,
+        ...(breathing
+          ? ({ "--pulse-delay": `${(index % 6) * 0.42}s` } as React.CSSProperties)
+          : null),
       }}
     >
       <Image

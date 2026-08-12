@@ -16,7 +16,7 @@ import { dismissCurtain } from "./curtain.mjs";
 const BASE = process.env.DRK_URL ?? "http://localhost:3112";
 const SECTIONS = [
   "intro", "opacity", "engine", "visibility", "proof", "stack", "market",
-  "integration", "lifecycle", "control", "revenue", "compound", "raise", "close",
+  "integration", "lifecycle", "control", "demo", "revenue", "compound", "raise", "close",
 ];
 
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));

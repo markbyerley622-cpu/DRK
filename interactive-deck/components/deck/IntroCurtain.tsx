@@ -99,6 +99,46 @@ export function IntroCurtain() {
         className="h-full w-full object-contain"
       />
 
+      {/*
+        THE BOOT READOUT.
+
+        Sits under the mark, on the card's own centre line, and runs for exactly
+        as long as the card does. A progress track fills across the full
+        sequence while the state line steps through it, so the card reads as
+        infrastructure coming up rather than as a splash screen waiting.
+
+        The track is driven by CSS, not by a timer in React: it must not depend
+        on the video's readyState, because on a cold connection the video is the
+        slow part and a progress bar that stalls is worse than none.
+      */}
+      <div className="pointer-events-none absolute inset-x-0 bottom-[18%] flex flex-col items-center gap-3 px-6 sm:bottom-[22%]">
+        <span
+          aria-hidden
+          className="block h-px w-[min(13rem,42vw)] overflow-hidden bg-[var(--color-hairline)]"
+        >
+          <span
+            className="drk-boot-fill block h-full w-full origin-left bg-[var(--color-signal)]"
+            style={{
+              boxShadow: "0 0 10px 0 rgba(0,224,96,0.7)",
+              animationPlayState: leaving ? "paused" : "running",
+            }}
+          />
+        </span>
+
+        {/* One line at a time, in place — a stack of four would be a log. */}
+        <span className="relative block h-3 w-full text-center">
+          {curtain.boot.map((line, i) => (
+            <span
+              key={line}
+              className="drk-boot-line drk-label absolute inset-x-0 text-[0.5rem] tracking-[0.28em] text-[var(--color-faint)]"
+              style={{ animationDelay: `${i * 0.52}s` }}
+            >
+              {line}
+            </span>
+          ))}
+        </span>
+      </div>
+
       <button
         type="button"
         /* Focusable elements must not live inside an aria-hidden subtree, and

@@ -8,7 +8,7 @@ import { compound } from "@/content/drk";
 import { cn, range } from "@/lib/utils";
 
 /**
- * SCENE 12 — COMPOUNDING  (act two of three)
+ * SCENE 13 — COMPOUNDING  (act two of three)
  *
  * Picks up the CAPITAL pool that Scene 11 ended on and shows what it does:
  * capital → deployment → programs → performance → revenue → more liquidity →
@@ -52,7 +52,7 @@ export function Compound() {
     <Scene
       sceneRef={ref}
       id="compound"
-      index="12"
+      index="13"
       title="Investment liquidity compounds"
       height="300vh"
     >
@@ -61,7 +61,7 @@ export function Compound() {
           <div className="grid items-center gap-x-[clamp(1.5rem,3vw,3rem)] gap-y-8 lg:grid-cols-[minmax(0,0.92fr)_minmax(0,1.08fr)]">
             {/* ---------------- narrative + market signals ---------------- */}
             <div className="drk-scrim">
-              <SceneHead index="12" eyebrow="COMPOUNDING" size="h2">
+              <SceneHead index="13" eyebrow="COMPOUNDING" size="h2">
                 {compound.headline.pre}
                 <Signal>{compound.headline.signal}.</Signal>
               </SceneHead>
