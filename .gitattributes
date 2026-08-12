@@ -1,0 +1,24 @@
+# ============================================================================
+# GIT LFS — SOURCE MASTERS ONLY
+# ============================================================================
+#
+# One rule, one file, by exact name — deliberately NOT `*.mp4`.
+#
+# This repository holds two kinds of video and they must not share a storage
+# strategy:
+#
+#   PRODUCTION  interactive-deck/public/demo/*.mp4  (~1.0MB for all six)
+#               interactive-deck/public/intro.mp4   (91KB)
+#               Ordinary Git objects. They are the browser payload, they are
+#               small on purpose, and they must stay in a plain clone so a
+#               build never depends on an LFS fetch.
+#
+#   MASTER      demo final.mp4                      (42MB)
+#               The client's raw screen recording. Kept for source
+#               preservation, re-cutting and future chapter extraction — never
+#               served. Git stores a pointer; LFS stores the binary.
+#
+# `[[:space:]]` is Git LFS's own escape for the space in the filename. Do not
+# hand-edit it. To add another master, use `git lfs track "<path>"` so the
+# escaping stays correct.
+demo[[:space:]]final.mp4 filter=lfs diff=lfs merge=lfs -text

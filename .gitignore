@@ -43,7 +43,7 @@ Pitch deck.pdf
 # served unauthenticated from the deployed deck.
 
 # --- source media masters ---------------------------------------------------
-# The client's raw screen recording (42MB). Its deploy-sized, chaptered outputs
-# are tracked at interactive-deck/public/demo/ and are what actually ships; the
-# master is kept locally so the repo does not carry a second large video blob.
-demo final.mp4
+# NOT ignored. `demo final.mp4` (the client's raw screen recording, 42MB) is
+# tracked through Git LFS — see .gitattributes. Git carries a pointer; LFS
+# carries the binary. Its deploy-sized, chaptered outputs at
+# interactive-deck/public/demo/ are ordinary Git objects and remain what ships.
