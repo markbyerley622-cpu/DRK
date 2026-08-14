@@ -89,11 +89,15 @@ missing.
 
 ## VER-09 — Scene 13 Raise (source page 14)
 
-**Issue.** `$1M for 10%` implies a `$10M` post-money valuation, which the deck
-never states. The five uses of funds are also unweighted in the source.
+**Issue.** The round was raised from `$1M` to `$1.5M` on 2026-08-14 at the
+client's instruction. The equity figure was left at the source deck's `10%`,
+because no instruction was given on it — so the implied post-money moved from
+`$10M` to `$15M`. The deck states neither figure. The five uses of funds are
+also unweighted in the source; the 80 / 20 split shown is the client's own
+supplied slide, with its amounts rescaled to `$1.2M` / `$300K`.
 
-**Action.** No valuation is stated or derived, and no allocation percentages are
-invented. Confirm whether a valuation and a split should be shown.
+**Action.** No valuation is stated or derived. **Confirm the `10%` equity figure
+is still correct at `$1.5M`** — the terms row is the only place it appears.
 
 ## VER-10 — Scene 05 Proof
 

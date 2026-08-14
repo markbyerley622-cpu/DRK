@@ -262,7 +262,7 @@ export const SYSTEM_STATE: Record<SectionId, { state: string; detail: string }> 
   demo: { state: "LIVE", detail: "RECORDED IN PRODUCTION" },
   revenue: { state: "MONETISING", detail: "5 STREAMS / 1 ENGINE" },
   compound: { state: "COMPOUNDING", detail: "CAPITAL RE-ENTERING" },
-  raise: { state: "SCALING", detail: "$1M INTO THE MACHINE" },
+  raise: { state: "SCALING", detail: "$1.5M INTO THE MACHINE" },
   close: { state: "RESOLVED", detail: "TRANSPARENT BY DESIGN" },
 };
 

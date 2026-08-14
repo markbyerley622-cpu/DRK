@@ -180,6 +180,25 @@ export function DataNode({ active = false, size = 9 }: { active?: boolean; size?
 /* OBJECT PLATE — a harvested DRK 3D object                                    */
 /* ========================================================================== */
 
+/**
+ * Everything `/brand/objects` can render: the twelve catalogued objects plus
+ * the loose plates and pose variants that live beside them. The variants
+ * (`-angled`, `-open`, `drk-token`) are alternate renders of an object that is
+ * already in the system — they are available, but a single scene must never
+ * mix a variant with its base pose, or the object stops reading as the same
+ * recurring character.
+ */
+export type PlateId =
+  | ObjectId
+  | "wallet"
+  | "wallet-open"
+  | "falling-chart"
+  | "lc-beacon"
+  | "lc-chart"
+  | "raise-ring"
+  | "security-lock-angled"
+  | "drk-token";
+
 export function ObjectPlate({
   id,
   width,
@@ -188,7 +207,7 @@ export function ObjectPlate({
   alt,
   style,
 }: {
-  id: ObjectId | "wallet" | "falling-chart" | "lc-beacon" | "lc-chart" | "raise-ring";
+  id: PlateId;
   width: number;
   className?: string;
   priority?: boolean;
@@ -255,7 +274,7 @@ export function SystemObject({
   alt,
   priority = false,
 }: {
-  id: ObjectId | "wallet" | "falling-chart" | "lc-beacon" | "lc-chart" | "raise-ring";
+  id: PlateId;
   scale?: ObjectScale;
   className?: string;
   style?: React.CSSProperties;

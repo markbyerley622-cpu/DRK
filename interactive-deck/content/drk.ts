@@ -101,7 +101,7 @@ export const sections: { id: SectionId; label: string; index: string; title: str
   { id: "demo", label: "LIVE SYSTEM", index: "11", title: "The live DRK application" },
   { id: "revenue", label: "REVENUE", index: "12", title: "Multiple revenue streams" },
   { id: "compound", label: "COMPOUND", index: "13", title: "Investment liquidity compounds" },
-  { id: "raise", label: "RAISE", index: "14", title: "$1M seed round — 80% productive, 20% platform" },
+  { id: "raise", label: "RAISE", index: "14", title: "$1.5M seed round — 80% productive, 20% platform" },
   { id: "close", label: "CLOSE", index: "15", title: "The next market maker" },
 ];
 
@@ -315,7 +315,7 @@ export const engine = {
         { key: "visibility", name: "VISIBILITY", note: "Real-time reporting on the whole book." },
       ],
       out: "RECURRING SOFTWARE REVENUE",
-      outNote: "$10k / month software license — future MM runtime.",
+      outNote: "Recurring software license — future MM runtime.",
       who: "CLIENT OPERATES",
     },
   },
@@ -1210,7 +1210,7 @@ export const revenue = {
     },
     {
       index: "05",
-      name: "$10k / month software license",
+      name: "Recurring software license",
       note: "future MM runtime",
       footnote: false,
       model: "LICENSED RUNTIME",
@@ -1308,14 +1308,16 @@ export const compound = {
 /* ========================================================================== */
 
 export const raise = {
-  headline: { amount: "$1M", rest: " seed round." },
+  headline: { amount: "$1.5M", rest: " seed round." },
   /** The entire slide, in one line, above everything else. */
   support: { a: "80%", aRest: " remains productive. ", b: "20%", bRest: " scales the platform." },
-  centre: { label: "SEED ROUND", value: "$1M" },
+  centre: { label: "SEED ROUND", value: "$1.5M" },
   /**
    * Financing terms. `10%` is the deck's own (source page 14); the instrument
-   * is from the client's $1M seed-round slide, supplied 2026-08-12. Neither is
-   * derived, and no valuation is stated anywhere — see VER-09.
+   * is from the client's seed-round slide, supplied 2026-08-12. The round was
+   * raised from $1M to $1.5M on 2026-08-14 at the client's instruction; the
+   * equity percentage was NOT changed with it, so the implied cap moved. See
+   * VER-09 — no valuation is stated anywhere.
    */
   termsLabel: "TERMS",
   terms: [
@@ -1344,7 +1346,7 @@ export const raise = {
     {
       key: "productive",
       share: 80,
-      amount: "$800K",
+      amount: "$1.2M",
       name: "Operating balance-sheet liquidity",
       items: [
         "Launch deployment",
@@ -1356,7 +1358,7 @@ export const raise = {
     {
       key: "platform",
       share: 20,
-      amount: "$200K",
+      amount: "$300K",
       name: "Growth + operating capital",
       items: ["Infrastructure", "Integrations", "Operators", "Reporting + compliance"],
     },
@@ -1597,15 +1599,16 @@ export const contentVerifyTodos: Verify[] = [
   },
   {
     id: "VER-09",
-    where: "Scene 13 — Raise (source page 14, plus the $1M seed-round slide supplied 2026-08-12)",
+    where:
+      "Scene 13 — Raise (source page 14, plus the seed-round slide supplied 2026-08-12, raised to $1.5M on 2026-08-14)",
     issue:
-      "$1M for 10% on a post-money SAFE implies a $10M post-money cap, which neither the deck nor the supplied slide states.",
+      "$1.5M for 10% on a post-money SAFE implies a $15M post-money cap, which neither the deck nor the supplied slide states. The round size was raised from $1M without a corresponding instruction on the equity percentage, so the implied cap moved from $10M to $15M as a side effect.",
     action:
-      "No valuation is stated or derived. The 80 / 20 split now shown is the client's own, supplied 2026-08-12, and replaces the five unweighted uses of funds from source page 14. Confirm the cap should stay unstated now that both the equity percentage and the instrument appear together.",
+      "No valuation is stated or derived. The 80 / 20 split shown is the client's own, supplied 2026-08-12, and its amounts ($1.2M / $300K) were rescaled with the round. CONFIRM the 10% equity figure is still correct at $1.5M — if it is not, the terms row is the only place to change it.",
   },
   {
     id: "VER-11",
-    where: "Scene 13 — Raise ($1M seed-round slide supplied 2026-08-12)",
+    where: "Scene 13 — Raise (seed-round slide supplied 2026-08-12)",
     issue:
       '"Operating balance-sheet liquidity", "growth + operating capital" and "capital compounds on the balance sheet while the engine scales enterprise value" are accounting and valuation statements.',
     action:

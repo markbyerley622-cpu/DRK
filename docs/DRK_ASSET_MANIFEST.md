@@ -77,24 +77,34 @@ panel borders picked up by the first pass.
 
 ## 3. SHIPPED OBJECT PLATES
 
-Location: `interactive-deck/public/brand/objects/` · 20 files · **4.58 MB PNG source**
+Location: `interactive-deck/public/brand/objects/` · 23 files · **12.9 MB PNG source**
 (served as AVIF/WebP by `next/image`, typically 8–15% of that on the wire).
 
-| File | Object (board #) | Source page | Shipped px | Used in |
-|------|------------------|-------------|-----------|---------|
-| `liquidity-vault.png` | **03** Liquidity Vault | p3 | 836 × 900 | Scene 02 Opacity |
-| `execution-beacon.png` | **04** Execution Beacon | p15 | 540 × 701 | Scene 01 Intro, Scene 14 Close |
+Rows marked **⟡ client render** are not harvests. They are purpose-built 1254 px transparent renders
+supplied by the client as SVG wrappers in `new artifacts/`, unwrapped to PNG, trimmed to their own
+bounding box and downscaled to 1000 px — one notch above `hero` (760 px), the largest width the deck
+ever requests, so `next/image` never upscales. They replace the harvested plate of the same object
+wholesale; the harvest is not kept as a fallback, because two poses of one object in one deck breaks
+the recurring-character contract that §5 exists to protect.
+
+| File | Object (board #) | Source | Shipped px | Used in |
+|------|------------------|--------|-----------|---------|
+| `liquidity-vault.png` | **03** Liquidity Vault | ⟡ client render | 1000 × 990 | Scene 02 Opacity |
+| `execution-beacon.png` | **04** Execution Beacon | ⟡ client render | 994 × 1000 | Scene 01 Intro, Scene 14 Close |
 | `execution-engine.png` | **11** Execution Engine | p12 | 656 × 561 | Scenes 01, 03, 06, 08, 11, 13, 14 |
 | `network-nodes.png` | **10** Network Nodes | p9 | 379 × 446 | Scenes 01, 03, 06, 08, 10 |
 | `routing-path.png` | **07** Routing Path | p9 | 382 × 448 | Scenes 03, 06, 08 |
-| `market-chart.png` | **05** Market Chart | p13 | 988 × 661 | Scene 12 Compound |
+| `market-chart.png` | **05** Market Chart | ⟡ client render | 1000 × 953 | Scene 12 Compound |
 | `security-shield.png` | **08** Security Shield | p7 | 229 × 271 | Scene 06 Stack |
-| `security-lock.png` | **02** Security Lock | p10 | 395 × 464 | Scenes 03, 09, 10 |
+| `security-lock.png` | **02** Security Lock | ⟡ client render | 942 × 1000 | Scenes 03, 09, 10 |
 | `liquidity-wave.png` | **09** Liquidity Wave | p10 | 448 × 356 | Scenes 01, 03, 09, 12, 13, 14 |
 | `depth-sculpture.png` | **06** Depth Sculpture | p10 | 382 × 439 | Scene 09 Lifecycle |
-| `lc-beacon.png` | 04 (lifecycle-scale) | p10 | 368 × 463 | Scene 09 Lifecycle |
-| `lc-chart.png` | 05 (lifecycle-scale) | p10 | 378 × 411 | Scene 09 Lifecycle |
-| `wallet.png` | wallet prop | p2 | 302 × 287 | Scene 01 Intro, Scene 10 Control |
+| `lc-beacon.png` | 04 (lifecycle-scale) | ⟡ client render | 1000 × 966 | Scene 09 Lifecycle |
+| `lc-chart.png` | 05 (lifecycle-scale) | ⟡ client render | 1000 × 982 | Scene 09 Lifecycle |
+| `wallet.png` | wallet prop | ⟡ client render | 1000 × 996 | Scene 01 Intro, Scene 10 Control |
+| `security-lock-angled.png` | 02 (alternate pose) | ⟡ client render | 994 × 1000 | — available, unplaced |
+| `wallet-open.png` | wallet prop (open, tokens) | ⟡ client render | 1000 × 980 | — available, unplaced |
+| `drk-token.png` | DRK token face | ⟡ client render | 978 × 1000 | — available, unplaced |
 | `falling-chart.png` | falling market chart | p6 | 1041 × 743 | Scene 05 Proof (backdrop) |
 | `raise-ring.png` | use-of-funds ring | p14 | 675 × 679 | Scene 13 Raise (reference) |
 | `raise-droplet.png` | trading liquidity | p14 | 259 × 258 | Scene 13 Raise |
@@ -107,7 +117,14 @@ Location: `interactive-deck/public/brand/objects/` · 20 files · **4.58 MB PNG 
 page 10 provides exactly that — all five stage objects photographed in a single row. `security-lock`,
 `liquidity-wave` and `depth-sculpture` are therefore harvested from page 10 and shared with the other
 scenes; `lc-beacon` and `lc-chart` exist as separate files only because the Beacon and Market Chart have
-*better* hero instances elsewhere (p15, p13) that are the wrong scale for the rail.
+*better* hero instances elsewhere (p15, p13) that are the wrong scale for the rail. Both now carry client
+renders of their own, so the rail and the hero appearances stay matched by intent rather than by crop.
+
+**Unplaced variants.** `security-lock-angled`, `wallet-open` and `drk-token` are supplied and shipped but
+deliberately not wired into a scene. The first two are alternate poses of objects the deck already uses —
+dropping one into a single scene would make that object read as a different prop. `drk-token` is a genuinely
+new object with no slot in the twelve-object system yet. All three are typed in `PlateId`, so placing one is
+a one-line change once there is a reason to.
 
 ---
 

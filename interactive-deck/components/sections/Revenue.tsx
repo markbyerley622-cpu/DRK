@@ -18,7 +18,7 @@ import { TW } from "@/lib/motion";
  *   11  the same engine produces five revenue streams, and every stream feeds
  *       ONE pool. The pool is labelled CAPITAL.
  *   12  that same CAPITAL is the entry node of the compounding loop.
- *   13  the $1M enters that same pool and expands what it can drive.
+ *   13  the $1.5M enters that same pool and expands what it can drive.
  *
  * The Execution Engine here is the object introduced in Scene 01 and
  * reconfigured in Scene 03 — same object, same scale ladder, third appearance.

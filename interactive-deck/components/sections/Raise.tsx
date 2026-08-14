@@ -13,14 +13,14 @@ import { TW } from "@/lib/motion";
  * SCENE 14 — THE RAISE  (act three of three)
  *
  * The raise is not a separate ask screen. Scene 11 ended on a pool labelled
- * CAPITAL; Scene 12 showed that pool compounding. Here $1M ENTERS that same
+ * CAPITAL; Scene 12 showed that pool compounding. Here $1.5M ENTERS that same
  * pool and immediately divides — 80% staying in the book as working liquidity,
  * 20% building the machine around it.
  *
  * THE WHOLE SLIDE IN FIVE SECONDS. One number, one split, two destinations:
  *
- *     $1M  →  80% / $800K  operating balance-sheet liquidity
- *          →  20% / $200K  growth + operating capital
+ *     $1.5M  →  80% / $1.2M  operating balance-sheet liquidity
+ *            →  20% / $300K  growth + operating capital
  *
  * The proportion is carried by two bars on ONE shared track, so 80-against-20
  * is read at a glance and never has to be worked out from the numerals. Both
@@ -42,7 +42,7 @@ export function Raise() {
   const ref = useRef<HTMLElement>(null);
   const { p, isDesktop, scrub } = useSceneNarrative(ref);
 
-  const arrive = range(p, 0.02, 0.18); // the $1M lands in the pool
+  const arrive = range(p, 0.02, 0.18); // the $1.5M lands in the pool
   const alloc = range(p, 0.18, 0.8); // it divides
   const thesis = range(p, 0.8, 1);
 
@@ -51,7 +51,7 @@ export function Raise() {
       sceneRef={ref}
       id="raise"
       index="14"
-      title="$1M seed round — 80% productive, 20% platform"
+      title="$1.5M seed round — 80% productive, 20% platform"
       height="300vh"
     >
       <SceneStage>
