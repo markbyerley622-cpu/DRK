@@ -11,7 +11,6 @@ import { Visibility } from "@/components/sections/Visibility";
 import { Proof } from "@/components/sections/Proof";
 import { Stack } from "@/components/sections/Stack";
 import { Market } from "@/components/sections/Market";
-import { RWA } from "@/components/sections/RWA";
 import { Integration } from "@/components/sections/Integration";
 import { Lifecycle } from "@/components/sections/Lifecycle";
 import { Control } from "@/components/sections/Control";
@@ -55,11 +54,10 @@ export default function Page() {
         <Engine />
         <Visibility />
 
-        {/* 05-10 — the business, and the market beside it */}
+        {/* 05-09 — the business */}
         <Proof />
         <Stack />
         <Market />
-        <RWA />
         <Integration />
         <Lifecycle />
 

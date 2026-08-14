@@ -25,7 +25,6 @@ export type SectionId =
   | "proof"
   | "stack"
   | "market"
-  | "rwa"
   | "integration"
   | "lifecycle"
   | "control"
@@ -87,7 +86,7 @@ export const brand = {
 } as const;
 
 /* ========================================================================== */
-/* NAVIGATION — 18 narrative scenes                                            */
+/* NAVIGATION — 15 narrative scenes                                            */
 /* ========================================================================== */
 
 export const sections: { id: SectionId; label: string; index: string; title: string }[] = [
@@ -98,17 +97,16 @@ export const sections: { id: SectionId; label: string; index: string; title: str
   { id: "proof", label: "PROOF", index: "05", title: "Two launches, weak market" },
   { id: "stack", label: "STACK", index: "06", title: "We own the stack" },
   { id: "market", label: "MARKET", index: "07", title: "The market for MM infrastructure" },
-  { id: "rwa", label: "RWA", index: "08", title: "Tokenised assets issue well and barely trade" },
-  { id: "integration", label: "INTEGRATION", index: "09", title: "We integrate in days, not years" },
-  { id: "lifecycle", label: "LIFECYCLE", index: "10", title: "The launch lifecycle" },
-  { id: "control", label: "CONTROL", index: "11", title: "The DRK control layer" },
-  { id: "demo", label: "LIVE SYSTEM", index: "12", title: "The live DRK application" },
-  { id: "revenue", label: "REVENUE", index: "13", title: "Multiple revenue streams" },
-  { id: "economics", label: "ECONOMICS", index: "14", title: "Larger mandates change the earnings curve" },
-  { id: "projections", label: "PROJECTIONS", index: "15", title: "Three-year revenue projection" },
-  { id: "compound", label: "COMPOUND", index: "16", title: "Investment liquidity compounds" },
-  { id: "raise", label: "RAISE", index: "17", title: "$1.5M seed round — 80% productive, 20% platform" },
-  { id: "close", label: "CLOSE", index: "18", title: "The next market maker" },
+  { id: "integration", label: "INTEGRATION", index: "08", title: "We integrate in days, not years" },
+  { id: "lifecycle", label: "LIFECYCLE", index: "09", title: "The launch lifecycle" },
+  { id: "control", label: "CONTROL", index: "10", title: "The DRK control layer" },
+  { id: "demo", label: "LIVE SYSTEM", index: "11", title: "The live DRK application" },
+  { id: "revenue", label: "REVENUE", index: "12", title: "Multiple revenue streams" },
+  { id: "economics", label: "ECONOMICS", index: "13", title: "Larger mandates change the earnings curve" },
+  { id: "projections", label: "PROJECTIONS", index: "14", title: "Three-year revenue projection" },
+  { id: "compound", label: "COMPOUND", index: "15", title: "Investment liquidity compounds" },
+  { id: "raise", label: "RAISE", index: "16", title: "$1.5M seed round — 80% productive, 20% platform" },
+  { id: "close", label: "CLOSE", index: "17", title: "The next market maker" },
 ];
 
 /**
@@ -412,116 +410,6 @@ export const illustrativeSeries = {
     perps: [20, 24, 22, 30, 28, 37, 34, 44, 41, 52, 49, 60, 57, 69, 66, 78, 75, 88, 96],
     institutional: [8, 11, 10, 16, 14, 22, 19, 29, 26, 38, 35, 48, 45, 59, 56, 71, 68, 84, 97],
   } as Record<string, number[]>,
-} as const;
-
-/* ========================================================================== */
-/* SCENE 08 — RWA                                                              */
-/* ========================================================================== */
-
-/**
- * The adjacent market, and the only forward-looking scene in the deck.
- *
- * Every claim here is deliberately weaker than the internal strategy document
- * would support, because this is the one scene describing a market DRK has not
- * yet earned revenue in. The full argument, its evidence and its unknowns live
- * in `rwa-liquidity-infrastructure.md`; that file is the authority, and §13 of
- * it is why the anchor deployment below is labelled the way it is.
- *
- * THREE RULES THIS SCENE MUST NOT BREAK
- *
- * 1. Never claim tokenisation "solved" issuance. It has made issuance and
- *    settlement increasingly practical — a claim that survives contact with
- *    anyone in the room who has actually issued one.
- * 2. Never imply a Metaplanet relationship. There is no mandate, agreement or
- *    engagement. It is named as a mapped target and labelled as one, because
- *    an investor will ask "who" and coyness reads worse than a clear label.
- * 3. Never state a liquidity mandate, a fee, or a projected figure for this
- *    market. Scenes 13-15 carry the numbers, and none of them include RWA.
- *    This scene is upside that the projection does not assume.
- */
-export const rwa = {
-  headline: { line1: "Tokenised assets", signal: "issue well.", line2: "They barely trade." },
-  support: {
-    plain: "Tokenisation has made issuance and settlement increasingly practical. ",
-    signal: "The harder unsolved problem is secondary liquidity.",
-  },
-  /** The conceptual moat, and the reason DRK is not a market maker here. */
-  moat: {
-    plain: "Any single mechanism is a feature. ",
-    signal: "The engine that selects between them is the product.",
-  },
-  enginesLabel: "THE FOUR ENGINES",
-  engines: [
-    {
-      key: "value",
-      index: "01",
-      name: "FAIR VALUE",
-      question: "What should this be worth?",
-      copy: "Curve, credit spread, maturity and collateral coverage. Modelled, not discovered.",
-    },
-    {
-      key: "liquidity",
-      index: "02",
-      name: "LIQUIDITY",
-      question: "How should we provide it?",
-      copy: "Selects between principal, external, agency, quoted, just-in-time and permissioned.",
-    },
-    {
-      key: "risk",
-      index: "03",
-      name: "RISK",
-      question: "What are we carrying?",
-      copy: "Inventory, duration, credit, collateral coverage and eligibility. Continuously.",
-    },
-    {
-      key: "execution",
-      index: "04",
-      name: "EXECUTION",
-      question: "How does it clear?",
-      copy: "Institutional execution and settlement, permissioned where the asset requires it.",
-    },
-  ],
-  /**
-   * Deliberately a PATH, not a menu. Each layer is startable on a different
-   * balance sheet, which is what makes the sequence fundable at seed scale.
-   */
-  layersLabel: "THE DEPLOYMENT PATH",
-  layers: [
-    {
-      key: "settlement",
-      index: "01",
-      name: "SETTLEMENT LIQUIDITY",
-      note: "Regulated stablecoins — the cash leg of every tokenised trade.",
-      capital: "LOW",
-    },
-    {
-      key: "credit",
-      index: "02",
-      name: "TOKENISED CREDIT",
-      note: "Bonds and structured credit. Fair value, inventory, risk, execution.",
-      capital: "LOW → HIGH",
-    },
-    {
-      key: "ecosystem",
-      index: "03",
-      name: "ECOSYSTEM LIQUIDITY",
-      note: "Every subsequent issuer, on the same engines.",
-      capital: "STAGED",
-    },
-  ],
-  /**
-   * NAMED, AND LABELLED. An investor asks "which ecosystem?" immediately, and a
-   * deck that will not answer reads as vague. A deck that answers and marks the
-   * status honestly reads as diligent. The label is not optional.
-   */
-  anchor: {
-    label: "ANCHOR DEPLOYMENT — MAPPED, NOT MANDATED",
-    body:
-      "Japan's tokenised-securities market is projected to exceed ¥1.5T by the end of 2026. Metaplanet is the strongest single environment we have mapped: Bitcoin collateral, a tokenised-credit programme, a licensed distributor, a yen settlement rail, and a fund creating further issuers.",
-    disclaimer:
-      "Target deployment. No mandate, agreement or engagement is in place, and no revenue from this market is assumed anywhere in this deck.",
-  },
-  conclusion: "Same engines. A larger market.",
 } as const;
 
 /* ========================================================================== */

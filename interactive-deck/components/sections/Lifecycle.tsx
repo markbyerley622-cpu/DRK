@@ -9,7 +9,7 @@ import { lifecycle, sections } from "@/content/drk";
 import { clamp01, cn, range, seeded, smoothPath } from "@/lib/utils";
 
 /**
- * SCENE 10 — THE LAUNCH LIFECYCLE
+ * SCENE 09 — THE LAUNCH LIFECYCLE
  *
  * A travelling journey, not a carousel of stage cards.
  *

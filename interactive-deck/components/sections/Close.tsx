@@ -11,7 +11,7 @@ import { brand, close, contact } from "@/content/drk";
 import { range } from "@/lib/utils";
 
 /**
- * SCENE 18 — CLOSE
+ * SCENE 17 — CLOSE
  *
  * Returns to the opening. The world's liquidity signal resolves back into the
  * rising line it came online on in Scene 01, and only two objects remain — the
@@ -63,7 +63,7 @@ export function Close() {
   ];
 
   return (
-    <Scene sceneRef={ref} id="close" index="18" title="The next market maker" height="200vh">
+    <Scene sceneRef={ref} id="close" index="17" title="The next market maker" height="200vh">
       {/* No instrument strip: the closing frame carries nothing but the thesis. */}
       <SceneStage strip={false}>
         {scrub && <SignalStations stations={stations} progress={p} appear={[0.06, 0.1]} />}

@@ -9,7 +9,7 @@ import { control } from "@/content/drk";
 import { activeIndex, range } from "@/lib/utils";
 
 /**
- * SCENE 11 — THE DRK CONTROL LAYER (centrepiece)
+ * SCENE 10 — THE DRK CONTROL LAYER (centrepiece)
  *
  * Scroll walks the seven modules in sequence; the viewer can also select any
  * module and operate it directly — rows select, periods switch, metrics change,
@@ -52,7 +52,7 @@ export function Control() {
     <Scene
       sceneRef={ref}
       id="control"
-      index="11"
+      index="10"
       title="The DRK control layer"
       height={isDesktop ? "460vh" : "300vh"}
     >
@@ -61,7 +61,7 @@ export function Control() {
           <div className="grid items-center gap-x-[clamp(1.5rem,3vw,3rem)] gap-y-7 xl:grid-cols-[minmax(0,0.46fr)_minmax(0,1.54fr)]">
             {/* ---------------- narrative ---------------- */}
             <div className="drk-scrim">
-              <SceneHead index="11" eyebrow="THE PRODUCT" size="h2" lede={control.support}>
+              <SceneHead index="10" eyebrow="THE PRODUCT" size="h2" lede={control.support}>
                 {control.headline.line1}
                 <br />
                 <Signal>{control.headline.line2}</Signal>
