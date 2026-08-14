@@ -18,7 +18,16 @@
 #               preservation, re-cutting and future chapter extraction — never
 #               served. Git stores a pointer; LFS stores the binary.
 #
+#               new artifacts/*.svg                 (24MB, 10 files)
+#               The client's 1254px object renders, supplied as base64 PNG
+#               inside an SVG wrapper. Same rule, same reason: they are the
+#               source the shipped plates in
+#               interactive-deck/public/brand/objects/ were derived from, and
+#               the build never reads them. Those derived plates ARE ordinary
+#               Git objects — a clone must be able to build without LFS.
+#
 # `[[:space:]]` is Git LFS's own escape for the space in the filename. Do not
 # hand-edit it. To add another master, use `git lfs track "<path>"` so the
 # escaping stays correct.
 demo[[:space:]]final.mp4 filter=lfs diff=lfs merge=lfs -text
+new[[:space:]]artifacts/*.svg filter=lfs diff=lfs merge=lfs -text

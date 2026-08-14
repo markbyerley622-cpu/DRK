@@ -1,0 +1,88 @@
+DRK x METAPLANET — BITCOIN ECOSYSTEM MAP & MARKET-MAKER PLAYS	Prepared 2026-08-14. Tab-separated: paste straight into Google Sheets and it splits into columns automatically.
+
+BLOCK 1 — EVERY METAPLANET BITCOIN ENTITY, PROJECT AND INVESTMENT
+#	Entity / Project	Type	Metaplanet's relationship	Date	Size / value	Bitcoin link	Chain / rails	Tradable instrument?	DRK MARKET-MAKER PLAY	Can DRK invest? (dual side)	DRK revenue — MM side	DRK revenue — investor side	Capital DRK needs	Regulatory friction	Who holds the licence	Evidence	Priority	Biggest unknown
+1	Metaplanet Ventures	VC arm — THE FUNNEL	Wholly owned subsidiary	2026-03-12	JPY 4B (~$25M) over 2-3 yrs	Invests only in Japan's Bitcoin ecosystem	n/a — fund	No	Not a trade — this is the DEAL PIPELINE. Every portfolio co that ever issues a token is a DRK MM mandate	YES — co-invest alongside on the same terms	MM fee per portfolio token	Equity / token allocation at VC entry price	Small tickets, staged	Low (private co-investment)	None needed	STRONG	1	Will they syndicate, or invest alone?
+2	JPYC Inc.	Yen stablecoin issuer	Metaplanet Ventures' FIRST investment	2026-04 (LOI Mar)	JPY 400M (~$2.5M) into Series B	Settlement leg for BTC trades and Project NOVA	Avalanche + Ethereum + Polygon (ALL EVM)	YES — JPYC token, live	Make markets in JPYC pairs: JPYC/USDC, JPYC/USDT, JPYC/BTC, JPYC/ETH. Depth on EVM DEXs is DRK's core skill	Possibly — Series B extended to ~JPY 6B, may still be open	Spread + monthly liquidity retainer	Series B equity if allowed in	Low-moderate inventory	Moderate — PSA / funds-transfer perimeter, not FIEA	JPYC (Type II funds transfer)	STRONG	1	Who makes JPYC markets today, and is depth a known problem?
+3	Project NOVA	BTC-backed digital credit programme	Flagship initiative	2026-07-10	Target yield 4-6% p.a.	BTC as collateral / credit enhancement, not sold	Progmat (migrating to Avalanche = EVM)	YES — tokenised bonds, once issued	Designated market maker for each issuance. Tokenised bonds in Japan issue well and trade almost not at all — that gap is the whole opportunity	Yes — buy into the instruments themselves	Liquidity retainer per instrument + spread share	Coupon 4-6% on inventory held	Scoped per issue, far below a BTC block	HIGH — FIEA securities	Metaplanet Securities (Type I)	STRONG	1	Is secondary trading even in scope, or hold-to-maturity?
+4	Progmat Inc.	Security-token platform	Project NOVA joint-study partner	2026-07-10	~JPY 439.6B AUM, ~63% of Japan ST issuance	Rails for BTC-backed tokenised securities	MIGRATING $2B+ TO AVALANCHE — EVM, sub-2s finality	Yes — all Progmat STs	Become the liquidity layer for Progmat STs generally, not just Metaplanet's. MUFG / Mizuho / SMBC / BlackRock Japan consortium behind it	No — MUFG-backed, not raising from DRK	Per-instrument MM mandates across the platform	n/a	Moderate	HIGH — FIEA	Issuer / broker side	STRONG	1	Does Progmat have a designated-MM programme at all?
+5	Metaplanet Securities	Regulated broker (ex-Siiibo)	Wholly owned, acquired	Acq 2026-06-12, rebrand 2026-07-13	JPY 2.1B (~$13.1M)	Distributes BTC-linked products in Japan	Traditional + ST	Distributes them	NOT a target — a VEHICLE. DRK operates the engine BENEATH their Type I licence. Their licence is the answer to DRK's biggest problem	No — wholly owned	Licensed Runtime fee / MM mandate under their licence	n/a	None	This entity REMOVES the friction	Type I FIEA (FSA)	STRONG	1	Can a foreign unlicensed vendor operate under their licence?
+6	Metaplanet Asset Management	Digital credit + BTC capital markets platform	Wholly owned subsidiary	2026-03-12	n/a disclosed	Bridges Asian and Western BTC capital markets	n/a	Structures products	Liquidity and pricing layer under their yield / fixed-income / vol strategies. Miami base = outside FIEA perimeter, much easier for DRK	No — wholly owned	Execution + pricing fees	n/a	Low if agency	LOW — Miami / US, not Japan	Metaplanet AM	MODERATE	2	Is it operational yet or still a shell?
+7	Ventures portfolio — LENDING	Named target sector	Future investments	2026-03-12 mandate	From the JPY 4B	BTC-collateralised lending	Likely EVM	Likely — if tokenised	Make markets in any token; provide liquidity to lending pools	YES — co-invest	MM fee + pool incentives	Token / equity upside	Low per name	Depends on structure	Varies	MODERATE (sector named, no cos yet)	2	Which companies, and when?
+8	Ventures portfolio — PAYMENTS	Named target sector	Future investments	2026-03-12 mandate	From the JPY 4B	BTC payment rails	Likely EVM	Possibly	Stablecoin / payment-token pair liquidity	YES — co-invest	Spread	Token / equity upside	Low	Moderate (PSA)	Varies	MODERATE	3	Same
+9	Ventures portfolio — CUSTODY	Named target sector	Future investments	2026-03-12 mandate	From the JPY 4B	BTC custody	n/a	Rarely	Weak MM fit — custody firms don't usually issue tradable tokens	YES — co-invest, but no MM leg	None	Equity upside only	n/a	High	Varies	MODERATE	4	Same
+10	Ventures portfolio — DERIVATIVES	Named target sector	Future investments	2026-03-12 mandate	From the JPY 4B	BTC derivatives	Likely both	Yes	Strongest MM fit of the four sectors — but DRK has no evidenced options/derivs capability today	YES — co-invest	MM / LP fees	Token / equity upside	Higher	High	Varies	MODERATE	2	Does DRK want to build derivs capability?
+11	Ventures portfolio — COMPLIANCE	Named target sector	Future investments	2026-03-12 mandate	From the JPY 4B	Compliance tooling	n/a	No	No MM angle. Investor side only	YES — co-invest	None	Equity upside only	n/a	n/a	Varies	MODERATE	5	Same
+12	Ventures incubator + grants	Incubator / open-source grants	Programme under Ventures	2026-03-12	From the JPY 4B	Japanese founders, devs, educators	Varies	Eventually	Earliest possible entry point. Be the named liquidity partner for every cohort token from day one	YES — pre-seed entry	MM from launch	Cheapest entry price of anything here	Very low	Low at this stage	None	MODERATE	2	Is there a cohort running now?
+13	Bitcoin Income Generation	Options-writing book	In-house business line	FY2026 ongoing	H1 FY26 rev JPY 4.717B; Q2 -41% QoQ	Collateral-secured BTC options, segregated portfolio	CeFi / OTC	No	Execution + vol pricing + hedging layer. HIGH value, but DRK has no proven options capability. Investigate, do not pitch	No	Execution fee if ever won	n/a	Moderate-high	Depends on venue	Metaplanet	STRONG need signal / WEAK DRK fit	3	Which venues and counterparties?
+14	BTC treasury (43,000 BTC)	Spot Bitcoin	Core balance sheet	2026-07-01	43,000 BTC, ~JPY 15.3M cost basis	The treasury itself	n/a	Spot BTC	DO NOT PITCH. One block is ~$200M+. DRK is raising $1.5M. Offering principal here destroys credibility	No	None	n/a	Impossible	n/a	n/a	STRONG	DO NOT PITCH	Has accumulation actually resumed?
+15	MARS + MERCURY preferred	Perpetual preferred equity	Metaplanet-issued	MERCURY 2025-11-20	MERCURY ~$150M @ ~4.9%	Funds BTC purchases	TSE / traditional	Yes — listed securities	No DRK angle. Traditional securities, not tokenised	No	None	n/a	n/a	n/a	n/a	STRONG	NONE	Was the preferred listing postponed?
+16	Zero-coupon bond series	Debt	Metaplanet-issued	20th series 2026-04-24	JPY 8B (~$50M), 0% coupon	Funds BTC purchases	Traditional	Yes, but privately placed	No DRK angle — EVO FUND takes the whole series	No	None	n/a	n/a	n/a	n/a	STRONG	NONE	n/a
+17	EVO FUND	Financier	Anchors every bond series	ongoing	Full subscription each series	Funds BTC purchases	n/a	No	Context only — shows they already have a captive financing counterparty	No	None	n/a	n/a	n/a	n/a	STRONG	CONTEXT	n/a
+18	Capital Group stake	Shareholder	Largest shareholder, 10.63%	2026-07-13	~$203M	Owns Metaplanet equity	TSE	Yes — MTPLF / 3350	Context only — institutional validation of the parent	No	None	n/a	n/a	n/a	n/a	STRONG	CONTEXT	n/a
+19	Bitcoin Magazine Japan	Media licence	Exclusive licence holder	pre-2026	n/a	Bitcoin media	n/a	No	No MM angle. Useful for distribution / credibility only	No	None	n/a	n/a	n/a	n/a	STRONG	NONE	n/a
+20	Tokyo hotel	Legacy operating business	Owned	pre-2024	n/a	None	n/a	No	Ignore	No	None	n/a	n/a	n/a	n/a	STRONG	NONE	n/a
+
+
+BLOCK 2 — WHAT DRK COULD ACTUALLY DO AS A MARKET MAKER
+#	Play	Where it applies	What DRK does mechanically	Why DRK specifically	Capital required	Revenue model	Regulatory route	Difficulty	Honest verdict
+1	Designated MM for Project NOVA instruments	Project NOVA / Progmat	Continuous two-way quoting on each BTC-backed tokenised bond; inventory and risk run by DRK's engine; Control Layer gives Metaplanet Securities real-time visibility into the book	Tokenised bonds in Japan have chronic zero secondary liquidity. Progmat is going EVM. DRK already makes markets in newly issued EVM tokens	Scoped per issue — a bond tranche needs far less than a BTC block	Monthly retainer per instrument + spread share	Operate BENEATH Metaplanet Securities' Type I licence — DRK is the engine, they are the principal	High	THE LEAD PLAY. Everything DRK already does, pointed at a market that badly needs it
+2	JPYC pair market making	JPYC	Two-way depth in JPYC/USDC, JPYC/USDT, JPYC/BTC on Avalanche, Ethereum, Polygon DEXs; manage the yen leg	JPYC runs on three EVM chains DRK already supports. A stablecoin with no depth cannot be a settlement rail	Low-moderate	Spread + liquidity retainer from JPYC	PSA / funds-transfer perimeter, NOT FIEA — materially easier than STs	Moderate	STRONG AND IMMEDIATE. Smallest technical lift of any play here
+3	Portfolio-wide MM mandate via Metaplanet Ventures	Every Ventures portfolio co	Standing agreement: DRK is default liquidity partner for any Ventures portfolio company that issues a token	One relationship, N mandates. Turns a single BD win into recurring deal flow for years	Small per name, staged	Per-mandate MM economics	Depends per company; most will be crypto-native not FIEA	Moderate	THE COMPOUNDING PLAY. Highest long-run value in this sheet
+4	Liquidity layer for Metaplanet Asset Management	Metaplanet AM (Miami)	Pricing and execution under their yield / credit / vol strategies	Miami entity sits OUTSIDE the Japanese regulatory perimeter — by far the easiest place for DRK to start	Low if agency	Execution + pricing fee	US / offshore, not FIEA	Moderate	UNDERRATED. Easiest legal path into the group
+5	Execution + reporting layer (Licensed Runtime, trading off)	Treasury + options book	Read-only analytics: execution cost vs benchmark, venue and counterparty attribution, realised spread, BTC Yield decomposition, reconciliation	It is DRK's existing product with the engine switched off. No licence, no capital, no custody	NONE	Fixed monthly software fee	Software only — no dealing, no solicitation	Low	THE WEDGE. Gets DRK paid and inside the account before any liquidity mandate exists
+6	Options / vol execution for the income book	Bitcoin Income Generation	Execution, vol-surface pricing, hedging, collateral, PnL attribution	Q2 revenue fell 41% on vol compression — if any of that is execution, it is real money	Moderate-high	Execution fee or performance share	Depends entirely on venue	Very high	INVESTIGATE, DO NOT PITCH. DRK has no evidenced options capability
+7	Principal BTC block liquidity	BTC treasury	Quote a firm price on a large BTC block, then hedge	Nothing. DRK cannot do this	~$200M per trade	Spread	n/a	Impossible	REJECTED. Raising this costs DRK the meeting
+
+
+BLOCK 3 — THE DUAL-SIDE MODEL: INVEST AND MARKET-MAKE THE SAME ASSET
+Item	Detail
+The thesis	DRK takes a position in the project AND runs its liquidity. Two revenue lines, one relationship, one diligence process.
+Investor side	Equity or token allocation at entry price, alongside Metaplanet Ventures on the same terms.
+Operator side	Market-making mandate from launch: spread capture, monthly retainer, and in DRK's existing model a share of measured performance.
+Why it compounds	MM gives DRK live order-flow data on its own portfolio. Better information than any passive investor has, and it improves both the quote and the investment decision.
+Why Metaplanet should like it	A liquidity partner with equity in the outcome does not walk away when the token is thin. Incentives align in the direction they care about.
+CONFLICT — must be handled openly	DRK would hold a position in an asset it also quotes. This is the objection that kills the deal if DRK raises it second instead of first.
+How to handle it	Disclose before being asked. Offer: separate inventory from investment position; the Control Layer already gives the client real-time visibility into the traded book; accept a lock-up on the investment leg so DRK cannot exit through its own quotes.
+Precedent	Standard in crypto (MM firms with venture arms) and structurally similar to a sponsor-plus-designated-MM arrangement in traditional listings. Not exotic — but must be documented, not assumed.
+Where it applies BEST	Ventures portfolio companies and the incubator cohort — private, pre-token, DRK can negotiate both legs in one agreement before anyone else is at the table.
+Where it does NOT apply	Project NOVA instruments (FIEA securities — holding and quoting the same regulated instrument is a much harder conversation) and anything involving the BTC treasury.
+Capital reality check	DRK is raising $1.5M. The investor leg must be small tickets in early rounds, not meaningful cheques into JPYC's Series B. Be honest about size or it reads as bluff.
+
+
+BLOCK 4 — PRIORITY ORDER FOR THE FIRST CONVERSATION
+Rank	Ask	Why first
+1	Standing MM partnership with Metaplanet Ventures across the portfolio	One agreement, recurring mandates, dual-side model applies cleanly, no FIEA problem
+2	JPYC pair liquidity	Live token, EVM chains DRK already supports, easiest technical lift, Metaplanet is an investor so the intro is warm
+3	Designated MM for the first Project NOVA instrument	Highest strategic value and best product fit, but gated on whether secondary trading exists at all
+4	Licensed Runtime as reporting layer	Zero-friction paid wedge if 1-3 all stall
+5	Metaplanet Asset Management (Miami)	Easiest legal path into the group; worth raising if the Japan conversation gets tangled in licensing
+
+
+BLOCK 5 — DATA QUALITY FLAGS
+Flag	Issue	Action
+JPYC ticket size	One summary said "up to JPY 4B into JPYC"; The Block and Decrypt both say JPY 400M into the Series B. JPY 4B is the FUND size, not the ticket	Use JPY 400M. Verify against the disclosure
+Q2 BTC purchase price	Sources give $78,872/BTC, "$170M", "$225M" and JPY 12.7M/coin for the same 2,823 BTC. These cannot all be right	Pull the number from Metaplanet's own PDF before quoting it
+Preferred share listing	At least one report says the preferred listing was postponed	Verify current status before referencing MARS/MERCURY
+Unrealised loss	43,000 BTC at ~JPY 15.3M cost vs BTC ~$64,085 on 2026-08-12 implies roughly -$1.5B unrealised. This is OUR arithmetic, not their disclosure	Never state as fact in a meeting. Use it to calibrate expectations only
+Accumulation status	mNAV fell below 1.0x, buyback ran to 2026-10-28, purchases paused during the discount — but 2,823 BTC bought in Q2 2026	Ask directly rather than assume
+
+
+BLOCK 6 — SOURCES
+Topic	URL
+Metaplanet vision / strategy	https://metaplanet.jp/en/about
+Ventures + Asset Management subsidiaries	https://www.theblock.co/post/393329/metaplanet-vc-asset-management-subsidiaries
+$25M venture plan / JPYC LOI	https://decrypt.co/360812/metaplanet-bitcoin-strategy-new-venture-arm-investment-plan
+Siiibo acquisition	https://www.coindesk.com/markets/2026/06/12/metaplanet-buys-siiibo-securities-to-accelerate-bitcoin-financial-ecosystem-plans
+Siiibo rebrand to Metaplanet Securities	https://finance.yahoo.com/markets/crypto/articles/japan-siiibo-securities-rebrand-metaplanet-182855566.html
+Project NOVA / Bitbonds	https://cryptobriefing.com/metaplanet-bitbonds-bitcoin-backed-yields-project-nova/
+Project NOVA joint study	https://www.crowdfundinsider.com/2026/07/294123-metaplanet-advances-exploration-of-bitcoin-btc-backed-digital-credit-products/
+Q2 BTC purchase / 43,000 BTC	https://www.coindesk.com/markets/2026/07/02/metaplanet-buys-another-usd170-million-of-bitcoin-expanding-treasury-to-43-000-btc
+Q2 options income -41%	https://www.cryptotimes.io/2026/07/02/metaplanet-reports-41-drop-in-q2-bitcoin-options-income/
+Progmat migrates $2B+ to Avalanche	https://www.avax.network/about/blog/progmat-migrates-2b-tokenized-securities-to-avalanche
+JPYC Series B extension	https://www.ledgerinsights.com/japanese-yen-jpyc-stablecoin-issuer-extends-series-b-to-38m/
+mNAV discount / paused buys	https://bitbo.io/news/metaplanet-mnav-discount-pause/
+$500M buyback	https://cointelegraph.com/news/metaplanet-bitcoin-leverage-500m-buyback-market-undervalues-stock
+Capital Group 10.63% stake	https://www.cryptotimes.io/2026/07/21/3-3-trillion-capital-group-deepens-bitcoin-exposure-with-major-stake-in-metaplanet/
+Japan 2026 FIEA amendments	https://innovationlaw.jp/en/japans-2026-fiea-amendment-bill/
+BTC price 2026-08-12	https://fortune.com/article/price-of-bitcoin-08-12-2026/
