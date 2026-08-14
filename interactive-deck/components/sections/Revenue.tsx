@@ -10,21 +10,21 @@ import { cn, range, smoothPath } from "@/lib/utils";
 import { TW } from "@/lib/motion";
 
 /**
- * SCENE 12 — REVENUE  (act one of five)
+ * SCENE 13 — REVENUE  (act one of five)
  *
  * Revenue, Economics, Projections, Compounding and the Raise are ONE economic
  * argument, so they are built as one continuous act rather than five diagrams:
  *
- *   12  the same engine produces five revenue LINES, and every line feeds ONE
+ *   13  the same engine produces five revenue LINES, and every line feeds ONE
  *       pool. The pool is labelled CAPITAL.               <- you are here
- *   13  why the earnings per mandate rise as those lines mature.
- *   14  what the five lines total over three years.
- *   15  that same CAPITAL is the entry node of the compounding loop.
- *   16  the $1.5M enters that same pool and expands what it can drive.
+ *   14  why the earnings per mandate rise as those lines mature.
+ *   15  what the five lines total over three years.
+ *   16  that same CAPITAL is the entry node of the compounding loop.
+ *   17  the $1.5M enters that same pool and expands what it can drive.
  *
  * This scene answers HOW DRK MAKES MONEY and deliberately shows no figures:
  * naming the lines and pricing them in the same breath buries the taxonomy
- * under a table. Scene 14 prices them, off the same data.
+ * under a table. Scene 15 prices them, off the same data.
  *
  * The Execution Engine here is the object introduced in Scene 01 and
  * reconfigured in Scene 03 — same object, same scale ladder, third appearance.
@@ -45,13 +45,13 @@ export function Revenue() {
   const bridge = range(p, 0.88, 1);
 
   return (
-    <Scene sceneRef={ref} id="revenue" index="12" title="Multiple revenue streams" height="300vh">
+    <Scene sceneRef={ref} id="revenue" index="13" title="Multiple revenue streams" height="300vh">
       <SceneStage>
         <SceneShell>
           <div className="grid items-center gap-x-[clamp(1.5rem,3vw,3rem)] gap-y-8 lg:grid-cols-[minmax(0,0.6fr)_minmax(0,1.4fr)]">
             {/* ---------------- narrative ---------------- */}
             <div className="drk-scrim">
-              <SceneHead index="12" eyebrow="REVENUE" size="h2">
+              <SceneHead index="13" eyebrow="REVENUE" size="h2">
                 {revenue.headline.line1}
                 <br />
                 <Signal>{revenue.headline.signal}</Signal>
@@ -182,7 +182,7 @@ export function Revenue() {
                 </ul>
               </div>
 
-              {/* the pool every stream feeds — the handoff into Scene 12 */}
+              {/* the pool every stream feeds — the handoff into Scene 16 */}
               <div
                 className="flex flex-col items-center 2xl:mt-0"
                 style={{ opacity: scrub ? 0.15 + pool * 0.85 : 1 }}

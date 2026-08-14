@@ -9,9 +9,9 @@ import { cn, range } from "@/lib/utils";
 import { TW } from "@/lib/motion";
 
 /**
- * SCENE 14 — PROJECTIONS  (act three of five)
+ * SCENE 15 — PROJECTIONS  (act three of five)
  *
- * Scene 12 named the five revenue lines. Scene 13 showed why the earnings per
+ * Scene 13 named the five revenue lines. Scene 14 showed why the earnings per
  * mandate rise. This scene is the only place in the deck that prices any of it,
  * and it answers the third and last financial question: WHAT COULD THAT BECOME?
  *
@@ -29,7 +29,7 @@ import { TW } from "@/lib/motion";
  * a stale total on the page. `validateFinancials()` guards the published
  * headline numbers against that computation.
  *
- * The Y3 figure here is $14.4M. Scene 13's Y3 figure is $10.1M. They measure
+ * The Y3 figure here is $14.4M. Scene 14's Y3 figure is $10.1M. They measure
  * different things and the deck says so in both places rather than hoping
  * nobody notices — see VER-13.
  */
@@ -51,7 +51,7 @@ export function Projections() {
     <Scene
       sceneRef={ref}
       id="projections"
-      index="14"
+      index="15"
       title="Three-year revenue projection"
       height="320vh"
     >
@@ -61,7 +61,7 @@ export function Projections() {
             className="drk-scrim max-w-[62ch]"
             style={{ opacity: scrub ? 0.25 + head * 0.75 : 1 }}
           >
-            <SceneHead index="14" eyebrow="PROJECTIONS" size="h2">
+            <SceneHead index="15" eyebrow="PROJECTIONS" size="h2">
               {projection.headline.line1}{" "}
               <Signal>{projection.headline.signal}</Signal>{" "}
               {projection.headline.line2}
@@ -296,7 +296,7 @@ export function Projections() {
               </ul>
 
               {/*
-                THE DISTINCTION, REPEATED. It appears on Scene 13 and again here
+                THE DISTINCTION, REPEATED. It appears on Scene 14 and again here
                 because these are the only two scenes carrying a Year 3 number,
                 and whichever one the reader lands on first must inoculate them
                 against the other.

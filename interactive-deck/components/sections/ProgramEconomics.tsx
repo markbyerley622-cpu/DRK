@@ -9,7 +9,7 @@ import { cn, range } from "@/lib/utils";
 import { TW } from "@/lib/motion";
 
 /**
- * SCENE 13 — PROGRAM ECONOMICS  (act two of five)
+ * SCENE 14 — PROGRAM ECONOMICS  (act two of five)
  *
  * The scene answers ONE question, and it is the question a good investor asks
  * immediately after seeing five revenue lines:
@@ -29,7 +29,7 @@ import { TW } from "@/lib/motion";
  *
  * The headline number on each panel is managed-program earnings, and it is
  * labelled as such every single time it appears. It is NOT total revenue —
- * Scene 14 owns that figure, and Y3 differs ($10.1M here, $14.4M there). The
+ * Scene 15 owns that figure, and Y3 differs ($10.1M here, $14.4M there). The
  * two are different cuts of the business on different assumptions, never a
  * subset of one another. See VER-13, and the distinction strip at the foot of
  * this scene, which exists solely to stop that misreading.
@@ -51,14 +51,14 @@ export function ProgramEconomics() {
     <Scene
       sceneRef={ref}
       id="economics"
-      index="13"
+      index="14"
       title="Larger mandates change the earnings curve"
       height="300vh"
     >
       <SceneStage>
         <SceneShell>
           <div className="drk-scrim" style={{ opacity: scrub ? 0.25 + head * 0.75 : 1 }}>
-            <SceneHead index="13" eyebrow="PROGRAM ECONOMICS" size="h2">
+            <SceneHead index="14" eyebrow="PROGRAM ECONOMICS" size="h2">
               {programEconomics.headline.line1}
               <br />
               <Signal>{programEconomics.headline.signal}</Signal>
@@ -95,7 +95,7 @@ export function ProgramEconomics() {
               Two numbers this deck shows for Year 3 differ, and an investor who
               spots that without an explanation stops trusting every other
               figure. So the distinction is made here, on the page, before they
-              reach Scene 14 — not buried in a footnote afterwards.
+              reach Scene 15 — not buried in a footnote afterwards.
             */}
             <p className="mt-3 max-w-[76ch] text-[0.78rem] leading-relaxed text-[var(--color-muted)]">
               <span className="drk-label text-[var(--color-ink-soft)]">

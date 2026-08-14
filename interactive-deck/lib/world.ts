@@ -100,6 +100,17 @@ export const SIGNAL_KEYFRAMES: Keyframe[] = [
     ],
   },
   {
+    id: "rwa",
+    i: 0.72,
+    note:
+      "A wide, shallow plateau that lifts at the far right — a large flat market " +
+      "with the liquidity gap opening at its edge. Quieter than Market so the two " +
+      "adjacent scenes do not read as the same claim twice.",
+    pts: [
+      [-8, 70], [10, 69], [26, 68], [40, 67], [52, 66], [64, 63], [78, 55], [92, 42], [108, 28],
+    ],
+  },
+  {
     id: "integration",
     i: 0.6,
     note: "Reaching out: the signal extends toward a network that is not yet connected.",
@@ -276,6 +287,7 @@ export const SYSTEM_STATE: Record<SectionId, { state: string; detail: string }> 
   proof: { state: "MEASURED", detail: "2 LAUNCHES / RISK-OFF" },
   stack: { state: "INTEGRATED", detail: "STACK OWNED END TO END" },
   market: { state: "EXPANDING", detail: "ADDRESSABLE SURFACE GROWING" },
+  rwa: { state: "ADJACENT MARKET", detail: "ISSUED / NOT TRADED" },
   integration: { state: "CONNECTING", detail: "NEW VENUE ONBOARDING" },
   lifecycle: { state: "IN LAUNCH", detail: "FIRST BLOCK → GROWTH" },
   control: { state: "OPERATING", detail: "CONTROL LAYER LIVE" },
@@ -301,6 +313,7 @@ export const AMBIENT: Record<SectionId, { x: number; y: number; i: number }> = {
   proof: { x: 70, y: 52, i: 0.55 },
   stack: { x: 62, y: 50, i: 0.7 },
   market: { x: 76, y: 44, i: 0.8 },
+  rwa: { x: 44, y: 48, i: 0.72 },
   integration: { x: 58, y: 52, i: 0.75 },
   lifecycle: { x: 50, y: 56, i: 0.8 },
   control: { x: 66, y: 50, i: 0.65 },

@@ -10,7 +10,7 @@ import { integration } from "@/content/drk";
 import { clamp01, cn, range, smoothPath } from "@/lib/utils";
 
 /**
- * SCENE 08 — INTEGRATION SPEED
+ * SCENE 09 — INTEGRATION SPEED
  *
  * The claim is "days, not years", and a claim stated is a claim unproven. So the
  * scene performs it: five venues pass through the six-stage connection sequence
@@ -147,7 +147,7 @@ export function Integration() {
     <Scene
       sceneRef={ref}
       id="integration"
-      index="08"
+      index="09"
       title="We integrate in days, not years"
       height="260vh"
     >
@@ -162,7 +162,7 @@ export function Integration() {
           <div className="drk-scrim grid gap-x-[clamp(1.75rem,3.5vw,3.75rem)] gap-y-[clamp(1.75rem,4vh,2.75rem)] lg:h-full lg:grid-cols-[minmax(0,0.86fr)_minmax(0,1.14fr)] lg:items-stretch">
             {/* ================= narrative + the claim ================= */}
             <div className="flex min-h-0 flex-col justify-center">
-              <SceneHead index="08" eyebrow="INTEGRATION SPEED" lede={integration.support}>
+              <SceneHead index="09" eyebrow="INTEGRATION SPEED" lede={integration.support}>
                 {integration.headline.line1}
                 <br />
                 <span className="text-[var(--color-signal)]">{integration.headline.line2}</span>

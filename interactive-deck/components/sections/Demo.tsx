@@ -9,7 +9,7 @@ import { control } from "@/content/drk";
 import { cn } from "@/lib/utils";
 
 /**
- * SCENE 11 — THE LIVE SYSTEM
+ * SCENE 12 — THE LIVE SYSTEM
  *
  * Scene 10 hands the viewer a surface they can operate. This one shows them
  * that the surface is real, at the only scale that makes the point: the
@@ -99,7 +99,7 @@ export function Demo() {
     <Scene
       sceneRef={ref}
       id="demo"
-      index="11"
+      index="12"
       title="The live DRK application"
       height={isDesktop ? "260vh" : "auto"}
     >
