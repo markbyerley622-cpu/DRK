@@ -99,6 +99,38 @@ supplied slide, with its amounts rescaled to `$1.2M` / `$300K`.
 **Action.** No valuation is stated or derived. **Confirm the `10%` equity figure
 is still correct at `$1.5M`** — the terms row is the only place it appears.
 
+## VER-12 — Scene 12 Revenue (revenue-model slide supplied 2026-08-14)
+
+**Issue.** The supplied revenue model names five revenue **lines** (Launch
+Liquidity & Marketing, General Market Making, Token Loans Program, RFQs &
+Retainers, Software Licensing). Source page 12 named five different charging
+**mechanics** (upfront liquidity, % of every launch, daily service fee, 15–35%
+of off-ramp\*, recurring software license). Two different lists of five in one
+deck reads as a contradiction.
+
+**Action.** The supplied lines now govern, because they are the taxonomy the
+three-year projection is built on. The page-12 mechanics were **not deleted** —
+each is preserved as the note on the line that absorbs it, and the off-ramp
+footnote survives verbatim (VER-08). One mechanic has no home in the new
+taxonomy: the **daily service fee**. **Confirm whether it sits inside General
+Market Making, inside RFQs & Retainers, or has been retired.**
+
+## VER-13 — Scenes 13 and 14, program economics vs projections (both supplied 2026-08-14)
+
+**Issue.** The two supplied slides do not reconcile line-by-line. Year 3 total
+revenue is `$14.4M` across five named lines; Year 3 managed-program earnings are
+`$10.1M`, and that slide's disclaimer excludes solver flow, arbitrage, staking,
+treasury yield and selective infrastructure licensing. But four of those five
+exclusions are **not line items in the $14.4M table at all**, and the fifth
+(licensing) is only `$1.2M` — so the `$4.3M` gap cannot be explained by the
+stated exclusions. Year 1 and Year 2 coincide exactly; only Year 3 diverges.
+
+**Action.** The deck presents them as **two views on different assumptions**,
+never as a total and a subset, and never invites subtraction. No bridging figure
+is invented. **Confirm whether the $10.1M curve and the $14.4M projection are
+intended as alternative cases or as related cuts — and if related, what accounts
+for the Year 3 gap.**
+
 ## VER-10 — Scene 05 Proof
 
 **Issue.** The proof slide names no clients.

@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { contentVerifyTodos, sourceNote } from "@/content/drk";
+import { contentVerifyTodos, sourceNote, validateFinancials } from "@/content/drk";
 import { SectionLabel } from "@/components/ui/primitives";
 
 /**
@@ -52,6 +52,14 @@ export function VerifyNotes() {
           </button>
         </div>
 
+        {/*
+          FINANCIAL ARITHMETIC GUARD.
+          Always visible, never behind the toggle — a broken total is the one
+          failure in this deck that an investor will catch before we do, so it
+          has to be impossible to miss while reviewing.
+        */}
+        <FinancialCheck />
+
         {open && (
           <ol id="verify-list" className="mt-7 flex flex-col gap-5">
             {contentVerifyTodos.map((t) => (
@@ -84,5 +92,59 @@ export function VerifyNotes() {
         </p>
       </div>
     </section>
+  );
+}
+
+/* -------------------------------------------------------------------------- */
+
+/**
+ * Runs the financial model's own arithmetic guards and reports the result.
+ *
+ * Green is the expected state and says so explicitly rather than rendering
+ * nothing — silence is indistinguishable from a check that never ran.
+ */
+function FinancialCheck() {
+  const problems = validateFinancials();
+  const ok = problems.length === 0;
+
+  return (
+    <div
+      className="mt-7 rounded-[9px] border px-4 py-3"
+      style={{
+        borderColor: ok ? "var(--color-hairline-signal)" : "var(--color-warn)",
+        background: "var(--color-panel)",
+      }}
+    >
+      <div className="flex items-center gap-2.5">
+        <span
+          aria-hidden
+          className="size-1.5 shrink-0 rounded-full"
+          style={{ background: ok ? "var(--color-signal)" : "var(--color-warn)" }}
+        />
+        <span
+          className="drk-label"
+          style={{ color: ok ? "var(--color-signal)" : "var(--color-warn)" }}
+        >
+          FINANCIAL MODEL — {ok ? "ARITHMETIC CONSISTENT" : `${problems.length} PROBLEM(S)`}
+        </span>
+      </div>
+
+      {ok ? (
+        <p className="mt-2 text-[0.78rem] leading-relaxed text-[var(--color-muted)]">
+          Column totals, per-line three-year totals, the $21.5M cumulative, and
+          programs × average earnings all reconcile. Scene 12&rsquo;s revenue-line
+          names match the projected lines, and the two Year&nbsp;3 figures remain
+          distinct ($14.4M total revenue vs $10.1M managed-program earnings).
+        </p>
+      ) : (
+        <ul className="mt-2 flex flex-col gap-1">
+          {problems.map((p) => (
+            <li key={p.id} className="text-[0.78rem] leading-relaxed text-[var(--color-ink-soft)]">
+              <span className="drk-mono text-[var(--color-warn)]">{p.id}</span> — {p.detail}
+            </li>
+          ))}
+        </ul>
+      )}
+    </div>
   );
 }

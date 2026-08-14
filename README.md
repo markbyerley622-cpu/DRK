@@ -3,7 +3,7 @@
 **Transparent liquidity infrastructure for token launches, DEXs, perps, and onchain assets.**
 
 An interactive, scroll-led investor experience built from the DRK pitch deck.
-Fourteen narrative scenes, one continuous machine — not a slide deck on the web.
+Seventeen narrative scenes, one continuous machine — not a slide deck on the web.
 
 ```
 interactive-deck/     the Next.js application
@@ -55,7 +55,7 @@ WorldProvider              one scroll observer; continuous narrative time t ∈ 
   └─ state channel         active scene + progress only
 DrkWorld                   fixed, z-0 — one ground, one travelling light,
                            one liquidity signal whose SHAPE morphs with scroll
-main (z-1)                 the fourteen scenes, composing on top
+main (z-1)                 the seventeen scenes, composing on top
 ```
 
 The liquidity signal holds a scene's shape for the first 58% of its runway and

@@ -146,6 +146,26 @@ export const SIGNAL_KEYFRAMES: Keyframe[] = [
     ],
   },
   {
+    id: "economics",
+    i: 0.66,
+    note:
+      "A staircase. Three treads rising left to right — the same climb the three " +
+      "year panels make, read behind them rather than drawn twice.",
+    pts: [
+      [-8, 78], [10, 78], [26, 76], [40, 64], [54, 62], [68, 48], [82, 45], [95, 32], [108, 30],
+    ],
+  },
+  {
+    id: "projections",
+    i: 0.86,
+    note:
+      "The accelerating curve: flat through Year 1, then steepening hard. This is " +
+      "the projection itself, drawn by the world instead of by a chart.",
+    pts: [
+      [-8, 84], [10, 83], [26, 81], [40, 77], [52, 71], [64, 62], [78, 48], [92, 31], [108, 12],
+    ],
+  },
+  {
     id: "compound",
     i: 0.62,
     note:
@@ -261,6 +281,8 @@ export const SYSTEM_STATE: Record<SectionId, { state: string; detail: string }> 
   control: { state: "OPERATING", detail: "CONTROL LAYER LIVE" },
   demo: { state: "LIVE", detail: "RECORDED IN PRODUCTION" },
   revenue: { state: "MONETISING", detail: "5 STREAMS / 1 ENGINE" },
+  economics: { state: "COMPOUNDING UNIT", detail: "MORE PER MANDATE" },
+  projections: { state: "PROJECTING", detail: "3-YEAR TARGET CASE" },
   compound: { state: "COMPOUNDING", detail: "CAPITAL RE-ENTERING" },
   raise: { state: "SCALING", detail: "$1.5M INTO THE MACHINE" },
   close: { state: "RESOLVED", detail: "TRANSPARENT BY DESIGN" },
@@ -284,6 +306,8 @@ export const AMBIENT: Record<SectionId, { x: number; y: number; i: number }> = {
   control: { x: 66, y: 50, i: 0.65 },
   demo: { x: 50, y: 50, i: 0.3 },
   revenue: { x: 38, y: 52, i: 0.8 },
+  economics: { x: 50, y: 50, i: 0.78 },
+  projections: { x: 72, y: 46, i: 0.9 },
   compound: { x: 66, y: 50, i: 0.85 },
   raise: { x: 30, y: 52, i: 0.9 },
   close: { x: 72, y: 56, i: 1 },

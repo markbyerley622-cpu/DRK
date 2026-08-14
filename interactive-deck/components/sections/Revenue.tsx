@@ -10,15 +10,21 @@ import { cn, range, smoothPath } from "@/lib/utils";
 import { TW } from "@/lib/motion";
 
 /**
- * SCENE 12 — REVENUE  (act one of three)
+ * SCENE 12 — REVENUE  (act one of five)
  *
- * Revenue, Compounding and the Raise are ONE economic argument, so they are
- * built as one continuous act rather than three diagrams:
+ * Revenue, Economics, Projections, Compounding and the Raise are ONE economic
+ * argument, so they are built as one continuous act rather than five diagrams:
  *
- *   11  the same engine produces five revenue streams, and every stream feeds
- *       ONE pool. The pool is labelled CAPITAL.
- *   12  that same CAPITAL is the entry node of the compounding loop.
- *   13  the $1.5M enters that same pool and expands what it can drive.
+ *   12  the same engine produces five revenue LINES, and every line feeds ONE
+ *       pool. The pool is labelled CAPITAL.               <- you are here
+ *   13  why the earnings per mandate rise as those lines mature.
+ *   14  what the five lines total over three years.
+ *   15  that same CAPITAL is the entry node of the compounding loop.
+ *   16  the $1.5M enters that same pool and expands what it can drive.
+ *
+ * This scene answers HOW DRK MAKES MONEY and deliberately shows no figures:
+ * naming the lines and pricing them in the same breath buries the taxonomy
+ * under a table. Scene 14 prices them, off the same data.
  *
  * The Execution Engine here is the object introduced in Scene 01 and
  * reconfigured in Scene 03 — same object, same scale ladder, third appearance.

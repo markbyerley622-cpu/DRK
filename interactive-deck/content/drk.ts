@@ -30,6 +30,8 @@ export type SectionId =
   | "control"
   | "demo"
   | "revenue"
+  | "economics"
+  | "projections"
   | "compound"
   | "raise"
   | "close";
@@ -100,9 +102,11 @@ export const sections: { id: SectionId; label: string; index: string; title: str
   { id: "control", label: "CONTROL", index: "10", title: "The DRK control layer" },
   { id: "demo", label: "LIVE SYSTEM", index: "11", title: "The live DRK application" },
   { id: "revenue", label: "REVENUE", index: "12", title: "Multiple revenue streams" },
-  { id: "compound", label: "COMPOUND", index: "13", title: "Investment liquidity compounds" },
-  { id: "raise", label: "RAISE", index: "14", title: "$1.5M seed round — 80% productive, 20% platform" },
-  { id: "close", label: "CLOSE", index: "15", title: "The next market maker" },
+  { id: "economics", label: "ECONOMICS", index: "13", title: "Larger mandates change the earnings curve" },
+  { id: "projections", label: "PROJECTIONS", index: "14", title: "Three-year revenue projection" },
+  { id: "compound", label: "COMPOUND", index: "15", title: "Investment liquidity compounds" },
+  { id: "raise", label: "RAISE", index: "16", title: "$1.5M seed round — 80% productive, 20% platform" },
+  { id: "close", label: "CLOSE", index: "17", title: "The next market maker" },
 ];
 
 /**
@@ -1193,30 +1197,72 @@ export const launchTimeline = [
 /* SCENE 11 — REVENUE                                                          */
 /* ========================================================================== */
 
+/**
+ * THE FIVE REVENUE LINES.
+ *
+ * These are the client's own revenue-model categories, supplied 2026-08-14, and
+ * they are the deck's SINGLE canonical list of revenue streams — Scene 12 names
+ * them, Scene 14 projects them, and nothing else in the build may introduce a
+ * competing list of five.
+ *
+ * They supersede, and absorb, the five deal-level charging mechanics from source
+ * page 12 ("Upfront liquidity", "% of every launch", "Daily service fee",
+ * "15–35% of off-ramp*", "Recurring software license"). Those were not deleted:
+ * each survives as the `note` on the line that now contains it, so the source
+ * deck's own language still appears on the page and the off-ramp footnote
+ * (VER-08) is preserved verbatim. See VER-12 for why the taxonomy changed.
+ */
 export const revenue = {
   headline: { line1: "One engine.", signal: "Multiple", line2: "revenue streams." },
   support: { plain: "We provide liquidity up front and ", signal: "get paid when programs perform." },
   streams: [
-    { index: "01", name: "Upfront liquidity", note: null, footnote: false, model: "MANAGED TRADING" },
-    { index: "02", name: "% of every launch", note: null, footnote: false, model: "MANAGED TRADING" },
-    { index: "03", name: "Daily service fee", note: null, footnote: false, model: "MANAGED TRADING" },
     {
-      index: "04",
-      name: "15–35% of off-ramp",
-      note: "based on liquidity provided",
-      /** The source prints an asterisk here; the note is its footnote. VER-08. */
+      index: "01",
+      key: "launch",
+      name: "Launch Liquidity & Marketing",
+      /**
+       * Source page 12's own mechanics, preserved inside the line that now
+       * contains them — including the off-ramp footnote verbatim. VER-08.
+       */
+      note: "upfront liquidity, % of every launch, and 15–35% of off-ramp based on liquidity provided",
       footnote: true,
       model: "MANAGED TRADING",
     },
     {
+      index: "02",
+      key: "mm",
+      name: "General Market Making",
+      note: "spread capture and liquidity provision — scales with deployed capital",
+      footnote: false,
+      model: "MANAGED TRADING",
+    },
+    {
+      index: "03",
+      key: "loans",
+      name: "Token Loans Program",
+      note: "structured capital as relationships mature",
+      footnote: false,
+      model: "MANAGED TRADING",
+    },
+    {
+      index: "04",
+      key: "rfq",
+      name: "RFQs & Retainers",
+      note: "large mandates, routing and bespoke execution",
+      footnote: false,
+      model: "MANAGED TRADING",
+    },
+    {
       index: "05",
-      name: "Recurring software license",
-      note: "future MM runtime",
+      key: "software",
+      name: "Software Licensing",
+      note: "selective infrastructure access for external operators",
       footnote: false,
       model: "LICENSED RUNTIME",
     },
   ] as ReadonlyArray<{
     index: string;
+    key: string;
     name: string;
     note: string | null;
     footnote: boolean;
@@ -1228,6 +1274,222 @@ export const revenue = {
     c: "Multiple monetisation layers on one engine.",
   },
 } as const;
+
+/* ========================================================================== */
+/* THE FINANCIAL MODEL — SINGLE SOURCE OF TRUTH                                */
+/* ========================================================================== */
+
+/**
+ * Every financial figure in the deck resolves to this object. No scene may
+ * hardcode a revenue number; if a figure appears on screen it is read from
+ * here, and the totals below are COMPUTED from the line items rather than
+ * transcribed, so the arithmetic cannot drift out of sync with the table.
+ *
+ * TWO MODELS, DELIBERATELY SEPARATE
+ * ---------------------------------
+ * `projection` is the full revenue model: five revenue lines, three years,
+ * $21.5M cumulative. Year 3 total is **$14.4M**.
+ *
+ * `programEconomics` is a DIFFERENT CUT of the business — an illustrative
+ * target case built only from managed-program economics (programs × average
+ * earnings per program). Year 3 there is **$10.1M**.
+ *
+ * These are two views, NOT a whole and a part. They coincide in Y1 and Y2 and
+ * diverge in Y3, and the two cuts are built on different assumptions, so the
+ * deck must never present $10.1M as a subset of $14.4M or invite the reader to
+ * subtract one from the other. See VER-13.
+ */
+
+/** Cell format: whole thousands under $1M, one decimal above. */
+export function money(n: number): string {
+  if (n === 0) return "$0";
+  if (n < 1_000_000) return `$${Math.round(n / 1_000)}K`;
+  return `$${(n / 1_000_000).toFixed(1)}M`;
+}
+
+/** Headline totals carry two decimals, as the supplied model prints them. */
+export function moneyPrecise(n: number): string {
+  return `$${(n / 1_000_000).toFixed(2)}M`;
+}
+
+const PROJECTION_LINES = [
+  { key: "launch", name: "Launch Liquidity & Marketing", y1: 900_000, y2: 2_000_000, y3: 4_200_000 },
+  { key: "mm", name: "General Market Making", y1: 300_000, y2: 1_700_000, y3: 4_600_000 },
+  { key: "loans", name: "Token Loans Program", y1: 0, y2: 600_000, y3: 2_600_000 },
+  { key: "rfq", name: "RFQs & Retainers", y1: 100_000, y2: 600_000, y3: 1_800_000 },
+  { key: "software", name: "Software Licensing", y1: 200_000, y2: 700_000, y3: 1_200_000 },
+] as const;
+
+const sumYear = (y: "y1" | "y2" | "y3") =>
+  PROJECTION_LINES.reduce((t, l) => t + l[y], 0);
+
+export const projection = {
+  headline: { line1: "Three years.", signal: "One", line2: "compounding book." },
+  support: {
+    plain: "Launch revenue anchors Year 1. ",
+    signal: "General market making and larger mandates drive Years 2–3.",
+  },
+  yearLabels: ["YEAR 1", "YEAR 2", "YEAR 3"] as const,
+  /** Each line carries its own three-year total, computed, never typed. */
+  lines: PROJECTION_LINES.map((l) => ({ ...l, total: l.y1 + l.y2 + l.y3 })),
+  totals: {
+    y1: sumYear("y1"),
+    y2: sumYear("y2"),
+    y3: sumYear("y3"),
+    threeYear: sumYear("y1") + sumYear("y2") + sumYear("y3"),
+  },
+  totalLabel: "TOTAL REVENUE",
+  cumulativeLabel: "3-YEAR PROJECTED REVENUE",
+  /**
+   * Derived, and labelled as derived wherever it is shown. The supplied model
+   * states no growth metric; this is arithmetic on its own figures.
+   */
+  derived: {
+    y2Multiple: sumYear("y2") / sumYear("y1"),
+    y3Multiple: sumYear("y3") / sumYear("y2"),
+    y1ToY3Multiple: sumYear("y3") / sumYear("y1"),
+  },
+  disclaimer:
+    "Illustrative target case. Projected, not contracted — subject to capital raised, mandates won and market conditions.",
+} as const;
+
+export const programEconomics = {
+  headline: { line1: "Larger mandates change the", signal: "earnings curve." },
+  support: {
+    plain: "More liquidity lets DRK operate more programs — ",
+    signal: "and earn more from each one.",
+  },
+  years: [
+    {
+      key: "y1",
+      tag: "Y1",
+      name: "BUILD REPEATABILITY",
+      earnings: 1_500_000,
+      programs: 20,
+      avgPerProgram: 75_000,
+      driver: "Larger launch participation",
+      objective: "Establish repeatable program economics.",
+    },
+    {
+      key: "y2",
+      tag: "Y2",
+      name: "SCALE THE BALANCE SHEET",
+      earnings: 5_600_000,
+      programs: 32,
+      avgPerProgram: 175_000,
+      driver: "More capital per mandate",
+      objective: "Expand operator capacity and balance-sheet deployment.",
+    },
+    {
+      key: "y3",
+      tag: "Y3",
+      name: "INSTITUTIONAL SCALE",
+      /**
+       * PUBLISHED figure. 36 × $280K computes to $10.08M; the supplied slide
+       * rounds to $10.1M and the deck preserves that rounding rather than
+       * "correcting" a number the client has already approved. The validator
+       * below checks the two agree to within rounding, not exactly.
+       */
+      earnings: 10_100_000,
+      programs: 36,
+      avgPerProgram: 280_000,
+      driver: "Larger institutional programs",
+      objective: "Multi-market institutional scale.",
+    },
+  ],
+  earningsLabel: "Managed-program earnings",
+  conclusion: "More programs. Larger mandates. Deeper participation.",
+  /** Verbatim from the supplied slide. Never softened, never dropped. */
+  disclaimer:
+    "Illustrative target case based on managed-program economics. Excludes solver flow, arbitrage, staking, treasury yield, and selective infrastructure licensing.",
+  /** Shown wherever the two models sit near each other, so neither is misread. */
+  distinction: {
+    projectionLabel: "TOTAL PROJECTED REVENUE",
+    programLabel: "MANAGED-PROGRAM EARNINGS",
+    note: "Two views of the same business, on different assumptions — not a total and a subset.",
+  },
+} as const;
+
+/* -------------------------------------------------------------------------- */
+/* FINANCIAL VALIDATION                                                        */
+/* -------------------------------------------------------------------------- */
+
+/**
+ * Arithmetic guards over the model above. Surfaced on `/internal/verification`
+ * so a broken figure is caught by looking at the deck rather than by an
+ * investor. Returns an empty array when the model is internally consistent.
+ */
+export function validateFinancials(): { id: string; detail: string }[] {
+  const problems: { id: string; detail: string }[] = [];
+  const { lines, totals } = projection;
+
+  const check = (id: string, actual: number, expected: number, tolerance = 0) => {
+    if (Math.abs(actual - expected) > tolerance) {
+      problems.push({
+        id,
+        detail: `expected ${expected.toLocaleString("en-US")}, got ${actual.toLocaleString("en-US")}`,
+      });
+    }
+  };
+
+  // Column sums must equal the published year totals.
+  check("Y1 column", lines.reduce((t, l) => t + l.y1, 0), 1_500_000);
+  check("Y2 column", lines.reduce((t, l) => t + l.y2, 0), 5_600_000);
+  check("Y3 column", lines.reduce((t, l) => t + l.y3, 0), 14_400_000);
+
+  // Row totals must equal the published per-line three-year totals.
+  const publishedLineTotals: Record<string, number> = {
+    launch: 7_100_000,
+    mm: 6_600_000,
+    loans: 3_200_000,
+    rfq: 2_500_000,
+    software: 2_100_000,
+  };
+  for (const l of lines) check(`${l.key} row total`, l.total, publishedLineTotals[l.key]);
+
+  // The grand total, both ways round.
+  check("3-year total", totals.threeYear, 21_500_000);
+  check(
+    "3-year total (row sum)",
+    lines.reduce((t, l) => t + l.total, 0),
+    21_500_000,
+  );
+
+  // Program economics: programs × average must reproduce the published
+  // earnings, allowing for the slide's own rounding ($10.08M → $10.1M).
+  for (const y of programEconomics.years) {
+    check(`${y.tag} programs × average`, y.programs * y.avgPerProgram, y.earnings, 25_000);
+  }
+
+  // The two models must agree where they are supposed to agree, and differ
+  // where they are supposed to differ. If Y3 ever converges, the deck's whole
+  // "two views" framing has quietly become a lie.
+  const [p1, p2, p3] = programEconomics.years;
+  check("Y1 models agree", p1.earnings, totals.y1);
+  check("Y2 models agree", p2.earnings, totals.y2);
+  if (p3.earnings === totals.y3) {
+    problems.push({
+      id: "Y3 models",
+      detail:
+        "programEconomics Y3 now equals projection Y3 — the deck presents them as two distinct views and that framing is no longer true",
+    });
+  }
+
+  // The revenue-line names in Scene 12 must match the projected lines exactly,
+  // or the deck names one set of five streams and projects a different set.
+  for (const l of lines) {
+    const named = revenue.streams.find((s) => s.key === l.key);
+    if (!named) problems.push({ id: `${l.key} naming`, detail: "missing from revenue.streams" });
+    else if (named.name !== l.name) {
+      problems.push({
+        id: `${l.key} naming`,
+        detail: `Scene 12 calls it "${named.name}", projection calls it "${l.name}"`,
+      });
+    }
+  }
+
+  return problems;
+}
 
 /* ========================================================================== */
 /* SCENE 12 — COMPOUNDING                                                      */
@@ -1613,6 +1875,22 @@ export const contentVerifyTodos: Verify[] = [
       '"Operating balance-sheet liquidity", "growth + operating capital" and "capital compounds on the balance sheet while the engine scales enterprise value" are accounting and valuation statements.',
     action:
       "Reproduced verbatim from the supplied slide and never paraphrased — rewording them would be inventing an accounting treatment. No return, yield or guarantee is stated or implied anywhere in the scene. Confirm the wording is final and that the balance-sheet characterisation is correct before the deck is sent externally.",
+  },
+  {
+    id: "VER-12",
+    where: "Scene 12 — Revenue (revenue-model slide supplied 2026-08-14)",
+    issue:
+      "The supplied revenue model names five revenue LINES (Launch Liquidity & Marketing, General Market Making, Token Loans Program, RFQs & Retainers, Software Licensing). Source page 12 named five different charging MECHANICS (upfront liquidity, % of every launch, daily service fee, 15–35% of off-ramp*, recurring software license). Two different lists of five in one deck would read as a contradiction.",
+    action:
+      "The supplied lines now govern, because they are the taxonomy the three-year projection is built on. The page-12 mechanics were NOT deleted — each is preserved as the note on the line that absorbs it, and the off-ramp footnote survives verbatim (VER-08). One mechanic has no home in the new taxonomy: the DAILY SERVICE FEE. Confirm whether it sits inside General Market Making, inside RFQs & Retainers, or has been retired.",
+  },
+  {
+    id: "VER-13",
+    where: "Scenes 13 and 14 — Program economics and Projections (both supplied 2026-08-14)",
+    issue:
+      "The two supplied slides do not reconcile line-by-line. Year 3 total revenue is $14.4M across five named lines; Year 3 managed-program earnings are $10.1M, and that slide's disclaimer excludes solver flow, arbitrage, staking, treasury yield and selective infrastructure licensing. But four of those five exclusions are not line items in the $14.4M table at all, and the fifth (licensing) is only $1.2M — so the $4.3M gap cannot be explained by the stated exclusions. Y1 and Y2 coincide exactly; only Y3 diverges.",
+    action:
+      "The deck presents them as TWO VIEWS on different assumptions, never as a total and a subset, and never invites subtraction. No bridging figure is invented. Confirm whether the $10.1M curve and the $14.4M projection are intended as alternative cases or as related cuts — and if related, what accounts for the Year 3 gap.",
   },
   {
     id: "VER-10",

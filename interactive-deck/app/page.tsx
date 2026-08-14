@@ -16,6 +16,8 @@ import { Lifecycle } from "@/components/sections/Lifecycle";
 import { Control } from "@/components/sections/Control";
 import { Demo } from "@/components/sections/Demo";
 import { Revenue } from "@/components/sections/Revenue";
+import { ProgramEconomics } from "@/components/sections/ProgramEconomics";
+import { Projections } from "@/components/sections/Projections";
 import { Compound } from "@/components/sections/Compound";
 import { Raise } from "@/components/sections/Raise";
 import { Close } from "@/components/sections/Close";
@@ -63,12 +65,18 @@ export default function Page() {
         <Control />
         <Demo />
 
-        {/* 12-14 — the economics */}
+        {/*
+          12-16 — the economics, as one five-act argument:
+          how DRK earns, why the unit improves, what it totals, how the capital
+          compounds, and what the raise buys.
+        */}
         <Revenue />
+        <ProgramEconomics />
+        <Projections />
         <Compound />
         <Raise />
 
-        {/* 15 — the thesis */}
+        {/* 17 — the thesis */}
         <Close />
       </main>
     </WorldProvider>
